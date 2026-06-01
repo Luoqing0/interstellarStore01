@@ -368,8 +368,8 @@ namespace 星际商店
             for (int i = 0; i < 待生成.Count; i++)
             {
                 IntVec3 dropSpot = DropCellFinder.TradeDropSpot(map);
-                Thing result = GenPlace.TryPlaceThing(待生成[i], dropSpot, map, ThingPlaceMode.Near);
-                if (result == null)
+                bool placed = GenPlace.TryPlaceThing(待生成[i], dropSpot, map, ThingPlaceMode.Near);
+                if (!placed)
                 {
                     生成失败数++;
                     Log.Warning($"星际商店: 购买物品 {待生成[i].def.defName} 放置失败 (位置 {dropSpot})");
@@ -444,8 +444,8 @@ namespace 星际商店
                 Thing silver = ThingMaker.MakeThing(ThingDefOf.Silver, null);
                 silver.stackCount = 白银数量;
                 IntVec3 dropSpot = DropCellFinder.TradeDropSpot(map);
-                Thing result = GenPlace.TryPlaceThing(silver, dropSpot, map, ThingPlaceMode.Near);
-                if (result == null)
+                bool placed = GenPlace.TryPlaceThing(silver, dropSpot, map, ThingPlaceMode.Near);
+                if (!placed)
                 {
                     Log.Error($"星际商店: 出售收益白银放置失败 (数量 {白银数量}, 位置 {dropSpot})");
                     Messages.Message("StarStore_SaleSilverDropFail".Translate(白银数量), MessageTypeDefOf.RejectInput);
