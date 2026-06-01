@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- ============================================================
+        星际商店 - 交易前置条件配置
+        定义每个物品的交易前置条件（研究项目/殖民地物品）
+        可引用原版和其他模组添加的研究项目和物品
+        开发者可在游戏内商店界面右键物品进行配置
+        ============================================================ -->
+
+  <!-- 交易条件配置 -->
+  <StarStore_TradeConditionDef>
+    <defName>StarStore_DefaultConditions</defName>
+    <label>默认交易条件</label>
+    <description>星际商店物品交易前置条件配置</description>
+
+    <!-- 条件列表 -->
+    <conditions>
+      <!-- 格式：
+      <li>
+        <thingDef>物品Def名称</thingDef>
+        <requiredResearch>需要的研究项目Def名称（可选）</requiredResearch>
+        <requiredItem>需要的殖民地物品Def名称（可选）</requiredItem>
+      </li>
+      -->
+
+      <!-- 示例：高级零部件需要研究"标准机械科技" -->
+      <li>
+        <thingDef>ComponentSpacer</thingDef>
+        <requiredResearch>StandardMechanoid</requiredResearch>
+      </li>
+
+      <!-- 示例：电荷步枪需要研究"电荷武器" -->
+      <li>
+        <thingDef>Gun_ChargeRifle</thingDef>
+        <requiredResearch>ChargeWeapons</requiredResearch>
+      </li>
+
+      <!-- 示例：海军装甲需要研究"海军装甲" -->
+      <li>
+        <thingDef>Apparel_ArmorMarine</thingDef>
+        <requiredResearch>MarineArmor</requiredResearch>
+      </li>
+    </conditions>
+  </StarStore_TradeConditionDef>
+</Defs>

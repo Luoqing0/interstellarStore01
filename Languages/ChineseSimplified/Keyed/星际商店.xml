@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     星际商店 - 简体中文语言文件
+     所有UI文字都在这里定义，方便翻译成其他语言
+     ============================================================ -->
+<LanguageData>
+  <!-- 主窗口 -->
+  <StarStore_Title>✦ 星际商店 ✦</StarStore_Title>
+  <StarStore_BuyMode>购买</StarStore_BuyMode>
+  <StarStore_SellMode>卖出</StarStore_SellMode>
+  <StarStore_Filter>筛选</StarStore_Filter>
+  <StarStore_All>全部</StarStore_All>
+  <StarStore_Favorites>收藏</StarStore_Favorites>
+  <StarStore_NoItems>暂无可用物品</StarStore_NoItems>
+  <StarStore_SelectedCount>已选 {0} 件  |  ⛃ {1}</StarStore_SelectedCount>
+  <StarStore_BuyButton>⚡ 购买</StarStore_BuyButton>
+  <StarStore_SellButton>💰 卖出</StarStore_SellButton>
+  <StarStore_ClearButton>清空</StarStore_ClearButton>
+  <StarStore_Quantity>数量:</StarStore_Quantity>
+  <StarStore_Inventory>库存: {0}</StarStore_Inventory>
+  <StarStore_UnitPrice>⛃ {0}</StarStore_UnitPrice>
+  <StarStore_Cart>购物车</StarStore_Cart>
+  <StarStore_CartEmpty>购物车为空</StarStore_CartEmpty>
+  <StarStore_CellInfo>共 {0} 件 | 格子: {1}px</StarStore_CellInfo>
+  <StarStore_PageInfo>第 {0}/{1} 页</StarStore_PageInfo>
+
+  <!-- 分类标签页 -->
+  <StarStore_Cat_Food>食物</StarStore_Cat_Food>
+  <StarStore_Cat_Medicine>药品</StarStore_Cat_Medicine>
+  <StarStore_Cat_Weapons>武器</StarStore_Cat_Weapons>
+  <StarStore_Cat_Apparel>衣物</StarStore_Cat_Apparel>
+  <StarStore_Cat_RawMaterials>原材料</StarStore_Cat_RawMaterials>
+  <StarStore_Cat_Manufactured>制成品</StarStore_Cat_Manufactured>
+  <StarStore_Cat_Buildings>建筑</StarStore_Cat_Buildings>
+  <StarStore_Cat_Furniture>家具</StarStore_Cat_Furniture>
+  <StarStore_Cat_Electronics>电子</StarStore_Cat_Electronics>
+  <StarStore_Cat_Misc>杂项</StarStore_Cat_Misc>
+
+  <!-- 卖出模式 -->
+  <StarStore_StockOnly>仅库存物品</StarStore_StockOnly>
+  <StarStore_StockCount>{0} 件</StarStore_StockCount>
+
+  <!-- 布局控制 -->
+  <StarStore_Rows>行:</StarStore_Rows>
+  <StarStore_Cols>列:</StarStore_Cols>
+
+  <!-- 筛选面板 -->
+  <StarStore_FilterTitle>筛选条件</StarStore_FilterTitle>
+  <StarStore_FilterTechOnly>仅显示已科技解锁</StarStore_FilterTechOnly>
+  <StarStore_FilterByMod>模组筛选:</StarStore_FilterByMod>
+  <StarStore_AllMods>★ 全部模组</StarStore_AllMods>
+  <StarStore_FilterApply>应用</StarStore_FilterApply>
+
+  <!-- 底部栏 -->
+  <StarStore_SilverShortfall> (白银不足: {0} / {1})</StarStore_SilverShortfall>
+
+  <!-- 消息 -->
+  <StarStore_ConditionNotMet>条件不满足，无法购买: {0}</StarStore_ConditionNotMet>
+  <StarStore_InsufficientSilver>白银不足，无法完成交易。需要 ⛃ {0}，当前拥有: ⛃ {1}</StarStore_InsufficientSilver>
+  <StarStore_InsufficientStock>库存不足：{0}</StarStore_InsufficientStock>
+  <StarStore_PurchaseComplete>交易完成！物品已送达。</StarStore_PurchaseComplete>
+  <StarStore_PurchasePartialDropFail>部分物品(×{0})无法放置到降落点。建议清理交易信标附近区域。</StarStore_PurchasePartialDropFail>
+  <StarStore_SaleComplete>出售完成！获得 ⛃ {0} 白银。</StarStore_SaleComplete>
+  <StarStore_SaleSilverDropFail>白银收益 ⛃ {0} 放置失败，收入可能丢失。</StarStore_SaleSilverDropFail>
+  <StarStore_MainWindowUnavailable>商店主窗口不可用，请重新打开商店。</StarStore_MainWindowUnavailable>
+
+  <!-- 交易条件 -->
+  <StarStore_RequireResearch>需要研究: {0}</StarStore_RequireResearch>
+  <StarStore_RequireItem>需要物品: {0}</StarStore_RequireItem>
+  <StarStore_Locked>🔒</StarStore_Locked>
+  <StarStore_Hidden>🔒 已隐藏</StarStore_Hidden>
+
+  <!-- 设置界面 -->
+  <StarStore_SettingsTitle>星际商店设置</StarStore_SettingsTitle>
+  <StarStore_SettingsRows>默认行数: {0}</StarStore_SettingsRows>
+  <StarStore_SettingsCols>默认列数: {0}</StarStore_SettingsCols>
+  <StarStore_SettingsBuyMultiplier>购买价格乘数: {0}</StarStore_SettingsBuyMultiplier>
+  <StarStore_SettingsSellMultiplier>出售价格乘数: {0}</StarStore_SettingsSellMultiplier>
+
+  <!-- 开发者模式 - 配置窗口 -->
+  <StarStore_ConfigTitle>⚙ 交易条件配置 - {0}</StarStore_ConfigTitle>
+  <StarStore_ConfigItemInfo>物品: {0} | 基础价: {1}</StarStore_ConfigItemInfo>
+  <StarStore_ConfigResearchInput>需要研究项目 (DefName, 留空则不限制):</StarStore_ConfigResearchInput>
+  <StarStore_ConfigItemInput>需要殖民地物品 (DefName, 留空则不限制):</StarStore_ConfigItemInput>
+  <StarStore_ConfigIdentified>✓ 已识别: {0}</StarStore_ConfigIdentified>
+  <StarStore_ConfigNotFound>✗ 未找到该{0}</StarStore_ConfigNotFound>
+  <StarStore_ConfigIdentifiedResearch>✓ 已识别: {0} (已解锁: {1})</StarStore_ConfigIdentifiedResearch>
+  <StarStore_ConfigHide>🔒 隐藏此物品</StarStore_ConfigHide>
+  <StarStore_ConfigUnhide>🔓 取消隐藏此物品</StarStore_ConfigUnhide>
+  <StarStore_ConfigSave>保存条件</StarStore_ConfigSave>
+  <StarStore_ConfigDelete>删除条件</StarStore_ConfigDelete>
+  <StarStore_ConfigClose>关闭</StarStore_ConfigClose>
+  <StarStore_ConfigSaved>条件已保存！</StarStore_ConfigSaved>
+  <StarStore_ConfigDeleted>条件已删除！</StarStore_ConfigDeleted>
+  <StarStore_ConfigUnhidden>已取消隐藏</StarStore_ConfigUnhidden>
+  <StarStore_ConfigHidden>已隐藏</StarStore_ConfigHidden>
+  <StarStore_ConfigExport>📤 导出所有配置为XML (保存到桌面)</StarStore_ConfigExport>
+  <StarStore_ConfigExported>配置已导出到桌面: {0}</StarStore_ConfigExported>
+  <StarStore_ConfigNoExport>没有交易条件可导出。</StarStore_ConfigNoExport>
+  <StarStore_ConfigExportFailed>导出失败: {0}</StarStore_ConfigExportFailed>
+
+  <!-- 品质/材料交易 -->
+  <StarStore_QualityLabel>品质: {0}</StarStore_QualityLabel>
+  <StarStore_MaterialLabel>材料: {0}</StarStore_MaterialLabel>
+  <StarStore_QualityDefault>品质: 一般</StarStore_QualityDefault>
+  <StarStore_CreateItemFailed>无法创建物品: {0}</StarStore_CreateItemFailed>
+
+  <!-- 出售变体弹窗 -->
+  <StarStore_SellDialogTitle>出售 — {0}</StarStore_SellDialogTitle>
+  <StarStore_NoVariants>无可用变体</StarStore_NoVariants>
+  <StarStore_Variant>变体</StarStore_Variant>
+  <StarStore_Stock>库存</StarStore_Stock>
+  <StarStore_UnitPrice>单价</StarStore_UnitPrice>
+  <StarStore_Amount>数量</StarStore_Amount>
+  <StarStore_SelectedSummary>已选: {0} 件</StarStore_SelectedSummary>
+  <StarStore_ExpectedRevenue>预计收益: ⛃ {0}</StarStore_ExpectedRevenue>
+  <StarStore_MaxAll>全部出售</StarStore_MaxAll>
+  <StarStore_AddToCart>加入购物车</StarStore_AddToCart>
+  <StarStore_AddedVariants>已添加 {0} 件变体到购物车</StarStore_AddedVariants>
+  <StarStore_SelectVariant>选择变体出售...</StarStore_SelectVariant>
+</LanguageData>

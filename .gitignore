@@ -1,0 +1,29 @@
+# Build outputs
+Assemblies/
+Source/obj/
+Source/bin/
+
+# IDE and tools
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Claude
+.claude/
+
+# Multi-agent workspace
+.multi-agent/
+
+# Development test artifacts (screenshots, error logs)
+开发测试/
+
+# Plans (temporary planning docs)
+plans/
+
+# Tutorial
+教程/
+
+# OS files
+Thumbs.db
+Desktop.ini

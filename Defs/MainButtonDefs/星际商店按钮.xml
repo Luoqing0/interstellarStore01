@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- 底部栏按钮定义 - 在"研究""野生动物"同一区域添加星际商店入口 -->
+  <MainButtonDef>
+    <defName>StarStore</defName>
+    <label>星际商店</label>
+    <description>打开星际商店，从遥远的星系购买或出售各种物品。</description>
+    <!-- 关联的C#窗口类 -->
+    <tabWindowClass>星际商店.MainTabWindow_星际商店</tabWindowClass>
+    <!-- 排序：在原版"研究"(order=70)和"野生动物"(order=80)之间 -->
+    <order>75</order>
+    <!-- 默认快捷键（F8 与世界地图冲突，不设默认快捷键） -->
+    <!-- <defaultHotKey>F8</defaultHotKey> -->
+    <!-- 按钮图标路径（相对于Textures目录） -->
+    <iconPath>UI/Buttons/StarStore</iconPath>
+  </MainButtonDef>
+</Defs>

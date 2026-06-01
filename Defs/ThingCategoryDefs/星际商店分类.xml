@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- ============================================================
+       星际商店自定义分类定义
+       这些分类用于商店面板的分类筛选，参考原版ThingCategoryDef
+       玩家可以在此文件中添加/修改分类
+       ============================================================ -->
+
+  <!-- 示例：星际商店专用分类（可选，默认使用原版分类） -->
+  <ThingCategoryDef>
+    <defName>StarStore_Food</defName>
+    <label>星际食品</label>
+    <description>来自银河各地的美食与营养品</description>
+    <iconPath>UI/Buttons/StarStore</iconPath>
+    <parent>FoodMeals</parent>
+  </ThingCategoryDef>
+
+  <ThingCategoryDef>
+    <defName>StarStore_Weapons</defName>
+    <label>星际武器</label>
+    <description>高科技与常规武器</description>
+    <iconPath>UI/Buttons/StarStore</iconPath>
+    <parent>Weapons</parent>
+  </ThingCategoryDef>
+
+  <ThingCategoryDef>
+    <defName>StarStore_Medicine</defName>
+    <label>星际医疗</label>
+    <description>先进医疗用品与药物</description>
+    <iconPath>UI/Buttons/StarStore</iconPath>
+    <parent>Medicine</parent>
+  </ThingCategoryDef>
+</Defs>
