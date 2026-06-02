@@ -51,7 +51,8 @@ namespace 星际商店
             // 统计当前模式匹配的物品
             List<KeyValuePair<TransactionKey, int>> 分区物品 = new List<KeyValuePair<TransactionKey, int>>();
             float 分区总价 = 0f;
-            foreach (var kv in 交易数量)
+            var dict = 购买模式分区 ? 购买交易数量 : 出售交易数量;
+            foreach (var kv in dict)
             {
                 if (kv.Value > 0)
                 {
@@ -98,7 +99,7 @@ namespace 星际商店
                 Rect 删除Rect = new Rect(列表内容.width - 20f, cy + 1f, 18f, 16f);
                 if (Widgets.ButtonText(删除Rect, "✕"))
                 {
-                    交易数量.Remove(kv.Key);
+                    dict.Remove(kv.Key);
                     刷新物品列表();
                 }
                 cy += 20f;

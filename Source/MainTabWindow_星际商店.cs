@@ -22,7 +22,9 @@ namespace 星际商店
 
         // ===== 数据 =====
         private List<ThingDef> 当前显示物品 = new List<ThingDef>();
-        private Dictionary<TransactionKey, int> 交易数量 = new Dictionary<TransactionKey, int>();
+        private Dictionary<TransactionKey, int> 购买交易数量 = new Dictionary<TransactionKey, int>();
+        private Dictionary<TransactionKey, int> 出售交易数量 = new Dictionary<TransactionKey, int>();
+        private Dictionary<TransactionKey, int> 当前交易数量 => 是购买模式 ? 购买交易数量 : 出售交易数量;
         private string 当前分类标签 = "StarStore_All";
 
         // ===== 库存映射帧级缓存（出售模式性能优化） =====
@@ -276,10 +278,11 @@ namespace 星际商店
         /// <summary>添加到交易数量（供弹窗累加）</summary>
         public void 添加到交易数量(TransactionKey key, int amount)
         {
-            if (交易数量.ContainsKey(key))
-                交易数量[key] += amount;
+            var dict = 是购买模式 ? 购买交易数量 : 出售交易数量;
+            if (dict.ContainsKey(key))
+                dict[key] += amount;
             else
-                交易数量[key] = amount;
+                dict[key] = amount;
         }
 
         /// <summary>公开刷新物品列表</summary>

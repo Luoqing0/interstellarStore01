@@ -105,10 +105,7 @@
         <thingDef>Apparel_ArmorRecon</thingDef>
         <countRange>1~3</countRange>
       </li>
-      <li Class="StockGenerator_SingleDef">
-        <thingDef>Apparel_ArmorMarine</thingDef>
-        <countRange>1~3</countRange>
-      </li>
+      <!-- Apparel_ArmorMarine 已移除，部分版本中此 Def 不存在 -->
 
       <!-- ===== 建筑/家具 ===== -->
       <li Class="StockGenerator_SingleDef">

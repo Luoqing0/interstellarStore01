@@ -13,10 +13,10 @@ namespace 星际商店
         // ================================================================
         private void 绘制数量控制(Rect rect, TransactionKey key)
         {
-            if (!交易数量.ContainsKey(key))
-                交易数量[key] = 0;
+            if (!当前交易数量.ContainsKey(key))
+                当前交易数量[key] = 0;
 
-            int 当前值 = 交易数量[key];
+            int 当前值 = 当前交易数量[key];
 
             // 滑块
             Rect 滑块Rect = new Rect(rect.x, rect.y, rect.width, 18f);
@@ -39,9 +39,9 @@ namespace 星际商店
 
             // 仅当滑块被实际拖动时才使用滑块值；否则以文本输入为准
             if (Mathf.Abs(新值 - 旧滑块值) > 0.001f)
-                交易数量[key] = 滑块值;
+                当前交易数量[key] = 滑块值;
             else
-                交易数量[key] = 当前值;
+                当前交易数量[key] = 当前值;
 
             // 快速数量按钮：<<(归零) -1 +1 >>(最大)
             float 按钮Y = 输入Rect.yMax + 1f;
@@ -52,21 +52,21 @@ namespace 星际商店
             Rect 归零按钮 = new Rect(rect.x, 按钮Y, 按钮宽, 按钮高);
             if (Widgets.ButtonText(归零按钮, "<<"))
             {
-                交易数量[key] = 0;
+                当前交易数量[key] = 0;
             }
 
             // -1 按钮
             Rect 减一按钮 = new Rect(rect.x + (按钮宽 + 2f), 按钮Y, 按钮宽, 按钮高);
             if (Widgets.ButtonText(减一按钮, "-1"))
             {
-                if (交易数量[key] > 0) 交易数量[key]--;
+                if (当前交易数量[key] > 0) 当前交易数量[key]--;
             }
 
             // +1 按钮
             Rect 加一按钮 = new Rect(rect.x + (按钮宽 + 2f) * 2f, 按钮Y, 按钮宽, 按钮高);
             if (Widgets.ButtonText(加一按钮, "+1"))
             {
-                交易数量[key]++;
+                当前交易数量[key]++;
             }
 
             // >> 按钮 - 最大数量
@@ -83,7 +83,7 @@ namespace 星际商店
                         if (单价 > 0f)
                         {
                             int 总白银 = 获取白银总量(map);
-                            交易数量[key] = Mathf.FloorToInt(总白银 / 单价);
+                            当前交易数量[key] = Mathf.FloorToInt(总白银 / 单价);
                         }
                     }
                 }
@@ -105,7 +105,7 @@ namespace 星际商店
                                     库存 += t.stackCount;
                             }
                         }
-                        交易数量[key] = 库存;
+                        当前交易数量[key] = 库存;
                     }
                 }
             }

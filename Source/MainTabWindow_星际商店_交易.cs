@@ -302,7 +302,7 @@ namespace 星际商店
 
             float 总花费 = 0f;
             List<Thing> 待生成 = new List<Thing>();
-            foreach (KeyValuePair<TransactionKey, int> kv in 交易数量)
+            foreach (KeyValuePair<TransactionKey, int> kv in 购买交易数量)
             {
                 if (kv.Value <= 0) continue;
                 TransactionKey key = kv.Key;
@@ -365,9 +365,9 @@ namespace 星际商店
 
             // 使用 GenPlace 直接生成物品到交易降落点
             int 生成失败数 = 0;
+            IntVec3 dropSpot = 获取有效降落点(map);
             for (int i = 0; i < 待生成.Count; i++)
             {
-                IntVec3 dropSpot = DropCellFinder.TradeDropSpot(map);
                 bool placed = GenPlace.TryPlaceThing(待生成[i], dropSpot, map, ThingPlaceMode.Near);
                 if (!placed)
                 {
@@ -375,7 +375,7 @@ namespace 星际商店
                     Log.Warning($"星际商店: 购买物品 {待生成[i].def.defName} 放置失败 (位置 {dropSpot})");
                 }
             }
-            交易数量.Clear();
+            购买交易数量.Clear();
             if (生成失败数 > 0)
             {
                 Messages.Message("StarStore_PurchasePartialDropFail".Translate(生成失败数), MessageTypeDefOf.RejectInput);
@@ -394,7 +394,7 @@ namespace 星际商店
 
             float 总收益 = 0f;
             var 库存映射数据 = 获取库存映射(map);
-            foreach (var kv in 交易数量)
+            foreach (var kv in 出售交易数量)
             {
                 if (kv.Value <= 0) continue;
 
@@ -443,7 +443,7 @@ namespace 星际商店
             {
                 Thing silver = ThingMaker.MakeThing(ThingDefOf.Silver, null);
                 silver.stackCount = 白银数量;
-                IntVec3 dropSpot = DropCellFinder.TradeDropSpot(map);
+                IntVec3 dropSpot = 获取有效降落点(map);
                 bool placed = GenPlace.TryPlaceThing(silver, dropSpot, map, ThingPlaceMode.Near);
                 if (!placed)
                 {
@@ -451,11 +451,27 @@ namespace 星际商店
                     Messages.Message("StarStore_SaleSilverDropFail".Translate(白银数量), MessageTypeDefOf.RejectInput);
                 }
             }
-            交易数量.Clear();
+            出售交易数量.Clear();
             库存映射帧 = -1; // 出售后库存已变化，使缓存失效
             缓存白银帧 = -1; // 白银收益已生成，使缓存失效
             Messages.Message("StarStore_SaleComplete".Translate(白银数量), MessageTypeDefOf.TaskCompletion);
             刷新物品列表();
+        }
+
+        private IntVec3 获取有效降落点(Map map)
+        {
+            IntVec3 spot = DropCellFinder.TradeDropSpot(map);
+            if (!spot.IsValid)
+            {
+                // 无交易信标时，回退到地图中心
+                spot = DropCellFinder.RandomDropSpot(map);
+                if (!spot.IsValid)
+                {
+                    spot = map.Center;
+                }
+                Log.Warning($"星际商店: 未找到有效交易信标，使用回退位置 {spot}");
+            }
+            return spot;
         }
     }
 }

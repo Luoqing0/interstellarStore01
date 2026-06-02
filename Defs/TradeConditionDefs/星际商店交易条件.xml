@@ -35,10 +35,10 @@
         <requiredResearch>ChargeWeapons</requiredResearch>
       </li>
 
-      <!-- 示例：海军装甲需要研究"海军装甲" -->
+      <!-- 示例：防弹背心需要殖民地有零件 -->
       <li>
-        <thingDef>Apparel_ArmorMarine</thingDef>
-        <requiredResearch>MarineArmor</requiredResearch>
+        <thingDef>Apparel_FlakVest</thingDef>
+        <requiredItem>ComponentIndustrial</requiredItem>
       </li>
     </conditions>
   </StarStore_TradeConditionDef>

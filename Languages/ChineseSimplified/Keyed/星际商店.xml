@@ -18,7 +18,6 @@
   <StarStore_ClearButton>清空</StarStore_ClearButton>
   <StarStore_Quantity>数量:</StarStore_Quantity>
   <StarStore_Inventory>库存: {0}</StarStore_Inventory>
-  <StarStore_UnitPrice>⛃ {0}</StarStore_UnitPrice>
   <StarStore_Cart>购物车</StarStore_Cart>
   <StarStore_CartEmpty>购物车为空</StarStore_CartEmpty>
   <StarStore_CellInfo>共 {0} 件 | 格子: {1}px</StarStore_CellInfo>

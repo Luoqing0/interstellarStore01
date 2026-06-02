@@ -21,7 +21,8 @@ namespace 星际商店
             // 统计信息
             float 总价 = 0f;
             int 总数量 = 0;
-            foreach (KeyValuePair<TransactionKey, int> kv in 交易数量)
+            var 当前交易数量 = 是购买模式 ? 购买交易数量 : 出售交易数量;
+            foreach (KeyValuePair<TransactionKey, int> kv in 当前交易数量)
             {
                 if (kv.Value > 0)
                 {
@@ -73,7 +74,8 @@ namespace 星际商店
             Rect 清空按钮 = new Rect(rect.xMax - 240f, rect.y + 3f, 100f, 28f);
             if (Widgets.ButtonText(清空按钮, "StarStore_ClearButton".Translate()))
             {
-                交易数量.Clear();
+                购买交易数量.Clear();
+                出售交易数量.Clear();
             }
 
             // 交易按钮
