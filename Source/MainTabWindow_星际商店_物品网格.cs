@@ -160,8 +160,8 @@ namespace 星际商店
                 Find.WindowStack.Add(new Dialog_InfoCard(def));
             }
 
-            // 物品图标（居中偏上）
-            float 图标尺寸 = Mathf.Min(格子尺寸 * 图标尺寸比例, 图标最大尺寸);
+            // 物品图标（居中偏上）- 根据布局类型动态调整尺寸
+            float 图标尺寸 = Mathf.Min(格子尺寸 * 当前图标尺寸比例, 当前图标最大尺寸);
             float 图标X = rect.x + (rect.width - 图标尺寸) / 2f;
             float 图标Y = rect.y + 内边距 + 18f;
             Rect 图标Rect = new Rect(图标X, 图标Y, 图标尺寸, 图标尺寸);
@@ -312,11 +312,12 @@ namespace 星际商店
                 }
             }
 
-            // 数量控制区域（格子底部）
-            float 控制Y = rect.yMax - 内边距 - 46f;
+            // 数量控制区域（格子底部）- 根据布局类型调整高度
+            float 控制高 = 当前数量控制高度;
+            float 控制Y = rect.yMax - 内边距 - 控制高;
             if (控制Y > 名称Y + 10f && 条件满足 && !已隐藏)
             {
-                Rect 数量区域 = new Rect(rect.x + 内边距, 控制Y, 可用宽, 46f);
+                Rect 数量区域 = new Rect(rect.x + 内边距, 控制Y, 可用宽, 控制高);
 
                 // 出售模式 + 物品有变体 → 显示"选择变体"按钮
                 if (!是购买模式 && 物品有变体(def))
@@ -343,7 +344,12 @@ namespace 星际商店
                         购买材料选择.TryGetValue(def, out 控材料);
                     }
                     TransactionKey key = new TransactionKey(def, 控品质, 控材料);
-                    绘制数量控制(数量区域, key);
+
+                    // 小布局使用迷你数量控制，大/中布局使用完整数量控制
+                    if (显示完整数量控制)
+                        绘制数量控制(数量区域, key);
+                    else
+                        绘制迷你数量控制(数量区域, key);
                 }
             }
             else if (条件满足 && !已隐藏)
