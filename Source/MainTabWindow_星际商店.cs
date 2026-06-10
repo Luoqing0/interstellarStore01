@@ -87,6 +87,34 @@ namespace 星际商店
         private const float 格子最小尺寸 = 80f;
         private const float 格子最大尺寸 = 200f;
 
+        // ===== 三种预设布局 =====
+        public enum 布局类型 { 大, 中, 小 }
+        public static 布局类型 当前布局 = 布局类型.中;
+
+        private void 应用布局(布局类型 布局)
+        {
+            当前布局 = 布局;
+            switch (布局)
+            {
+                case 布局类型.大:
+                    行数 = 3;
+                    列数 = 3;
+                    break;
+                case 布局类型.中:
+                    行数 = 4;
+                    列数 = 4;
+                    break;
+                case 布局类型.小:
+                    行数 = 6;
+                    列数 = 6;
+                    break;
+            }
+            行数字符串 = 行数.ToString();
+            列数字符串 = 列数.ToString();
+            缓存格子尺寸 = 0f;
+            上次物品数量 = -1;
+        }
+
         // ===== 集中化布局常量 =====
         private const float 标题栏高 = 38f;
         private const float 标题栏Y偏移 = 3f;
@@ -120,14 +148,9 @@ namespace 星际商店
         private static readonly Color 格子hover色 = new Color(0.15f, 0.12f, 0.25f);
         private static readonly Color 边框色 = new Color(0.18f, 0.16f, 0.28f);
 
-        // 主色调 - 暖橙色（淘宝品牌色调）
-        private static readonly Color 主色调 = new Color(1.0f, 0.55f, 0.15f);      // 淘宝橙
-        private static readonly Color 主色调hover = new Color(1.0f, 0.65f, 0.25f);
-        private static readonly Color 主色调暗 = new Color(0.8f, 0.40f, 0.10f);
-
-        // 高亮/科技点缀 - 青色霓虹
-        private static readonly Color 高亮边框色 = new Color(0.2f, 0.85f, 0.85f);  // 青色
-        private static readonly Color 高亮色暗 = new Color(0.1f, 0.55f, 0.55f);
+        // 主色调 - 科幻蓝紫
+        private static readonly Color 主色调 = new Color(0.4f, 0.5f, 0.9f);       // 科技蓝
+        private static readonly Color 主色调暗 = new Color(0.25f, 0.28f, 0.45f);   // 暗蓝
 
         // 文字
         private static readonly Color 文字色 = new Color(0.90f, 0.92f, 0.95f);     // 亮白
@@ -172,7 +195,7 @@ namespace 星际商店
         // ===== 窗口大小 =====
         public override Vector2 RequestedTabSize
         {
-            get { return new Vector2(1000f, 760f); }
+            get { return new Vector2(1200f, 800f); }
         }
 
         // 窗口位置居中
@@ -223,15 +246,20 @@ namespace 星际商店
             Rect 分类区域 = new Rect(inRect.x + 水平内边距, 标题区域.yMax + 区域间距, inRect.width - 水平内边距 * 2f, 分类标签栏高);
             绘制分类标签页(分类区域);
 
-            // ===== 物品网格区域 =====
+            // ===== 物品网格区域（预留分页空间）=====
+            float 分页栏高 = 30f;  // 为分页控件预留高度
             float 网格X = inRect.x + 水平内边距;
             float 网格Y = 分类区域.yMax + 4f;
             float 当前购物车宽 = 显示购物车 ? 购物车宽 : 0f;
             float 网格宽 = inRect.width - 水平内边距 * 2f - 当前购物车宽 - (显示购物车 ? 购物车间距 : 0f);
-            float 网格高 = inRect.yMax - 4f - 网格Y - 网格底部留白;
+            float 网格高 = inRect.yMax - 4f - 网格Y - 底部栏Y偏移 - 分页栏高 - 区域间距;  // 减去分页栏和底部栏高度
 
             Rect 网格区域 = new Rect(网格X, 网格Y, 网格宽, 网格高);
             绘制物品网格(网格区域);
+
+            // ===== 分页控件（在网格下方，底部栏上方）=====
+            Rect 分页区域 = new Rect(网格X, 网格区域.yMax + 区域间距, 网格宽, 分页栏高);
+            绘制分页控件(分页区域);
 
             // ===== 购物车面板（右侧固定） =====
             if (显示购物车)
@@ -313,31 +341,81 @@ namespace 星际商店
         /// <summary>帧级库存映射缓存 - 同一帧内共享所有出售模式的ThingDef查询</summary>
         private Dictionary<ThingDef, List<Thing>> 获取库存映射(Map map)
         {
-            if (map == null) return new Dictionary<ThingDef, List<Thing>>();
-
-            int 当前帧 = Time.frameCount;
-            if (库存映射帧 == 当前帧)
-                return 库存映射;
-
-            库存映射.Clear();
-            库存映射帧 = 当前帧;
-
-            List<Thing> allThings = map.listerThings.AllThings;
-            for (int i = 0; i < allThings.Count; i++)
+            int currentFrame = Time.frameCount;
+            if (库存映射帧 != currentFrame)
             {
-                Thing t = allThings[i];
-                if (t.Faction == Faction.OfPlayer || (t.Faction == null && t.IsInAnyStorage()))
+                库存映射.Clear();
+                库存映射帧 = currentFrame;
+
+                // 遍历地图上的所有 Thing，按 ThingDef 分组
+                foreach (Thing thing in map.listerThings.AllThings)
                 {
-                    ThingDef tDef = t.def;
-                    if (!库存映射.TryGetValue(tDef, out List<Thing> list))
-                    {
-                        list = new List<Thing>();
-                        库存映射[tDef] = list;
-                    }
-                    list.Add(t);
+                    if (thing == null || thing.def == null) continue;
+                    // 只统计可交易的物品（排除建筑、地形等）
+                    if (!thing.def.tradeability.TraderCanSell()) continue;
+                    // 排除尸体
+                    if (thing.def.IsCorpse) continue;
+                    // 排除碎片（Chunk）
+                    if (thing.def.thingCategories != null && thing.def.thingCategories.Any(c => c.defName == "Chunks")) continue;
+
+                    if (!库存映射.ContainsKey(thing.def))
+                        库存映射[thing.def] = new List<Thing>();
+                    库存映射[thing.def].Add(thing);
                 }
             }
             return 库存映射;
+        }
+
+        // ================================================================
+        //  分页控件（独立绘制，避免与物品网格重叠）
+        // ================================================================
+        private void 绘制分页控件(Rect rect)
+        {
+            int 总页数 = Mathf.Max(1, Mathf.CeilToInt((float)当前显示物品.Count / 每页物品数));
+            当前页码 = Mathf.Clamp(当前页码, 1, 总页数);
+
+            // 显示物品数量和格子尺寸信息（从网格区域移过来）
+            GUI.color = new Color(0.5f, 0.5f, 0.7f);
+            Text.Font = GameFont.Tiny;
+            float 信息Y = rect.y + (rect.height - 16f) / 2f;
+            Widgets.Label(new Rect(rect.x + 2f, 信息Y, 250f, 16f),
+                "StarStore_CellInfo".Translate(当前显示物品.Count, (int)缓存格子尺寸));
+            Text.Font = GameFont.Small;
+            GUI.color = Color.white;
+
+            if (总页数 <= 1) return;
+
+            float 按钮宽 = 24f;
+            float 分页Y = rect.y + (rect.height - 18f) / 2f;  // 垂直居中
+            float 分页起始X = rect.x + 260f;  // 在信息右侧
+
+            // 首页按钮
+            Rect 首页Rect = new Rect(分页起始X, 分页Y, 按钮宽, 18f);
+            if (Widgets.ButtonText(首页Rect, "|<")) { 当前页码 = 1; }
+
+            // 上一页按钮
+            Rect 上一页Rect = new Rect(分页起始X + 26f, 分页Y, 按钮宽, 18f);
+            if (Widgets.ButtonText(上一页Rect, "<")) { if (当前页码 > 1) 当前页码--; }
+
+            // 页码显示
+            GUI.color = 文字色;
+            Text.Font = GameFont.Tiny;
+            Widgets.Label(new Rect(分页起始X + 56f, 分页Y + 2f, 80f, 16f),
+                "StarStore_PageInfo".Translate(当前页码, 总页数));
+            Text.Font = GameFont.Small;
+            GUI.color = Color.white;
+
+            // 下一页按钮
+            Rect 下一页Rect = new Rect(分页起始X + 136f, 分页Y, 按钮宽, 18f);
+            if (Widgets.ButtonText(下一页Rect, ">")) { if (当前页码 < 总页数) 当前页码++; }
+
+            // 末页按钮
+            Rect 末页Rect = new Rect(分页起始X + 162f, 分页Y, 按钮宽, 18f);
+            if (Widgets.ButtonText(末页Rect, ">|")) { 当前页码 = 总页数; }
+
+            // 跳转输入框
+            Rect 跳转Rect = new Rect(分页起始X + 196f, 分页Y, 40f, 18f);
+            Widgets.TextFieldNumeric(跳转Rect, ref 当前页码, ref 跳转页码输入, 1, 总页数);
         }
     }
 }

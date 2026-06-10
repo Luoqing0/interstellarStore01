@@ -29,15 +29,8 @@ namespace 星际商店
             if (Widgets.ButtonInvisible(购买按钮)) { 是购买模式 = true; 当前页码 = 1; 刷新物品列表(); }
             if (Widgets.ButtonInvisible(卖出按钮)) { 是购买模式 = false; 当前页码 = 1; 刷新物品列表(); }
 
-            // 卖出模式：仅显示库存
-            if (!是购买模式)
-            {
-                Rect 库存开关 = new Rect(btnX + 135f, rect.y + 6f, 130f, 24f);
-                Widgets.CheckboxLabeled(库存开关, "StarStore_StockOnly".Translate(), ref 仅显示库存);
-            }
-
-            // 搜索框（居中）
-            float 搜索X = rect.x + (rect.width - 搜索框宽) / 2f;
+            // 搜索框（在模式按钮右侧）
+            float 搜索X = btnX + 135f;
             Rect 搜索Rect = new Rect(搜索X, rect.y + 6f, 搜索框宽, 搜索框高);
             Widgets.DrawRectFast(搜索Rect, new Color(0.06f, 0.06f, 0.2f));
             GUI.color = 边框色;
@@ -47,23 +40,33 @@ namespace 星际商店
             搜索文本 = Widgets.TextField(搜索Rect, 搜索文本);
             if (搜索文本 != 旧搜索) { 当前页码 = 1; 刷新物品列表(); }
 
-            // 行/列调整（搜索框右侧）
-            float 行列X = 搜索Rect.xMax + 10f;
-            GUI.color = 文字色;
-            Text.Font = GameFont.Tiny;
-            Widgets.Label(new Rect(行列X, rect.y + 2f, 20f, 14f), "StarStore_Rows".Translate());
-            GUI.color = Color.white;
-            Text.Font = GameFont.Small;
-            Rect 行数输入 = new Rect(行列X + 18f, rect.y + 2f, 行列输入宽, 行列输入高);
-            Widgets.TextFieldNumeric(行数输入, ref 行数, ref 行数字符串, 2, 10);
+            // 布局选择按钮（大/中/小）- 放在搜索框右侧
+            float 布局X = 搜索Rect.xMax + 10f;
+            Rect 大布局按钮 = new Rect(布局X, rect.y + 4f, 24f, 20f);
+            Rect 中布局按钮 = new Rect(布局X + 26f, rect.y + 4f, 24f, 20f);
+            Rect 小布局按钮 = new Rect(布局X + 52f, rect.y + 4f, 24f, 20f);
 
-            GUI.color = 文字色;
-            Text.Font = GameFont.Tiny;
-            Widgets.Label(new Rect(行列X + 46f, rect.y + 2f, 20f, 14f), "StarStore_Cols".Translate());
-            GUI.color = Color.white;
-            Text.Font = GameFont.Small;
-            Rect 列数输入 = new Rect(行列X + 62f, rect.y + 2f, 行列输入宽, 行列输入高);
-            Widgets.TextFieldNumeric(列数输入, ref 列数, ref 列数字符串, 2, 10);
+            绘制科幻按钮(大布局按钮, "大", 当前布局 == 布局类型.大);
+            绘制科幻按钮(中布局按钮, "中", 当前布局 == 布局类型.中);
+            绘制科幻按钮(小布局按钮, "小", 当前布局 == 布局类型.小);
+
+            if (Widgets.ButtonInvisible(大布局按钮)) { 应用布局(布局类型.大); }
+            if (Widgets.ButtonInvisible(中布局按钮)) { 应用布局(布局类型.中); }
+            if (Widgets.ButtonInvisible(小布局按钮)) { 应用布局(布局类型.小); }
+
+            // 卖出模式：仅显示库存（布局按钮右侧，紧凑布局）
+            if (!是购买模式)
+            {
+                float 库存X = 小布局按钮.xMax + 5f;
+                Rect 库存开关 = new Rect(库存X, rect.y + 5f, 110f, 22f);
+                bool 旧库存 = 仅显示库存;
+                Widgets.CheckboxLabeled(库存开关, "StarStore_StockOnly".Translate(), ref 仅显示库存);
+                if (仅显示库存 != 旧库存)
+                {
+                    当前页码 = 1;
+                    刷新物品列表();
+                }
+            }
 
             // 右侧按钮
             Rect 购物车按钮 = new Rect(rect.xMax - 170f, rect.y + 4f, 70f, 按钮标准高);

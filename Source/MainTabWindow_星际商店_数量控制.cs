@@ -11,6 +11,31 @@ namespace 星际商店
         // ================================================================
         //  数量控制（滑块 + 输入框 + 快速按钮）
         // ================================================================
+
+        // 迷你数量控制（只显示 +/- 按钮，用于极小格子）
+        private void 绘制迷你数量控制(Rect rect, TransactionKey key)
+        {
+            if (!当前交易数量.ContainsKey(key))
+                当前交易数量[key] = 0;
+
+            float 按钮宽 = rect.width / 2f - 2f;
+
+            // - 按钮
+            Rect 减按钮 = new Rect(rect.x, rect.y, 按钮宽, rect.height);
+            if (Widgets.ButtonText(减按钮, "-"))
+            {
+                if (当前交易数量[key] > 0)
+                    当前交易数量[key]--;
+            }
+
+            // + 按钮
+            Rect 加按钮 = new Rect(rect.x + 按钮宽 + 4f, rect.y, 按钮宽, rect.height);
+            if (Widgets.ButtonText(加按钮, "+"))
+            {
+                当前交易数量[key]++;
+            }
+        }
+
         private void 绘制数量控制(Rect rect, TransactionKey key)
         {
             if (!当前交易数量.ContainsKey(key))
@@ -18,20 +43,22 @@ namespace 星际商店
 
             int 当前值 = 当前交易数量[key];
 
-            // 滑块
-            Rect 滑块Rect = new Rect(rect.x, rect.y, rect.width, 18f);
+            // 滑块 - 增加高度避免截断
+            Rect 滑块Rect = new Rect(rect.x, rect.y, rect.width, 20f);  // 从18f增加到20f
             float 浮点值 = (float)当前值;
             float 旧滑块值 = 浮点值;
             float 新值 = Widgets.HorizontalSlider(滑块Rect, 浮点值, 0f, 1000f, true, 当前值.ToString(), null, null, 0.5f);
             int 滑块值 = Mathf.RoundToInt(新值);
 
-            // 输入框
+            // 输入框 - 增加高度避免截断
             float 输入Y = 滑块Rect.yMax + 1f;
-            float 输入高 = 18f;
-            Rect 标签Rect = new Rect(rect.x, 输入Y, 28f, 输入高);
-            Rect 输入Rect = new Rect(rect.x + 30f, 输入Y, rect.width - 30f, 输入高);
+            float 输入高 = 20f;  // 从18f增加到20f
+            Rect 标签Rect = new Rect(rect.x, 输入Y, 32f, 输入高);  // 从28f增加到32f
+            Rect 输入Rect = new Rect(rect.x + 34f, 输入Y, rect.width - 34f, 输入高);  // 从30f增加到34f
             GUI.color = 文字色;
+            Text.Font = GameFont.Tiny;  // 使用更小字体
             Widgets.Label(标签Rect, "StarStore_Quantity".Translate());
+            Text.Font = GameFont.Small;
             GUI.color = Color.white;
 
             string 文本 = 当前值.ToString();
@@ -43,9 +70,9 @@ namespace 星际商店
             else
                 当前交易数量[key] = 当前值;
 
-            // 快速数量按钮：<<(归零) -1 +1 >>(最大)
+            // 快速数量按钮：<<(归零) -1 +1 >>(最大) - 增加高度避免截断
             float 按钮Y = 输入Rect.yMax + 1f;
-            float 按钮高 = 14f;
+            float 按钮高 = 18f;  // 从14f增加到18f
             float 按钮宽 = (rect.width - 6f) / 4f;
 
             // << 按钮 - 归零

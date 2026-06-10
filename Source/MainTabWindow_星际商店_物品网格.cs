@@ -96,48 +96,7 @@ namespace 星际商店
 
             Widgets.EndScrollView();
 
-            // 显示格子尺寸和物品总数
-            GUI.color = new Color(0.5f, 0.5f, 0.7f);
-            Text.Font = GameFont.Tiny;
-            Widgets.Label(new Rect(rect.x + 2f, rect.yMax - 14f, 250f, 14f),
-                "StarStore_CellInfo".Translate(当前显示物品.Count, (int)格));
-            Text.Font = GameFont.Small;
-            GUI.color = Color.white;
-
-            // 分页控件
-            if (总页数 > 1)
-            {
-                float 分页Y = rect.yMax - 24f;
-                float 按钮宽 = 24f;
-
-                // 首页按钮
-                Rect 首页Rect = new Rect(rect.x + 4f, 分页Y, 按钮宽, 18f);
-                if (Widgets.ButtonText(首页Rect, "|<")) { 当前页码 = 1; }
-
-                // 上一页按钮
-                Rect 上一页Rect = new Rect(rect.x + 30f, 分页Y, 按钮宽, 18f);
-                if (Widgets.ButtonText(上一页Rect, "<")) { if (当前页码 > 1) 当前页码--; }
-
-                // 页码显示
-                GUI.color = 文字色;
-                Text.Font = GameFont.Tiny;
-                Widgets.Label(new Rect(rect.x + 60f, 分页Y + 2f, 80f, 16f),
-                    "StarStore_PageInfo".Translate(当前页码, 总页数));
-                Text.Font = GameFont.Small;
-                GUI.color = Color.white;
-
-                // 下一页按钮
-                Rect 下一页Rect = new Rect(rect.x + 140f, 分页Y, 按钮宽, 18f);
-                if (Widgets.ButtonText(下一页Rect, ">")) { if (当前页码 < 总页数) 当前页码++; }
-
-                // 末页按钮
-                Rect 末页Rect = new Rect(rect.x + 166f, 分页Y, 按钮宽, 18f);
-                if (Widgets.ButtonText(末页Rect, ">|")) { 当前页码 = 总页数; }
-
-                // 跳转输入框
-                Rect 跳转Rect = new Rect(rect.x + 200f, 分页Y, 40f, 18f);
-                Widgets.TextFieldNumeric(跳转Rect, ref 当前页码, ref 跳转页码输入, 1, 总页数);
-            }
+            // 分页控件和物品信息已移至独立方法 绘制分页控件()
         }
 
         // ================================================================
@@ -216,29 +175,29 @@ namespace 星际商店
             }
             Widgets.ThingIcon(图标Rect, def);
 
-            // 物品名称
+            // 物品名称 - 增加高度避免截断
             float 名称Y = 图标Rect.yMax + 2f;
             GUI.color = 条件满足 ? 文字色 : new Color(0.6f, 0.3f, 0.3f);
             Text.Font = GameFont.Tiny;
             string 显示名 = def.LabelCap;
-            if (Text.CalcHeight(显示名, 可用宽) > 20f)
+            if (Text.CalcHeight(显示名, 可用宽) > 22f)
             {
                 显示名 = def.label;
-                if (Text.CalcHeight(显示名, 可用宽) > 20f)
+                if (Text.CalcHeight(显示名, 可用宽) > 22f)
                     显示名 = def.label.Truncate(最大名称字符数);
             }
-            Rect 名称Rect = new Rect(rect.x + 内边距, 名称Y, 可用宽, 20f);
+            Rect 名称Rect = new Rect(rect.x + 内边距, 名称Y, 可用宽, 22f);
             Text.Anchor = TextAnchor.UpperCenter;
             Widgets.Label(名称Rect, 显示名);
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
 
-            // 品质选择（购买模式，有品质的物品）
+            // 品质选择（购买模式，有品质的物品）- 增加高度避免截断
             if (是购买模式 && def.HasComp(typeof(CompQuality)))
             {
                 float qY = 名称Rect.yMax + 1f;
-                Rect qRect = new Rect(rect.x + 内边距, qY, 可用宽, 14f);
+                Rect qRect = new Rect(rect.x + 内边距, qY, 可用宽, 18f);  // 增加高度从16f到18f
                 QualityCategory? curQ = 购买品质选择.TryGetValue(def, out var q) ? q : (QualityCategory?)null;
                 string qLabel = curQ?.GetLabel() ?? "品质: 一般";
                 if (Widgets.ButtonText(qRect, qLabel))
@@ -253,14 +212,14 @@ namespace 星际商店
                     }
                     Find.WindowStack.Add(new FloatMenu(opts));
                 }
-                名称Rect = new Rect(名称Rect.x, 名称Rect.y, 名称Rect.width, 名称Rect.height + 16f);
+                名称Rect = new Rect(名称Rect.x, 名称Rect.y, 名称Rect.width, 名称Rect.height + 20f);  // 增加偏移
             }
 
-            // 材料选择（购买模式，有材料的物品）
+            // 材料选择（购买模式，有材料的物品）- 增加高度避免截断
             if (是购买模式 && def.MadeFromStuff)
             {
                 float sY = 名称Rect.yMax + 1f;
-                Rect sRect = new Rect(rect.x + 内边距, sY, 可用宽, 14f);
+                Rect sRect = new Rect(rect.x + 内边距, sY, 可用宽, 18f);  // 增加高度从16f到18f
                 ThingDef curS = 购买材料选择.TryGetValue(def, out var s) ? s : (def.defaultStuff ?? ThingDefOf.Steel);
                 if (Widgets.ButtonText(sRect, curS.LabelAsStuff))
                 {
@@ -274,10 +233,10 @@ namespace 星际商店
                     }
                     Find.WindowStack.Add(new FloatMenu(opts));
                 }
-                名称Rect = new Rect(名称Rect.x, 名称Rect.y, 名称Rect.width, 名称Rect.height + 16f);
+                名称Rect = new Rect(名称Rect.x, 名称Rect.y, 名称Rect.width, 名称Rect.height + 20f);  // 增加偏移
             }
 
-            // 价格（金色醒目）- 质量/材料感知
+            // 价格（金色醒目）- 质量/材料感知 - 增加高度避免截断
             QualityCategory? 当前品质 = null;
             ThingDef 当前材料 = null;
             if (是购买模式)
@@ -289,7 +248,7 @@ namespace 星际商店
             float 价格Y = 名称Rect.yMax + 1f;
             GUI.color = 价格色;
             Text.Font = GameFont.Tiny;
-            Rect 价格Rect = new Rect(rect.x + 内边距, 价格Y, 可用宽, 14f);
+            Rect 价格Rect = new Rect(rect.x + 内边距, 价格Y, 可用宽, 18f);  // 增加高度从16f到18f
             Text.Anchor = TextAnchor.UpperCenter;
             Widgets.Label(价格Rect, "⛃ " + 单价.ToString("F0"));
             Text.Anchor = TextAnchor.UpperLeft;
@@ -323,13 +282,13 @@ namespace 星际商店
                         string vLabel = (g.Key.Quality != QualityCategory.Normal ? g.Key.Quality.GetLabel() : "") +
                                         (g.Key.Stuff != null ? g.Key.Stuff.LabelAsStuff : "") +
                                         "×" + count;
-                        Rect vRect = new Rect(rect.x + 内边距, variantY, 可用宽, 12f);
+                        Rect vRect = new Rect(rect.x + 内边距, variantY, 可用宽, 14f);
                         GUI.color = new Color(0.55f, 0.55f, 0.75f);
                         Text.Font = GameFont.Tiny;
                         Widgets.Label(vRect, vLabel);
                         Text.Font = GameFont.Small;
                         GUI.color = Color.white;
-                        variantY += 12f;
+                        variantY += 14f;
                         shown++;
                     }
                 }
@@ -344,7 +303,7 @@ namespace 星际商店
                     GUI.color = new Color(1f, 0.5f, 0.5f);
                     Text.Font = GameFont.Tiny;
                     float 锁定Y = (是购买模式 ? 价格Rect.yMax : 库存Y + 14f) + 1f;
-                    Rect 锁定Rect = new Rect(rect.x + 内边距, 锁定Y, 可用宽, 14f);
+                    Rect 锁定Rect = new Rect(rect.x + 内边距, 锁定Y, 可用宽, 16f);
                     Text.Anchor = TextAnchor.UpperCenter;
                     Widgets.Label(锁定Rect, "StarStore_Locked".Translate() + " " + 条件描述.Truncate(14));
                     Text.Anchor = TextAnchor.UpperLeft;
@@ -355,7 +314,7 @@ namespace 星际商店
 
             // 数量控制区域（格子底部）
             float 控制Y = rect.yMax - 内边距 - 46f;
-            if (控制Y > 名称Y + 28f && 条件满足 && !已隐藏)
+            if (控制Y > 名称Y + 10f && 条件满足 && !已隐藏)
             {
                 Rect 数量区域 = new Rect(rect.x + 内边距, 控制Y, 可用宽, 46f);
 
@@ -386,6 +345,20 @@ namespace 星际商店
                     TransactionKey key = new TransactionKey(def, 控品质, 控材料);
                     绘制数量控制(数量区域, key);
                 }
+            }
+            else if (条件满足 && !已隐藏)
+            {
+                // 极小格子：只显示 +/- 按钮，不显示滑块和输入框
+                Rect 迷你控制区域 = new Rect(rect.x + 内边距, rect.yMax - 内边距 - 20f, 可用宽, 20f);
+                QualityCategory? 控品质 = null;
+                ThingDef 控材料 = null;
+                if (是购买模式)
+                {
+                    购买品质选择.TryGetValue(def, out 控品质);
+                    购买材料选择.TryGetValue(def, out 控材料);
+                }
+                TransactionKey key = new TransactionKey(def, 控品质, 控材料);
+                绘制迷你数量控制(迷你控制区域, key);
             }
 
             // ===== 开发者模式：右键点击弹出配置菜单 =====

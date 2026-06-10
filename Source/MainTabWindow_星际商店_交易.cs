@@ -139,80 +139,122 @@ namespace 星际商店
         // ================================================================
         //  判断物品属于哪个预定义分类
         // ================================================================
+        // ================================================================
+        //  分类判断 - 使用递归检查所有父分类
+        // ================================================================
         private bool 物品属于分类(ThingDef def, string 分类Key)
         {
             if (分类Key == "StarStore_All") return true;
             if (分类Key == "StarStore_Favorites") return 收藏列表.Contains(def.defName);
             if (def.thingCategories == null) return false;
 
+            // 获取物品的所有分类（包括父分类）
+            HashSet<string> 所有分类 = 获取所有分类(def);
+
             if (分类Key == "StarStore_Cat_Food")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Foods" || c.defName == "FoodMeals" || c.defName == "FoodRaw" ||
-                    c.defName == "FoodManufactured" || c.defName == "PlantsFood" ||
-                    c.defName == "AnimalProducts" || c.defName == "Eggs" ||
-                    c.defName == "MeatRaw" || c.defName == "Milk" ||
-                    c.defName.StartsWith("Food"));
+                return 所有分类.Any(c =>
+                    c == "Foods" || c == "FoodMeals" || c == "FoodRaw" ||
+                    c == "FoodManufactured" || c == "PlantsFood" ||
+                    c == "AnimalProducts" || c == "Eggs" ||
+                    c == "MeatRaw" || c == "Milk" ||
+                    c.StartsWith("Food"));
             if (分类Key == "StarStore_Cat_Medicine")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Medicine" || c.defName == "Drugs" ||
-                    c.defName == "MedicalItems" || c.defName.StartsWith("Drug") ||
-                    c.defName.StartsWith("Medi"));
+                return 所有分类.Any(c =>
+                    c == "Medicine" || c == "Drugs" ||
+                    c == "MedicalItems" || c.StartsWith("Drug") ||
+                    c.StartsWith("Medi"));
             if (分类Key == "StarStore_Cat_Weapons")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Weapons" || c.defName.StartsWith("Weapon") ||
-                    c.defName == "Guns" || c.defName == "MeleeWeapons" ||
-                    c.defName == "RangedWeapons" || c.defName == "Grenades" ||
-                    c.defName == "MortarShells");
+                return 所有分类.Any(c =>
+                    c == "Weapons" || c.StartsWith("Weapon") ||
+                    c == "Guns" || c == "MeleeWeapons" ||
+                    c == "RangedWeapons" || c == "Grenades" ||
+                    c == "MortarShells");
             if (分类Key == "StarStore_Cat_Apparel")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Apparel" || c.defName.StartsWith("Apparel") ||
-                    c.defName == "Armor" || c.defName == "Clothing" ||
-                    c.defName == "Headgear" || c.defName == "Shields");
+                return 所有分类.Any(c =>
+                    c == "Apparel" || c.StartsWith("Apparel") ||
+                    c == "Armor" || c == "Clothing" ||
+                    c == "Headgear" || c == "Shields");
             if (分类Key == "StarStore_Cat_RawMaterials")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Resources" || c.defName == "RawMaterials" ||
-                    c.defName == "Metals" || c.defName == "StoneBlocks" ||
-                    c.defName == "Wood" || c.defName == "Textile" ||
-                    c.defName == "Leather" || c.defName == "Fabrics" ||
-                    c.defName == "Chemicals" || c.defName.StartsWith("Resource") ||
-                    c.defName.StartsWith("Raw") || c.defName.StartsWith("Stone") ||
-                    c.defName.StartsWith("Metal"));
+                return 所有分类.Any(c =>
+                    c == "Resources" || c == "RawMaterials" ||
+                    c == "Metals" || c == "StoneBlocks" ||
+                    c == "Wood" || c == "Textile" ||
+                    c == "Leather" || c == "Fabrics" ||
+                    c == "Chemicals" || c.StartsWith("Resource") ||
+                    c.StartsWith("Raw") || c.StartsWith("Stone") ||
+                    c.StartsWith("Metal"));
             if (分类Key == "StarStore_Cat_Manufactured")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Manufactured" || c.defName == "Components" ||
-                    c.defName == "Parts" || c.defName == "Tools" ||
-                    c.defName == "CraftingMaterials" || c.defName.StartsWith("Manufactur"));
+                return 所有分类.Any(c =>
+                    c == "Manufactured" || c == "Components" ||
+                    c == "Parts" || c == "Tools" ||
+                    c == "CraftingMaterials" || c.StartsWith("Manufactur"));
             if (分类Key == "StarStore_Cat_Buildings")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Buildings" || c.defName.StartsWith("Building") ||
-                    c.defName == "Structures" || c.defName == "Floors" ||
-                    c.defName == "Walls" || c.defName == "Doors" ||
-                    c.defName == "Security" || c.defName == "Power" ||
-                    c.defName == "Production" || c.defName.StartsWith("Structure"));
+                return 所有分类.Any(c =>
+                    c == "Buildings" || c.StartsWith("Building") ||
+                    c == "Structures" || c == "Floors" ||
+                    c == "Walls" || c == "Doors" ||
+                    c == "Security" || c == "Power" ||
+                    c == "Production" || c.StartsWith("Structure"));
             if (分类Key == "StarStore_Cat_Furniture")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Furniture" || c.defName.StartsWith("Furniture") ||
-                    c.defName == "Furnishings" || c.defName == "Beds" ||
-                    c.defName == "Tables" || c.defName == "Chairs" ||
-                    c.defName == "Lighting" || c.defName == "Storage" ||
-                    c.defName == "Containers" || c.defName == "Sculpture" ||
-                    c.defName == "Art" || c.defName == "Joy" ||
-                    c.defName == "Recreation");
+                return 所有分类.Any(c =>
+                    c == "BuildingsFurniture" || c == "Furniture" ||
+                    c == "BuildingsJoy" || c == "Joy" ||
+                    c == "BuildingsArt" || c == "Art" ||
+                    c == "BuildingsTemperature" || c == "Temperature" ||
+                    c == "Beds" || c == "Tables" || c == "Chairs" ||
+                    c == "Lighting" || c == "Storage" ||
+                    c == "Containers" || c == "Sculpture" ||
+                    c == "Recreation" || c == "Furnishings");
             if (分类Key == "StarStore_Cat_Electronics")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Electronics" || c.defName.StartsWith("Electron") ||
-                    c.defName == "Components" || c.defName == "Chips" ||
-                    c.defName == "Mechanoids" || c.defName == "MechParts" ||
-                    c.defName == "Power" || c.defName == "Energy" ||
-                    c.defName == "Batteries" || c.defName == "Solar");
+                return 所有分类.Any(c =>
+                    c == "BuildingsPower" || c == "Power" ||
+                    c == "BuildingsSecurity" || c == "Security" ||
+                    c == "BuildingsProduction" || c == "Production" ||
+                    c == "BuildingsSpecial" || c == "Special" ||
+                    c == "BuildingsMisc" || c == "Misc" ||
+                    c == "Electronics" || c.StartsWith("Electron") ||
+                    c == "Components" || c == "Chips" ||
+                    c == "Mechanoids" || c == "MechParts" ||
+                    c == "Energy" || c == "Batteries" || c == "Solar");
             if (分类Key == "StarStore_Cat_Misc")
-                return def.thingCategories.Any(c =>
-                    c.defName == "Misc" || c.defName == "Miscellaneous" ||
-                    c.defName == "Items" || c.defName == "Goods" ||
-                    c.defName == "Chunks" || c.defName == "Corpses" ||
-                    c.defName == "Animals" || c.defName == "Plants" ||
-                    c.defName == "Seeds" || c.defName == "Books");
+                return 所有分类.Any(c =>
+                    c == "Misc" || c == "Miscellaneous" ||
+                    c == "Items" || c == "Goods" ||
+                    c == "Chunks" || c == "Corpses" ||
+                    c == "Animals" || c == "Plants" ||
+                    c == "Seeds" || c == "Books");
             return false;
+        }
+
+        /// <summary>
+        /// 递归获取物品的所有分类（包括父分类）
+        /// </summary>
+        private HashSet<string> 获取所有分类(ThingDef def)
+        {
+            HashSet<string> 结果 = new HashSet<string>();
+            if (def.thingCategories == null) return 结果;
+
+            foreach (ThingCategoryDef cat in def.thingCategories)
+            {
+                添加分类及父分类(cat, 结果);
+            }
+            return 结果;
+        }
+
+        /// <summary>
+        /// 递归添加分类及其所有父分类
+        /// </summary>
+        private void 添加分类及父分类(ThingCategoryDef cat, HashSet<string> 结果)
+        {
+            if (cat == null || 结果.Contains(cat.defName)) return;
+
+            结果.Add(cat.defName);
+
+            // 递归添加父分类
+            if (cat.parent != null)
+            {
+                添加分类及父分类(cat.parent, 结果);
+            }
         }
 
         // ================================================================
@@ -460,14 +502,26 @@ namespace 星际商店
 
         private IntVec3 获取有效降落点(Map map)
         {
+            if (map == null) return IntVec3.Invalid;
+
+            // 先尝试获取交易信标位置
             IntVec3 spot = DropCellFinder.TradeDropSpot(map);
-            if (!spot.IsValid)
+
+            // 检查位置是否有效（包括检查坐标是否为负）
+            if (!spot.IsValid || spot.x < 0 || spot.z < 0)
             {
-                // 无交易信标时，回退到地图中心
+                // 回退到随机降落点
                 spot = DropCellFinder.RandomDropSpot(map);
-                if (!spot.IsValid)
+                if (!spot.IsValid || spot.x < 0 || spot.z < 0)
                 {
+                    // 最终回退到地图中心附近
                     spot = map.Center;
+                    // 确保位置可通行
+                    if (!spot.Walkable(map))
+                    {
+                        // 搜索附近可通行位置
+                        spot = CellFinder.RandomClosewalkCellNear(spot, map, 10);
+                    }
                 }
                 Log.Warning($"星际商店: 未找到有效交易信标，使用回退位置 {spot}");
             }
