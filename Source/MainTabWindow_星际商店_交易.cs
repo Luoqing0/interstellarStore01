@@ -48,7 +48,8 @@ namespace 星际商店
             StarStore_SidebarConfigDef 折扣cfg = 侧边栏管理器.配置;
             if (折扣cfg != null)
             {
-                ThingDef 折扣物品 = 折扣cfg.获取今日折扣物品();
+                int 今日天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
+                ThingDef 折扣物品 = 折扣cfg.获取今日折扣物品(今日天数);
                 if (折扣物品 != null && def.defName == 折扣物品.defName)
                     价格 *= 折扣cfg.获取折扣比例();
             }

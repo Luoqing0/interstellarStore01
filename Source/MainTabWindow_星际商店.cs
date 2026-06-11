@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 using RimWorld;
 
 namespace 星际商店
@@ -205,7 +206,7 @@ namespace 星际商店
         // ===== 窗口大小 =====
         public override Vector2 RequestedTabSize
         {
-            get { return new Vector2(1300f, 800f); }  // 加宽以容纳侧边栏
+            get { return new Vector2(1350f, 800f); }  // 加宽容纳侧边栏+2x4网格
         }
 
         // 窗口位置居中
@@ -234,6 +235,8 @@ namespace 星际商店
                 Current.Game.components.Add(new 星际商店GameComponent(Current.Game));
             }
             刷新物品列表();
+            // AI 辅助生成：商店开门提示音
+            SoundDef.Named("UI_ButtonPrompt").PlayOneShot(new TargetInfo(UI.MouseCell(), Find.CurrentMap));
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -253,22 +256,22 @@ namespace 星际商店
             Rect 分类区域 = new Rect(inRect.x + 水平内边距, 标题区域.yMax + 区域间距, inRect.width - 水平内边距 * 2f, 分类标签栏高);
             绘制分类标签页(分类区域);
 
-            // ===== 物品网格区域（填满可用空间，不被侧边栏压缩）=====
+            // ===== 左侧侧边栏（独立区域，不重叠，网格在侧边栏右侧）=====
+            float 侧边栏Y = 分类区域.yMax + 4f;
+            float 侧边栏高 = inRect.yMax - 4f - 侧边栏Y - 底部栏Y偏移 - 区域间距;
+            Rect 侧边栏区域 = new Rect(inRect.x + 水平内边距, 侧边栏Y, 侧边栏宽, 侧边栏高);
+            绘制侧边栏(侧边栏区域);
+
+            // ===== 物品网格区域（在侧边栏右侧，不重叠）=====
             float 分页栏高 = 30f;
-            float 网格X = inRect.x + 水平内边距;  // 从左侧开始，填满
-            float 网格Y = 分类区域.yMax + 4f;
-            float 网格高 = inRect.yMax - 4f - 网格Y - 底部栏Y偏移 - 分页栏高 - 区域间距;
+            float 网格X = 侧边栏区域.xMax + 区域间距;  // 侧边栏之后
+            float 网格Y = 侧边栏Y;
             float 当前购物车宽 = 显示购物车 ? 购物车宽 : 0f;
             float 网格宽 = inRect.xMax - 水平内边距 - 网格X - 当前购物车宽 - (显示购物车 ? 购物车间距 : 0f);
+            float 网格高 = 侧边栏高;
 
             Rect 网格区域 = new Rect(网格X, 网格Y, 网格宽, 网格高);
             绘制物品网格(网格区域);
-
-            // ===== 左侧侧边栏（浮动叠加面板，不占用网格空间）=====
-            float 侧边栏Y = 网格Y;
-            float 侧边栏高 = 网格高;
-            Rect 侧边栏区域 = new Rect(inRect.x + 水平内边距, 侧边栏Y, 侧边栏宽, 侧边栏高);
-            绘制侧边栏(侧边栏区域);
 
             // ===== 分页控件（在网格下方，底部栏上方）=====
             Rect 分页区域 = new Rect(网格X, 网格区域.yMax + 区域间距, 网格宽, 分页栏高);

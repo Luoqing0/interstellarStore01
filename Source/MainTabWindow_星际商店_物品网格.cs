@@ -57,11 +57,12 @@ namespace 星际商店
                 上次物品数量 = 当前页物品.Count;
                 上次可用宽 = 可用宽;
                 上次可用高 = 可用高;
+                // 直接用预设列数/行数计算格子尺寸（不动态调整列数）
                 float 格子尺寸 = Mathf.Min(可用宽 / 列数, 可用高 / 行数);
                 格子尺寸 -= 间距;
                 格子尺寸 = Mathf.Clamp(格子尺寸, 格子最小尺寸, 格子最大尺寸);
                 缓存格子尺寸 = 格子尺寸;
-                缓存列数 = Mathf.Max(1, Mathf.FloorToInt((可用宽 + 间距) / (格子尺寸 + 间距)));
+                缓存列数 = 列数;  // 不重新计算，固定为预设值
             }
 
             float 格 = 缓存格子尺寸;
@@ -331,7 +332,8 @@ namespace 星际商店
                 StarStore_SidebarConfigDef 折扣cfg = 侧边栏管理器.配置;
                 if (折扣cfg != null)
                 {
-                    ThingDef 折扣物品 = 折扣cfg.获取今日折扣物品();
+                    int 今日天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
+                    ThingDef 折扣物品 = 折扣cfg.获取今日折扣物品(今日天数);
                     if (折扣物品 != null && def.defName == 折扣物品.defName)
                     {
                         是否折扣 = true;
@@ -430,12 +432,16 @@ namespace 星际商店
                 }
             }
 
-            // 数量控制区域（格子底部）
-            if (当前布局 == 布局类型.大)
+            // 数量控制区域（紧贴价格行下方，不溢出格子底部）
+            if (当前布局 == 布局类型.大 && 条件满足)
             {
-                // 大布局：紧凑数量控制（滑条+输入框+按钮）
-                Rect 紧凑控制 = new Rect(rect.x + 内边距 + 2f, rect.yMax - 内边距 - 28f, 可用宽 - 4f, 24f);
-                绘制数量控制(紧凑控制, 价格key);
+                float 控Y = 名称Rect.yMax + 名称Rect.height + 2f;
+                // 确保不超出格子底部
+                if (控Y + 26f < rect.yMax - 内边距 + 2f)
+                {
+                    Rect 紧凑控制 = new Rect(rect.x + 内边距 + 2f, 控Y, 可用宽 - 4f, 24f);
+                    绘制数量控制(紧凑控制, 价格key);
+                }
             }
             else
             {
