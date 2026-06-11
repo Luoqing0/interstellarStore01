@@ -55,7 +55,8 @@ namespace 星际商店
         // ===== 翻页 =====
         private int 当前页码 = 1;
         private string 跳转页码输入 = "";
-        private const int 每页物品数 = 50;
+        // AI 辅助生成：每页物品数随布局变化
+        private int 每页物品数 => 行数 * 列数;
 
         // ===== 购买品质/材料选择 =====
         private Dictionary<ThingDef, QualityCategory?> 购买品质选择 = new Dictionary<ThingDef, QualityCategory?>();
@@ -146,7 +147,9 @@ namespace 星际商店
         private const float 卡片内边距 = 4f;
         private const float 图标最大尺寸 = 38f;
         private const float 图标尺寸比例 = 0.40f;
-        private const float 侧边栏宽 = 220f;  // 浮动侧边栏宽度（不占用网格空间）
+        private const float 看板宽 = 220f;  // 独立看板宽度（不占用网格空间）
+        private const float 分类列宽 = 80f;   // 左侧分类列宽度
+        private string 缓存问候文字 = "";     // 缓存问候避免每帧变化
 
         // ===== 淘宝×科幻电商风格颜色 =====
         // 基底 - 深邃太空背景
@@ -235,6 +238,12 @@ namespace 星际商店
                 Current.Game.components.Add(new 星际商店GameComponent(Current.Game));
             }
             刷新物品列表();
+            // AI 辅助生成：缓存问候文字（避免每帧抖动）
+            StarStore_SidebarConfigDef cfg = 侧边栏管理器.配置;
+            if (cfg != null && cfg.greetings != null && cfg.greetings.Count > 0)
+                缓存问候文字 = cfg.greetings[Rand.Range(0, cfg.greetings.Count)];
+            else
+                缓存问候文字 = "";
             // AI 辅助生成：商店开门提示音
             SoundDef.Named("UI_ButtonPrompt").PlayOneShot(new TargetInfo(UI.MouseCell(), Find.CurrentMap));
         }
@@ -252,35 +261,43 @@ namespace 星际商店
             Rect 标题区域 = new Rect(inRect.x + 水平内边距, inRect.y + 标题栏Y偏移, inRect.width - 水平内边距 * 2f, 标题栏高);
             绘制标题栏(标题区域);
 
-            // ===== 分类标签页（顶部水平） =====
-            Rect 分类区域 = new Rect(inRect.x + 水平内边距, 标题区域.yMax + 区域间距, inRect.width - 水平内边距 * 2f, 分类标签栏高);
-            绘制分类标签页(分类区域);
-
-            // ===== 左侧侧边栏（独立区域，不重叠，网格在侧边栏右侧）=====
-            float 侧边栏Y = 分类区域.yMax + 4f;
-            float 侧边栏高 = inRect.yMax - 4f - 侧边栏Y - 底部栏Y偏移 - 区域间距;
-            Rect 侧边栏区域 = new Rect(inRect.x + 水平内边距, 侧边栏Y, 侧边栏宽, 侧边栏高);
-            绘制侧边栏(侧边栏区域);
-
-            // ===== 物品网格区域（在侧边栏右侧，不重叠）=====
+            // ===== 布局区域计算 =====
+            float 内容Y = 标题区域.yMax + 区域间距;
+            float 内容高 = inRect.yMax - 4f - 内容Y - 底部栏Y偏移 - 区域间距;
             float 分页栏高 = 30f;
-            float 网格X = 侧边栏区域.xMax + 区域间距;  // 侧边栏之后
-            float 网格Y = 侧边栏Y;
+
+            // 左侧三列：看板 | 分类列 | 主网格
+            float 看板X = inRect.x + 水平内边距;
+            float 分类列X = 看板X + 看板宽 + 区域间距;
+            float 网格X = 分类列X + 分类列宽 + 区域间距;
             float 当前购物车宽 = 显示购物车 ? 购物车宽 : 0f;
             float 网格宽 = inRect.xMax - 水平内边距 - 网格X - 当前购物车宽 - (显示购物车 ? 购物车间距 : 0f);
-            float 网格高 = 侧边栏高;
 
-            Rect 网格区域 = new Rect(网格X, 网格Y, 网格宽, 网格高);
+            // 先绘制网格（底层），再绘制分类列和看板（上层，z-order正确）
+            Rect 网格区域 = new Rect(网格X, 内容Y, 网格宽, 内容高);
             绘制物品网格(网格区域);
 
-            // ===== 分页控件（在网格下方，底部栏上方）=====
+            // 分类列（垂直，在看板右侧）
+            Rect 分类列区域 = new Rect(分类列X, 内容Y, 分类列宽, 内容高);
+            绘制分类列(分类列区域);
+
+            // 看板（最左侧，最后绘制确保z-order正确）
+            Rect 看板区域 = new Rect(看板X, 内容Y, 看板宽, 内容高);
+            绘制看板(看板区域);
+
+            // 看板右侧垂直分隔线（强化独立面板视觉）
+            GUI.color = new Color(0.25f, 0.18f, 0.10f, 0.7f);
+            Widgets.DrawLineVertical(看板区域.xMax + 1f, 看板区域.y, 看板区域.height);
+            GUI.color = Color.white;
+
+            // ===== 分页控件（在网格下方）=====
             Rect 分页区域 = new Rect(网格X, 网格区域.yMax + 区域间距, 网格宽, 分页栏高);
             绘制分页控件(分页区域);
 
             // ===== 购物车面板（右侧固定） =====
             if (显示购物车)
             {
-                Rect 购物车区域 = new Rect(网格区域.xMax + 购物车间距, 网格Y, 当前购物车宽, 网格高);
+                Rect 购物车区域 = new Rect(网格区域.xMax + 购物车间距, 内容Y, 当前购物车宽, 内容高);
                 绘制购物车(购物车区域);
             }
 
@@ -291,14 +308,14 @@ namespace 星际商店
             // ===== 筛选面板（浮层） =====
             if (显示筛选面板)
             {
-                Rect 筛选Rect = new Rect(inRect.xMax - 320f, 分类区域.yMax + 5f, 300f, 400f);
+                Rect 筛选Rect = new Rect(inRect.xMax - 320f, 标题区域.yMax + 5f, 300f, 400f);
                 绘制筛选面板(筛选Rect);
             }
 
             // ===== 开发者模式 - 右键配置窗口（浮层） =====
             if (右键配置物品 != null && Prefs.DevMode)
             {
-                Rect 配置Rect = new Rect(inRect.x + 100f, 分类区域.yMax + 20f, 400f, 500f);
+                Rect 配置Rect = new Rect(inRect.x + 100f, 标题区域.yMax + 20f, 400f, 500f);
                 绘制配置窗口(配置Rect);
             }
         }

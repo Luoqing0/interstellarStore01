@@ -84,9 +84,9 @@ namespace 星际商店
         }
 
         // ================================================================
-        //  分类标签页（顶部水平排列）
+        //  分类列（左侧垂直排列）
         // ================================================================
-        private void 绘制分类标签页(Rect rect)
+        private void 绘制分类列(Rect rect)
         {
             // 背景
             Widgets.DrawRectFast(rect, 分类栏背景);
@@ -94,16 +94,13 @@ namespace 星际商店
             Widgets.DrawBox(rect);
             GUI.color = Color.white;
 
-            // 水平排列标签页
-            float 标签宽 = (rect.width - 8f) / 预定义分类.Count;
-            float 标签高 = rect.height - 4f;
+            float 标签高 = Mathf.Min(26f, (rect.height - 8f) / 预定义分类.Count);
             for (int i = 0; i < 预定义分类.Count; i++)
             {
                 string 标签 = 预定义分类[i];
-                Rect 标签Rect = new Rect(rect.x + 2f + i * 标签宽, rect.y + 2f, 标签宽 - 2f, 标签高);
+                Rect 标签Rect = new Rect(rect.x + 2f, rect.y + 4f + i * 标签高, rect.width - 4f, 标签高 - 2f);
                 bool 选中 = (当前分类标签 == 标签);
 
-                // 选中状态：淘宝橙高亮
                 Color bgColor = 选中 ? new Color(购买按钮色.r * 0.6f, 购买按钮色.g * 0.6f, 购买按钮色.b * 0.6f) : 按钮色;
                 if (Mouse.IsOver(标签Rect) && !选中)
                     bgColor = 按钮hover色;
@@ -111,8 +108,8 @@ namespace 星际商店
                 Widgets.DrawRectFast(标签Rect, bgColor);
                 if (选中)
                 {
-                    GUI.color = 购买按钮色;  // 淘宝橙下划线
-                    Widgets.DrawRectFast(new Rect(标签Rect.x, 标签Rect.yMax - 2f, 标签Rect.width, 2f), 购买按钮色);
+                    GUI.color = 购买按钮色;
+                    Widgets.DrawRectFast(new Rect(标签Rect.x, 标签Rect.y, 3f, 标签Rect.height), 购买按钮色);
                     GUI.color = Color.white;
                 }
 

@@ -435,13 +435,9 @@ namespace 星际商店
             // 数量控制区域（紧贴价格行下方，不溢出格子底部）
             if (当前布局 == 布局类型.大 && 条件满足)
             {
-                float 控Y = 名称Rect.yMax + 名称Rect.height + 2f;
-                // 确保不超出格子底部
-                if (控Y + 26f < rect.yMax - 内边距 + 2f)
-                {
-                    Rect 紧凑控制 = new Rect(rect.x + 内边距 + 2f, 控Y, 可用宽 - 4f, 24f);
-                    绘制数量控制(紧凑控制, 价格key);
-                }
+                // 固定在格子底部，不依赖名称Rect的动态高度
+                Rect 紧凑控制 = new Rect(rect.x + 内边距 + 2f, rect.yMax - 内边距 - 24f, 可用宽 - 4f, 24f);
+                绘制数量控制(紧凑控制, 价格key);
             }
             else
             {
