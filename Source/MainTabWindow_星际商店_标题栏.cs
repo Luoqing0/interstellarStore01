@@ -13,8 +13,8 @@ namespace 星际商店
         // ================================================================
         private void 绘制标题栏(Rect rect)
         {
-            // 标题（左侧）
-            GUI.color = 主色调;
+            // 标题（左侧）- 淘宝橙色
+            GUI.color = 购买按钮色;  // 淘宝橙色
             Text.Font = GameFont.Medium;
             Widgets.Label(new Rect(rect.x, rect.y + 2f, 160f, 30f), "StarStore_Title".Translate());
             Text.Font = GameFont.Small;
@@ -103,16 +103,16 @@ namespace 星际商店
                 Rect 标签Rect = new Rect(rect.x + 2f + i * 标签宽, rect.y + 2f, 标签宽 - 2f, 标签高);
                 bool 选中 = (当前分类标签 == 标签);
 
-                // 选中状态用高亮色，未选中用暗色
-                Color bgColor = 选中 ? 按钮选中色 : 按钮色;
+                // 选中状态：淘宝橙高亮
+                Color bgColor = 选中 ? new Color(购买按钮色.r * 0.6f, 购买按钮色.g * 0.6f, 购买按钮色.b * 0.6f) : 按钮色;
                 if (Mouse.IsOver(标签Rect) && !选中)
                     bgColor = 按钮hover色;
 
                 Widgets.DrawRectFast(标签Rect, bgColor);
                 if (选中)
                 {
-                    GUI.color = 主色调;
-                    Widgets.DrawRectFast(new Rect(标签Rect.x, 标签Rect.yMax - 2f, 标签Rect.width, 2f), 主色调);
+                    GUI.color = 购买按钮色;  // 淘宝橙下划线
+                    Widgets.DrawRectFast(new Rect(标签Rect.x, 标签Rect.yMax - 2f, 标签Rect.width, 2f), 购买按钮色);
                     GUI.color = Color.white;
                 }
 
@@ -141,7 +141,7 @@ namespace 星际商店
             bool hover = Mouse.IsOver(rect);
             Color bg;
             if (选中)
-                bg = 按钮选中色;
+                bg = new Color(购买按钮色.r * 0.7f, 购买按钮色.g * 0.7f, 购买按钮色.b * 0.7f);  // 淘宝橙选中
             else if (hover)
                 bg = 按钮hover色;
             else

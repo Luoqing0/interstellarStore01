@@ -405,27 +405,11 @@ namespace 星际商店
             }
             缓存白银帧 = -1;
 
-            // 使用 GenPlace 直接生成物品到交易降落点
-            int 生成失败数 = 0;
+            // AI 辅助生成：使用运输舱生成物品（优先轨道交易信标位置）
             IntVec3 dropSpot = 获取有效降落点(map);
-            for (int i = 0; i < 待生成.Count; i++)
-            {
-                bool placed = GenPlace.TryPlaceThing(待生成[i], dropSpot, map, ThingPlaceMode.Near);
-                if (!placed)
-                {
-                    生成失败数++;
-                    Log.Warning($"星际商店: 购买物品 {待生成[i].def.defName} 放置失败 (位置 {dropSpot})");
-                }
-            }
+            DropPodUtility.DropThingsNear(dropSpot, map, 待生成);
             购买交易数量.Clear();
-            if (生成失败数 > 0)
-            {
-                Messages.Message("StarStore_PurchasePartialDropFail".Translate(生成失败数), MessageTypeDefOf.RejectInput);
-            }
-            else
-            {
-                Messages.Message("StarStore_PurchaseComplete".Translate(), MessageTypeDefOf.TaskCompletion);
-            }
+            Messages.Message("StarStore_PurchaseComplete".Translate(), MessageTypeDefOf.TaskCompletion);
             刷新物品列表();
         }
 
@@ -486,12 +470,8 @@ namespace 星际商店
                 Thing silver = ThingMaker.MakeThing(ThingDefOf.Silver, null);
                 silver.stackCount = 白银数量;
                 IntVec3 dropSpot = 获取有效降落点(map);
-                bool placed = GenPlace.TryPlaceThing(silver, dropSpot, map, ThingPlaceMode.Near);
-                if (!placed)
-                {
-                    Log.Error($"星际商店: 出售收益白银放置失败 (数量 {白银数量}, 位置 {dropSpot})");
-                    Messages.Message("StarStore_SaleSilverDropFail".Translate(白银数量), MessageTypeDefOf.RejectInput);
-                }
+                // AI 辅助生成：使用运输舱生成白银收益
+                DropPodUtility.DropThingsNear(dropSpot, map, new List<Thing> { silver });
             }
             出售交易数量.Clear();
             库存映射帧 = -1; // 出售后库存已变化，使缓存失效

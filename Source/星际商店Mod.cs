@@ -68,6 +68,76 @@ namespace 星际商店
 
 } // namespace 星际商店
 
+    /// <summary>
+    /// 侧边栏配置Def - 看板娘/折扣/新闻/背景故事（XML可配置）
+    /// AI 辅助生成
+    /// </summary>
+    public class StarStore_SidebarConfigDef : Def
+    {
+        /// <summary>看板娘图片路径（相对于 Textures/ 目录）</summary>
+        public string mascotTexturePath = "UI/starstore_mascot";
+
+        /// <summary>每日折扣列表（每天随机选取一条）</summary>
+        public List<string> dailyDiscounts = new List<string>();
+
+        /// <summary>新闻公告列表（每天随机选取一条）</summary>
+        public List<string> newsList = new List<string>();
+
+        /// <summary>背景故事文本</summary>
+        public string backstory = "星际商店，连接银河系各个角落的贸易枢纽。";
+
+        /// <summary>侧边栏标题</summary>
+        public string sidebarTitle = "星际商报";
+
+        // 缓存
+        private Texture2D _mascotTex;
+        private string _lastTexPath = "";
+
+        /// <summary>获取看板娘贴图（带缓存）</summary>
+        public Texture2D 获取看板娘贴图()
+        {
+            if (_mascotTex == null || _lastTexPath != mascotTexturePath)
+            {
+                _lastTexPath = mascotTexturePath;
+                _mascotTex = ContentFinder<Texture2D>.Get(mascotTexturePath, false);
+            }
+            return _mascotTex;
+        }
+
+        /// <summary>根据当前日期获取每日折扣</summary>
+        public string 获取今日折扣()
+        {
+            if (dailyDiscounts.Count == 0) return "今日无折扣";
+            int idx = (System.DateTime.Now.DayOfYear * 17) % dailyDiscounts.Count;
+            return dailyDiscounts[idx];
+        }
+
+        /// <summary>根据当前日期获取新闻</summary>
+        public string 获取今日新闻()
+        {
+            if (newsList.Count == 0) return "暂无新闻";
+            int idx = (System.DateTime.Now.DayOfYear * 31) % newsList.Count;
+            return newsList[idx];
+        }
+    }
+
+    /// <summary>
+    /// 侧边栏管理器
+    /// </summary>
+    public static class 侧边栏管理器
+    {
+        private static StarStore_SidebarConfigDef _config;
+        public static StarStore_SidebarConfigDef 配置
+        {
+            get
+            {
+                if (_config == null)
+                    _config = DefDatabase<StarStore_SidebarConfigDef>.GetNamedSilentFail("StarStore_DefaultSidebar");
+                return _config;
+            }
+        }
+    }
+
     // ================================================================
     //  交易条件相关类型（必须在全局命名空间，否则 RW XML 解析器找不到）
     // ================================================================
