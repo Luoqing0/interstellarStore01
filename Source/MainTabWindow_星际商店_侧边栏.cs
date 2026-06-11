@@ -19,9 +19,9 @@ namespace 星际商店
         {
             StarStore_SidebarConfigDef cfg = 侧边栏管理器.配置;
 
-            // 半透明背景
-            Widgets.DrawRectFast(rect, new Color(0.04f, 0.07f, 0.16f, 0.75f));
-            GUI.color = new Color(0.25f, 0.35f, 0.55f, 0.5f);
+            // 不透明背景（因为叠加在网格上面）
+            Widgets.DrawRectFast(rect, new Color(0.05f, 0.08f, 0.18f, 0.92f));
+            GUI.color = new Color(0.3f, 0.4f, 0.6f, 0.6f);
             Widgets.DrawBox(rect);
             GUI.color = Color.white;
 
@@ -62,7 +62,8 @@ namespace 星际商店
             ThingDef 折扣物品 = cfg?.获取今日折扣物品();
             if (折扣物品 != null)
             {
-                string 折扣文本 = "🎫 " + 折扣物品.LabelCap + " " + (cfg.获取折扣比例() * 100).ToString("F0") + "% 折扣";
+                float 折数 = cfg.获取折扣比例() * 10f;
+                string 折扣文本 = "🎫 " + 折扣物品.LabelCap + " " + 折数.ToString("F1") + "折";
                 cy = 绘制侧边栏区块(滚动内容Rect, cy, "每日折扣",
                     new Color(1f, 0.45f, 0.1f), 折扣文本, 可用宽 - 20f);
             }

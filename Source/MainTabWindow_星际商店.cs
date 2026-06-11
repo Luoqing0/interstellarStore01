@@ -145,7 +145,7 @@ namespace 星际商店
         private const float 卡片内边距 = 4f;
         private const float 图标最大尺寸 = 38f;
         private const float 图标尺寸比例 = 0.40f;
-        private const float 侧边栏宽 = 200f;  // 加宽侧边栏避免拥挤
+        private const float 侧边栏宽 = 220f;  // 浮动侧边栏宽度（不占用网格空间）
 
         // ===== 淘宝×科幻电商风格颜色 =====
         // 基底 - 深邃太空背景
@@ -253,9 +253,9 @@ namespace 星际商店
             Rect 分类区域 = new Rect(inRect.x + 水平内边距, 标题区域.yMax + 区域间距, inRect.width - 水平内边距 * 2f, 分类标签栏高);
             绘制分类标签页(分类区域);
 
-            // ===== 物品网格区域（主区域，左侧留出侧边栏空间但不缩减网格）=====
+            // ===== 物品网格区域（填满可用空间，不被侧边栏压缩）=====
             float 分页栏高 = 30f;
-            float 网格X = inRect.x + 水平内边距 + 侧边栏宽 + 区域间距;  // 侧边栏占左侧空间
+            float 网格X = inRect.x + 水平内边距;  // 从左侧开始，填满
             float 网格Y = 分类区域.yMax + 4f;
             float 网格高 = inRect.yMax - 4f - 网格Y - 底部栏Y偏移 - 分页栏高 - 区域间距;
             float 当前购物车宽 = 显示购物车 ? 购物车宽 : 0f;
@@ -264,7 +264,7 @@ namespace 星际商店
             Rect 网格区域 = new Rect(网格X, 网格Y, 网格宽, 网格高);
             绘制物品网格(网格区域);
 
-            // ===== 左侧侧边栏（独立浮动面板，覆盖在左侧）=====
+            // ===== 左侧侧边栏（浮动叠加面板，不占用网格空间）=====
             float 侧边栏Y = 网格Y;
             float 侧边栏高 = 网格高;
             Rect 侧边栏区域 = new Rect(inRect.x + 水平内边距, 侧边栏Y, 侧边栏宽, 侧边栏高);

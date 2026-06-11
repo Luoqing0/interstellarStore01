@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- インターステラ・ストア - メインウィンドウ -->
+  <StarStore_Title>インターステラ商店</StarStore_Title>
+  <StarStore_Cart>カート</StarStore_Cart>
+  <StarStore_BuyMode>購入</StarStore_BuyMode>
+  <StarStore_SellMode>売却</StarStore_SellMode>
+  <StarStore_LayoutLarge>大</StarStore_LayoutLarge>
+  <StarStore_LayoutMedium>中</StarStore_LayoutMedium>
+  <StarStore_LayoutSmall>小</StarStore_LayoutSmall>
+  <StarStore_SearchHint>検索...</StarStore_SearchHint>
+  <StarStore_Favorites>お気に入り</StarStore_Favorites>
+  <StarStore_All>すべて</StarStore_All>
+  <StarStore_InventoryOnly>在庫のみ</StarStore_InventoryOnly>
+
+  <!-- カート -->
+  <StarStore_PurchaseList>購入リスト</StarStore_PurchaseList>
+  <StarStore_SaleList>売却リスト</StarStore_SaleList>
+  <StarStore_Subtotal>小計: ⛃{0}</StarStore_Subtotal>
+  <StarStore_Empty>（空）</StarStore_Empty>
+
+  <!-- ページネーション -->
+  <StarStore_CellInfo>{0} アイテム, {1}px/セル</StarStore_CellInfo>
+  <StarStore_PageInfo>ページ {0}/{1}</StarStore_PageInfo>
+
+  <!-- ボトムバー -->
+  <StarStore_SelectedCount>選択中: {0} アイテム, 合計: ⛃{1}</StarStore_SelectedCount>
+  <StarStore_SilverBalance>シルバー: ⛃{0}</StarStore_SilverBalance>
+  <StarStore_SilverShortfall>⛃{0} 必要, ⛃{1} 不足</StarStore_SilverShortfall>
+  <StarStore_ClearButton>クリア</StarStore_ClearButton>
+  <StarStore_BuyButton>購入する</StarStore_BuyButton>
+  <StarStore_SellButton>売却する</StarStore_SellButton>
+
+  <!-- 取引 -->
+  <StarStore_SelectVariant>バリエーションを選択</StarStore_SelectVariant>
+  <StarStore_PurchaseComplete>購入完了！輸送ポッドが到着します。</StarStore_PurchaseComplete>
+  <StarStore_SaleComplete>売却完了！シルバー受取: ⛃{0}</StarStore_SaleComplete>
+  <StarStore_InsufficientSilver>シルバー不足！⛃{0} 必要, ⛃{1} 所持</StarStore_InsufficientSilver>
+  <StarStore_Locked>ロック:</StarStore_Locked>
+
+  <!-- カテゴリ -->
+  <StarStore_Category_Weapons>武器</StarStore_Category_Weapons>
+  <StarStore_Category_Apparel>衣類</StarStore_Category_Apparel>
+  <StarStore_Category_Medical>医療</StarStore_Category_Medical>
+  <StarStore_Category_Food>食料</StarStore_Category_Food>
+  <StarStore_Category_Buildings>建築物</StarStore_Category_Buildings>
+  <StarStore_Category_Furniture>家具</StarStore_Category_Furniture>
+  <StarStore_Category_Electronics>電子機器</StarStore_Category_Electronics>
+  <StarStore_Category_Production>生産</StarStore_Category_Production>
+  <StarStore_Category_Resources>資源</StarStore_Category_Resources>
+  <StarStore_Category_Animals>動物</StarStore_Category_Animals>
+  <StarStore_Category_Luxury>贅沢品</StarStore_Category_Luxury>
+  <StarStore_Category_Other>その他</StarStore_Category_Other>
+
+  <!-- サイドバー -->
+  <StarStore_SidebarTitle>星間商報</StarStore_SidebarTitle>
+  <StarStore_DailyDiscount>本日の割引</StarStore_DailyDiscount>
+  <StarStore_News>銀河ニュース</StarStore_News>
+  <StarStore_Backstory>背景ストーリー</StarStore_Backstory>
+
+</LanguageData>

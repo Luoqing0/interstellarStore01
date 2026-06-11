@@ -335,11 +335,26 @@ namespace 星际商店
                     if (折扣物品 != null && def.defName == 折扣物品.defName)
                     {
                         是否折扣 = true;
-                        折扣标签 = "  " + (折扣cfg.获取折扣比例() * 100).ToString("F0") + "%";
+                        float 折数 = 折扣cfg.获取折扣比例() * 10f;
+                        折扣标签 = 折数.ToString("F1") + "折";
                     }
                 }
             }
-            
+
+            // 折扣标识（红色醒目，在品质/材料行下方名称区域）
+            if (是否折扣)
+            {
+                Text.Font = GameFont.Tiny;
+                Rect 折扣Rect = new Rect(rect.x + 内边距, 名称Rect.yMax - 2f, 可用宽, 16f);
+                Text.Anchor = TextAnchor.UpperCenter;
+                GUI.color = new Color(1f, 0.25f, 0.15f);
+                Widgets.Label(折扣Rect, "【" + 折扣标签 + "】");
+                Text.Anchor = TextAnchor.UpperLeft;
+                GUI.color = Color.white;
+                Text.Font = GameFont.Small;
+                名称Rect = new Rect(名称Rect.x, 名称Rect.y, 名称Rect.width, 名称Rect.height + 18f);
+            }
+
             // 获取当前已选数量
             TransactionKey 价格key = new TransactionKey(def, 当前品质, 当前材料);
             int 已选数量 = 当前交易数量.TryGetValue(价格key, out var n) ? n : 0;
@@ -358,18 +373,6 @@ namespace 星际商店
                 Text.Font = GameFont.Tiny;
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(价格Rect, "⛃ " + 单价.ToString("F0"));
-
-                // 折扣标签（红色醒目）
-                if (是否折扣)
-                {
-                    Rect 折扣Rect = new Rect(价格Rect.xMax - 10f, 价格Y - 1f, 40f, 16f);
-                    GUI.color = new Color(1f, 0.3f, 0.2f);
-                    Text.Font = GameFont.Tiny;
-                    Text.Anchor = TextAnchor.MiddleRight;
-                    Widgets.Label(折扣Rect, 折扣标签);
-                    Text.Anchor = TextAnchor.MiddleLeft;
-                    GUI.color = Color.white;
-                }
 
                 // 数量（科技蓝，右边）
                 Rect 数量Rect = new Rect(价格Rect.xMax + 4f, 价格Y, 数量宽 - 4f, 价格区高);
