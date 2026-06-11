@@ -80,6 +80,12 @@ namespace 星际商店
         /// <summary>每日折扣列表（每天随机选取一条）</summary>
         public List<string> dailyDiscounts = new List<string>();
 
+        /// <summary>每日折扣物品 defName 列表（随机选取一个打折）</summary>
+        public List<string> dailyDiscountThingDefs = new List<string>();
+
+        /// <summary>折扣比例（0-1 之间，默认0.8）</summary>
+        public float discountPercent = 0.8f;
+
         /// <summary>新闻公告列表（每天随机选取一条）</summary>
         public List<string> newsList = new List<string>();
 
@@ -118,6 +124,20 @@ namespace 星际商店
             if (newsList.Count == 0) return "暂无新闻";
             int idx = (System.DateTime.Now.DayOfYear * 31) % newsList.Count;
             return newsList[idx];
+        }
+
+        /// <summary>根据当前日期获取随机折扣物品</summary>
+        public ThingDef 获取今日折扣物品()
+        {
+            if (dailyDiscountThingDefs == null || dailyDiscountThingDefs.Count == 0) return null;
+            int idx = (System.DateTime.Now.DayOfYear * 47) % dailyDiscountThingDefs.Count;
+            return DefDatabase<ThingDef>.GetNamedSilentFail(dailyDiscountThingDefs[idx]);
+        }
+
+        /// <summary>获取折扣比例（百分比 0-1）</summary>
+        public float 获取折扣比例()
+        {
+            return discountPercent <= 0 || discountPercent >= 1 ? 0.8f : discountPercent;
         }
     }
 

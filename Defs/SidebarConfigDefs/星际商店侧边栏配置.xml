@@ -20,17 +20,28 @@
     <!-- 如果没有图片，会自动隐藏看板娘区域 -->
     <!-- <mascotTexturePath>UI/starstore_mascot</mascotTexturePath> -->
 
-    <!-- 每日折扣列表（每天随机选取一条） -->
-    <dailyDiscounts>
-      <li>今日所有武器 8 折！⚔️</li>
-      <li>服装类商品限时 9 折 👗</li>
-      <li>建筑材料买二送一 🧱</li>
-      <li>医疗用品特价 7 折 💊</li>
-      <li>电子元件全场 8.5 折 🔧</li>
-      <li>食品类商品半价促销 🍖</li>
-      <li>奢侈品类买一送一 💎</li>
-      <li>今日生食类商品 6 折 🥩</li>
-    </dailyDiscounts>
+    <!-- 每日折扣物品 defName 列表（每天随机选取一个打折） -->
+    <!-- 折扣比例见下方 discountPercent -->
+    <dailyDiscountThingDefs>
+      <li>Gun_Revolver</li>
+      <li>Gun_PumpShotgun</li>
+      <li>Gun_BoltActionRifle</li>
+      <li>Gun_ChainShotgun</li>
+      <li>MeleeWeapon_Knife</li>
+      <li>MeleeWeapon_Club</li>
+      <li>MeleeWeapon_Gladius</li>
+      <li>MeleeWeapon_LongSword</li>
+      <li>Apparel_ArmorPlate</li>
+      <li>Apparel_FlakVest</li>
+      <li>Apparel_HelmetAdvanced</li>
+      <li>MedicineUltratech</li>
+      <li>MedicineIndustrial</li>
+      <li>ComponentIndustrial</li>
+      <li>ComponentSpacer</li>
+    </dailyDiscountThingDefs>
+
+    <!-- 折扣比例（0.0~1.0 之间，0.8 表示8折） -->
+    <discountPercent>0.8</discountPercent>
 
     <!-- 新闻公告列表（每天随机选取一条） -->
     <newsList>

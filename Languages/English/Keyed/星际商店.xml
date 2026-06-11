@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Star Store - Main Window -->
+  <StarStore_Title>Interstellar Store</StarStore_Title>
+  <StarStore_Cart>Cart</StarStore_Cart>
+  <StarStore_BuyMode>Buy</StarStore_BuyMode>
+  <StarStore_SellMode>Sell</StarStore_SellMode>
+  <StarStore_LayoutLarge>Large</StarStore_LayoutLarge>
+  <StarStore_LayoutMedium>Medium</StarStore_LayoutMedium>
+  <StarStore_LayoutSmall>Small</StarStore_LayoutSmall>
+  <StarStore_SearchHint>Search...</StarStore_SearchHint>
+  <StarStore_Favorites>Favorites</StarStore_Favorites>
+  <StarStore_All>All</StarStore_All>
+  <StarStore_InventoryOnly>Inventory Only</StarStore_InventoryOnly>
+
+  <!-- Cart -->
+  <StarStore_PurchaseList>Purchase List</StarStore_PurchaseList>
+  <StarStore_SaleList>Sale List</StarStore_SaleList>
+  <StarStore_Subtotal>Subtotal: ⛃{0}</StarStore_Subtotal>
+  <StarStore_Empty>（Empty）</StarStore_Empty>
+
+  <!-- Pagination -->
+  <StarStore_CellInfo>{0} items, {1}px per cell</StarStore_CellInfo>
+  <StarStore_PageInfo>Page {0}/{1}</StarStore_PageInfo>
+
+  <!-- Bottom Bar -->
+  <StarStore_SelectedCount>Selected: {0} items, total: ⛃{1}</StarStore_SelectedCount>
+  <StarStore_SilverBalance>Silver: ⛃{0}</StarStore_SilverBalance>
+  <StarStore_SilverShortfall>Need ⛃{0}, shortfall: ⛃{1}</StarStore_SilverShortfall>
+  <StarStore_ClearButton>Clear</StarStore_ClearButton>
+  <StarStore_BuyButton>Purchase</StarStore_BuyButton>
+  <StarStore_SellButton>Sell</StarStore_SellButton>
+
+  <!-- Transaction -->
+  <StarStore_SelectVariant>Select Variant</StarStore_SelectVariant>
+  <StarStore_PurchaseComplete>Purchase complete! Drop pods incoming.</StarStore_PurchaseComplete>
+  <StarStore_SaleComplete>Sale complete! Silver received: ⛃{0}</StarStore_SaleComplete>
+  <StarStore_InsufficientSilver>Not enough silver! Need ⛃{0}, have ⛃{1}</StarStore_InsufficientSilver>
+  <StarStore_Locked>Locked:</StarStore_Locked>
+
+  <!-- Categories -->
+  <StarStore_Category_Weapons>Weapons</StarStore_Category_Weapons>
+  <StarStore_Category_Apparel>Apparel</StarStore_Category_Apparel>
+  <StarStore_Category_Medical>Medical</StarStore_Category_Medical>
+  <StarStore_Category_Food>Food</StarStore_Category_Food>
+  <StarStore_Category_Buildings>Buildings</StarStore_Category_Buildings>
+  <StarStore_Category_Furniture>Furniture</StarStore_Category_Furniture>
+  <StarStore_Category_Electronics>Electronics</StarStore_Category_Electronics>
+  <StarStore_Category_Production>Production</StarStore_Category_Production>
+  <StarStore_Category_Resources>Resources</StarStore_Category_Resources>
+  <StarStore_Category_Animals>Animals</StarStore_Category_Animals>
+  <StarStore_Category_Luxury>Luxury</StarStore_Category_Luxury>
+  <StarStore_Category_Other>Other</StarStore_Category_Other>
+
+  <!-- Sidebar -->
+  <StarStore_SidebarTitle>Star Trader News</StarStore_SidebarTitle>
+  <StarStore_DailyDiscount>Daily Discount</StarStore_DailyDiscount>
+  <StarStore_News>Galactic News</StarStore_News>
+  <StarStore_Backstory>Backstory</StarStore_Backstory>
+
+</LanguageData>

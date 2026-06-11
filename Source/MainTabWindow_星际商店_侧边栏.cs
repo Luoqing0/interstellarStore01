@@ -12,8 +12,7 @@ namespace 星际商店
         //  左侧侧边栏（看板娘/折扣/新闻/背景故事）
         //  AI 辅助生成
         // ================================================================
-        private const float 侧边栏宽 = 175f;
-        private const float 侧边栏内边距 = 6f;
+        private const float 侧边栏内边距 = 8f;
         private Vector2 侧边栏滚动;
 
         private void 绘制侧边栏(Rect rect)
@@ -60,11 +59,12 @@ namespace 星际商店
             float cy = 0f;
 
             // 每日折扣
-            string 折扣 = cfg?.获取今日折扣() ?? "今日无折扣";
-            if (!string.IsNullOrEmpty(折扣) && 折扣 != "今日无折扣")
+            ThingDef 折扣物品 = cfg?.获取今日折扣物品();
+            if (折扣物品 != null)
             {
-                cy = 绘制侧边栏区块(滚动内容Rect, cy, "🎫 今日折扣",
-                    new Color(1f, 0.45f, 0.1f), 折扣, 可用宽 - 20f);
+                string 折扣文本 = "🎫 " + 折扣物品.LabelCap + " " + (cfg.获取折扣比例() * 100).ToString("F0") + "% 折扣";
+                cy = 绘制侧边栏区块(滚动内容Rect, cy, "每日折扣",
+                    new Color(1f, 0.45f, 0.1f), 折扣文本, 可用宽 - 20f);
             }
 
             // 新闻公告

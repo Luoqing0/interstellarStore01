@@ -42,7 +42,17 @@ namespace 星际商店
             float 基础价 = 获取基础价格(def, quality, stuff);
             float 乘数 = 星际商店Mod.设置?.购买价格乘数 ?? 1.6f;
             float 改善 = 获取交易改善(Find.CurrentMap);
-            return 基础价 * 乘数 * Mathf.Max(0.05f, 1f - 改善); // 最低 5% 价格
+            float 价格 = 基础价 * 乘数 * Mathf.Max(0.05f, 1f - 改善); // 最低 5% 价格
+
+            // 折扣检查（AI 辅助生成：每日随机折扣物品）
+            StarStore_SidebarConfigDef 折扣cfg = 侧边栏管理器.配置;
+            if (折扣cfg != null)
+            {
+                ThingDef 折扣物品 = 折扣cfg.获取今日折扣物品();
+                if (折扣物品 != null && def.defName == 折扣物品.defName)
+                    价格 *= 折扣cfg.获取折扣比例();
+            }
+            return 价格;
         }
 
         private float 获取出售价格(ThingDef def, QualityCategory? quality = null, ThingDef stuff = null)
@@ -409,7 +419,8 @@ namespace 星际商店
             IntVec3 dropSpot = 获取有效降落点(map);
             DropPodUtility.DropThingsNear(dropSpot, map, 待生成);
             购买交易数量.Clear();
-            Messages.Message("StarStore_PurchaseComplete".Translate(), MessageTypeDefOf.TaskCompletion);
+            // 点击消息可跳转到降落点
+            Messages.Message("StarStore_PurchaseComplete".Translate(), new LookTargets(dropSpot, map), MessageTypeDefOf.TaskCompletion);
             刷新物品列表();
         }
 
@@ -476,7 +487,9 @@ namespace 星际商店
             出售交易数量.Clear();
             库存映射帧 = -1; // 出售后库存已变化，使缓存失效
             缓存白银帧 = -1; // 白银收益已生成，使缓存失效
-            Messages.Message("StarStore_SaleComplete".Translate(白银数量), MessageTypeDefOf.TaskCompletion);
+            // 点击消息可跳转到降落点
+            IntVec3 saleDropSpot = 获取有效降落点(map);
+            Messages.Message("StarStore_SaleComplete".Translate(白银数量), new LookTargets(saleDropSpot, map), MessageTypeDefOf.TaskCompletion);
             刷新物品列表();
         }
 

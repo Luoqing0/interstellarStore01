@@ -323,6 +323,23 @@ namespace 星际商店
             }
             float 单价 = 是购买模式 ? 获取购买价格(def, 当前品质, 当前材料) : 获取出售价格(def);
             
+            // 折扣标识（AI 辅助生成：检查是否为今日折扣物品）
+            bool 是否折扣 = false;
+            string 折扣标签 = "";
+            if (是购买模式)
+            {
+                StarStore_SidebarConfigDef 折扣cfg = 侧边栏管理器.配置;
+                if (折扣cfg != null)
+                {
+                    ThingDef 折扣物品 = 折扣cfg.获取今日折扣物品();
+                    if (折扣物品 != null && def.defName == 折扣物品.defName)
+                    {
+                        是否折扣 = true;
+                        折扣标签 = "  " + (折扣cfg.获取折扣比例() * 100).ToString("F0") + "%";
+                    }
+                }
+            }
+            
             // 获取当前已选数量
             TransactionKey 价格key = new TransactionKey(def, 当前品质, 当前材料);
             int 已选数量 = 当前交易数量.TryGetValue(价格key, out var n) ? n : 0;
@@ -341,6 +358,18 @@ namespace 星际商店
                 Text.Font = GameFont.Tiny;
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(价格Rect, "⛃ " + 单价.ToString("F0"));
+
+                // 折扣标签（红色醒目）
+                if (是否折扣)
+                {
+                    Rect 折扣Rect = new Rect(价格Rect.xMax - 10f, 价格Y - 1f, 40f, 16f);
+                    GUI.color = new Color(1f, 0.3f, 0.2f);
+                    Text.Font = GameFont.Tiny;
+                    Text.Anchor = TextAnchor.MiddleRight;
+                    Widgets.Label(折扣Rect, 折扣标签);
+                    Text.Anchor = TextAnchor.MiddleLeft;
+                    GUI.color = Color.white;
+                }
 
                 // 数量（科技蓝，右边）
                 Rect 数量Rect = new Rect(价格Rect.xMax + 4f, 价格Y, 数量宽 - 4f, 价格区高);
