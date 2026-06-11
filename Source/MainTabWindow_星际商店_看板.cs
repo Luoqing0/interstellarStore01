@@ -15,6 +15,7 @@ namespace 星际商店
         private const float 看板内边距 = 8f;
         private Vector2 看板滚动;
         private int 新闻随机种子 = -1;  // 点击刷新时随机变化
+        private int 折扣随机种子 = -1;  // 折扣区独立随机种子
 
         // 深色报纸风配色
         private static readonly Color 看板背景色 = new Color(0.10f, 0.07f, 0.04f, 0.92f);
@@ -84,22 +85,24 @@ namespace 星际商店
 
             float cy = 0f;
 
-            // 每日折扣（游戏内日期）
+            // 每日折扣（游戏内日期，可用刷新按钮切换）
             ThingDef 折扣物品 = cfg?.获取今日折扣物品(今日天数);
+            if (折扣随机种子 >= 0 && cfg != null)
+                折扣物品 = cfg.获取今日折扣物品(折扣随机种子);
             if (折扣物品 != null && cfg != null)
             {
                 float 折数 = cfg.获取折扣比例() * 10f;
                 string 折扣文本 = "🎫 " + 折扣物品.LabelCap + " " + 折数.ToString("F1") + "折";
                 cy = 绘制看板区块(滚动内容Rect, cy, "每日折扣",
-                    看板区块折扣色, 折扣文本, 可用宽 - 20f, false);
+                    看板区块折扣色, 折扣文本, 可用宽 - 4f, false);
 
                 // 开发者模式：刷新折扣按钮
                 if (Prefs.DevMode)
                 {
-                    Rect 折扣刷新Rect = new Rect(滚动内容Rect.width - 4f, cy - 20f, 20f, 16f);
-                    if (Widgets.ButtonText(折扣刷新Rect, "⟳"))
+                    Rect 折扣刷新Rect = new Rect(滚动内容Rect.width - 4f, cy - 20f, 28f, 16f);
+                    if (Widgets.ButtonText(折扣刷新Rect, "刷新"))
                     {
-                        新闻随机种子 = Rand.Range(0, 99999);
+                        折扣随机种子 = Rand.Range(0, 99999);
                     }
                 }
             }
@@ -115,7 +118,7 @@ namespace 星际商店
             if (!string.IsNullOrEmpty(新闻) && 新闻 != "暂无新闻")
             {
                 cy = 绘制看板区块(滚动内容Rect, cy, "星际新闻",
-                    看板区块新闻色, 新闻, 可用宽 - 20f, true);
+                    看板区块新闻色, 新闻, 可用宽 - 4f, true);
             }
 
             // 背景故事
@@ -123,7 +126,7 @@ namespace 星际商店
             if (!string.IsNullOrEmpty(故事))
             {
                 cy = 绘制看板区块(滚动内容Rect, cy, "背景故事",
-                    看板区块故事色, 故事, 可用宽 - 20f, false);
+                    看板区块故事色, 故事, 可用宽 - 4f, false);
             }
 
             Widgets.EndScrollView();

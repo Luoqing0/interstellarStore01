@@ -94,7 +94,7 @@ namespace 星际商店
             Widgets.DrawBox(rect);
             GUI.color = Color.white;
 
-            float 标签高 = Mathf.Min(26f, (rect.height - 8f) / 预定义分类.Count);
+            float 标签高 = Mathf.Min(32f, (rect.height - 8f) / 预定义分类.Count);
             for (int i = 0; i < 预定义分类.Count; i++)
             {
                 string 标签 = 预定义分类[i];
@@ -115,9 +115,8 @@ namespace 星际商店
 
                 GUI.color = 选中 ? Color.white : 文字色;
                 Text.Anchor = TextAnchor.MiddleCenter;
-                Text.Font = GameFont.Tiny;
-                Widgets.Label(标签Rect, 标签.Translate());
                 Text.Font = GameFont.Small;
+                Widgets.Label(标签Rect, 标签.Translate());
                 Text.Anchor = TextAnchor.UpperLeft;
                 GUI.color = Color.white;
 

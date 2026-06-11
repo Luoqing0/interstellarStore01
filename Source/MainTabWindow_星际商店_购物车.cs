@@ -73,9 +73,18 @@ namespace 星际商店
                 return;
             }
 
-            // 滚动列表（增加行高避免截断）
+            // 滚动列表（动态行高，避免换行截断）
             float 列表Y = rect.y + 26f;
-            float 列表高 = 分区物品.Count * 26f;  // 每行高度增加
+            // 第一遍：预计算总高度
+            float 列表高 = 0f;
+            Text.Font = GameFont.Tiny;
+            for (int i = 0; i < 分区物品.Count; i++)
+            {
+                string 预名 = 分区物品[i].Key.ToString();
+                if (预名.Length > 6) 预名 = 预名.Substring(0, 6) + "..";
+                float 名高 = Text.CalcHeight(预名, 60f);
+                列表高 += Mathf.Max(24f, 名高 + 4f);
+            }
             Rect 列表视图 = new Rect(rect.x + 2f, 列表Y, rect.width - 4f, rect.yMax - 列表Y - 22f);
             Rect 列表内容 = new Rect(0f, 0f, 列表视图.width - 16f, 列表高);
 
@@ -88,38 +97,41 @@ namespace 星际商店
                 float 单价 = 购买模式分区 ? 获取购买价格(kv.Key.def, kv.Key.quality, kv.Key.stuff)
                                         : 获取出售价格(kv.Key.def, kv.Key.quality, kv.Key.stuff);
 
-                // 商品名
+                // 商品名 - 动态高度
                 Text.Font = GameFont.Tiny;
                 string 商品名 = kv.Key.ToString();
                 if (商品名.Length > 6)
                     商品名 = 商品名.Substring(0, 6) + "..";
+                float 名高 = Text.CalcHeight(商品名, 60f);
+                float 行高 = Mathf.Max(24f, 名高 + 4f);
                 
                 // 商品名（白色）
                 GUI.color = 文字色;
-                Rect 商品名Rect = new Rect(8f, cy + 2f, 60f, 22f);
+                Rect 商品名Rect = new Rect(8f, cy + 1f, 60f, 名高);
                 Widgets.Label(商品名Rect, 商品名);
                 
+                float 居中Y = cy + (行高 - 20f) / 2f;
                 // 数量（科技蓝，与价格区分）
                 GUI.color = 主色调;
-                Rect 数量Rect = new Rect(商品名Rect.xMax, cy + 2f, 30f, 22f);
+                Rect 数量Rect = new Rect(商品名Rect.xMax, 居中Y, 30f, 20f);
                 Widgets.Label(数量Rect, "x" + kv.Value);
                 
                 // 总价（金色）
                 GUI.color = 价格色;
-                Rect 总价Rect = new Rect(数量Rect.xMax, cy + 2f, 50f, 22f);
+                Rect 总价Rect = new Rect(数量Rect.xMax, 居中Y, 50f, 20f);
                 Widgets.Label(总价Rect, "⛃" + (单价 * kv.Value).ToString("F0"));
                 
                 Text.Font = GameFont.Small;
                 GUI.color = Color.white;
 
-                // 删除按钮（右对齐，不与总价重叠）
-                Rect 删除Rect = new Rect(列表内容.width - 24f, cy + 3f, 20f, 18f);
+                // 删除按钮（右对齐，垂直居中）
+                Rect 删除Rect = new Rect(列表内容.width - 24f, 居中Y + 1f, 20f, 18f);
                 if (Widgets.ButtonText(删除Rect, "✕"))
                 {
                     dict.Remove(kv.Key);
                     刷新物品列表();
                 }
-                cy += 26f;
+                cy += 行高;
             }
             Widgets.EndScrollView();
 

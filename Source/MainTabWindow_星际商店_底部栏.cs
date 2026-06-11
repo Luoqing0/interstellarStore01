@@ -42,14 +42,13 @@ namespace 星际商店
             Text.Anchor = TextAnchor.MiddleLeft;
             Text.Font = GameFont.Small;
             // 第一行：已选数量
-            Widgets.Label(new Rect(rect.x + 5f, rect.y + 2f, 200f, 16f),
+            Widgets.Label(new Rect(rect.x + 5f, rect.y + 4f, 200f, 18f),
                 "StarStore_SelectedCount".Translate(总数量, 总价.ToString("F0")));
             // 第二行：白银余额（金色）
             GUI.color = 价格色;
-            Text.Font = GameFont.Tiny;
-            Widgets.Label(new Rect(rect.x + 5f, rect.y + 18f, 200f, 18f),
-                "白银余额: ⛃" + 当前白银);
             Text.Font = GameFont.Small;
+            Widgets.Label(new Rect(rect.x + 5f, rect.y + 24f, 200f, 18f),
+                "白银余额: ⛃" + 当前白银);
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
 
@@ -68,7 +67,7 @@ namespace 星际商店
             {
                 GUI.color = new Color(1f, 0.4f, 0.4f);
                 Text.Font = GameFont.Tiny;
-                Widgets.Label(new Rect(rect.x + 210f, rect.y + 18f, 200f, 18f), 提示);
+                Widgets.Label(new Rect(rect.x + 210f, rect.y + 24f, 200f, 18f), 提示);
                 Text.Font = GameFont.Small;
                 GUI.color = Color.white;
             }

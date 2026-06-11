@@ -82,7 +82,7 @@ namespace 星际商店
         // ===== 布局参数 =====
         public static int 行数 = 4;
         public static int 列数 = 4;
-        private const float 间距 = 6f;
+        private const float 间距 = 10f;
         private const float 左侧分类栏宽 = 140f;
 
         // 格子尺寸限制（像素）
@@ -96,7 +96,7 @@ namespace 星际商店
         // 布局相关参数（根据布局类型动态调整）
         // 大布局2x4：图标更大，品质材料半行，价格+白银图标，数量+单位
         // 中布局4x4，小布局6x6
-        private float 当前图标尺寸比例 => 当前布局 == 布局类型.大 ? 0.48f : (当前布局 == 布局类型.中 ? 0.40f : 0.35f);
+        private float 当前图标尺寸比例 => 当前布局 == 布局类型.大 ? 0.42f : (当前布局 == 布局类型.中 ? 0.40f : 0.35f);
         private float 当前图标最大尺寸 => 当前布局 == 布局类型.大 ? 72f : (当前布局 == 布局类型.中 ? 40f : 32f);
         private float 当前数量控制高度 => 当前布局 == 布局类型.大 ? 32f : (当前布局 == 布局类型.中 ? 46f : 30f);
         private bool 显示完整数量控制 => 当前布局 == 布局类型.大 || 当前布局 == 布局类型.中;  // 大/中布局显示
@@ -108,7 +108,7 @@ namespace 星际商店
             switch (布局)
             {
                 case 布局类型.大:
-                    行数 = 2;
+                    行数 = 3;
                     列数 = 4;
                     break;
                 case 布局类型.中:
@@ -140,8 +140,8 @@ namespace 星际商店
         private const float 行列输入高 = 18f;
         private const float 购物车宽 = 200f;
         private const float 购物车间距 = 4f;
-        private const float 底部栏Y偏移 = 38f;
-        private const float 底部栏高 = 35f;
+        private const float 底部栏Y偏移 = 52f;
+        private const float 底部栏高 = 48f;
         private const float 网格底部留白 = 64f;
         private const float 网格内边距 = 16f;
         private const float 卡片内边距 = 4f;
@@ -258,7 +258,15 @@ namespace 星际商店
             GUI.color = Color.white;
 
             // ===== 顶部标题栏 =====
-            Rect 标题区域 = new Rect(inRect.x + 水平内边距, inRect.y + 标题栏Y偏移, inRect.width - 水平内边距 * 2f, 标题栏高);
+            // 看板在最左侧，顶部与标题栏对齐
+            float 看板X = inRect.x + 水平内边距;
+            float 看板Y = inRect.y + 标题栏Y偏移;
+            float 看板高 = inRect.height - 标题栏Y偏移 - 底部栏Y偏移 - 4f;
+            float 商店区X = 看板X + 看板宽 + 区域间距;
+            float 商店区宽 = inRect.xMax - 水平内边距 - 商店区X;
+
+            // 标题栏在商店区
+            Rect 标题区域 = new Rect(商店区X, 看板Y, 商店区宽, 标题栏高);
             绘制标题栏(标题区域);
 
             // ===== 布局区域计算 =====
@@ -266,26 +274,24 @@ namespace 星际商店
             float 内容高 = inRect.yMax - 4f - 内容Y - 底部栏Y偏移 - 区域间距;
             float 分页栏高 = 30f;
 
-            // 左侧三列：看板 | 分类列 | 主网格
-            float 看板X = inRect.x + 水平内边距;
-            float 分类列X = 看板X + 看板宽 + 区域间距;
+            // 分类列、网格、购物车都在商店区内
+            float 分类列X = 商店区X;
             float 网格X = 分类列X + 分类列宽 + 区域间距;
             float 当前购物车宽 = 显示购物车 ? 购物车宽 : 0f;
-            float 网格宽 = inRect.xMax - 水平内边距 - 网格X - 当前购物车宽 - (显示购物车 ? 购物车间距 : 0f);
+            float 网格宽 = 商店区宽 - 分类列宽 - 区域间距 - 当前购物车宽 - (显示购物车 ? 购物车间距 : 0f);
 
             // 先绘制网格（底层），再绘制分类列和看板（上层，z-order正确）
             Rect 网格区域 = new Rect(网格X, 内容Y, 网格宽, 内容高);
             绘制物品网格(网格区域);
 
-            // 分类列（垂直，在看板右侧）
             Rect 分类列区域 = new Rect(分类列X, 内容Y, 分类列宽, 内容高);
             绘制分类列(分类列区域);
 
-            // 看板（最左侧，最后绘制确保z-order正确）
-            Rect 看板区域 = new Rect(看板X, 内容Y, 看板宽, 内容高);
+            // 看板（顶部与标题栏对齐，底部在底部栏之上，略短于商店）
+            Rect 看板区域 = new Rect(看板X, 看板Y, 看板宽, 看板高);
             绘制看板(看板区域);
 
-            // 看板右侧垂直分隔线（强化独立面板视觉）
+            // 看板右侧垂直分隔线
             GUI.color = new Color(0.25f, 0.18f, 0.10f, 0.7f);
             Widgets.DrawLineVertical(看板区域.xMax + 1f, 看板区域.y, 看板区域.height);
             GUI.color = Color.white;
@@ -301,8 +307,8 @@ namespace 星际商店
                 绘制购物车(购物车区域);
             }
 
-            // ===== 底部按钮栏 =====
-            Rect 底部区域 = new Rect(inRect.x + 水平内边距, inRect.yMax - 底部栏Y偏移, inRect.width - 水平内边距 * 2f, 底部栏高);
+            // ===== 底部按钮栏（商店区内）=====
+            Rect 底部区域 = new Rect(商店区X, inRect.yMax - 底部栏Y偏移, 商店区宽, 底部栏高);
             绘制底部栏(底部区域);
 
             // ===== 筛选面板（浮层） =====
