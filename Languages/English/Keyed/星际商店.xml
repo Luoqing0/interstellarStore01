@@ -16,7 +16,9 @@
 
   <!-- Cart -->
   <StarStore_PurchaseList>Purchase List</StarStore_PurchaseList>
-  <StarStore_SaleList>Sale List</StarStore_SaleList>
+  <StarStore_SaleList>Sell List</StarStore_SaleList>
+  <StarStore_BuyList>Purchase List</StarStore_BuyList>
+  <StarStore_SellList>Sell List</StarStore_SellList>
   <StarStore_Subtotal>Subtotal: ⛃{0}</StarStore_Subtotal>
   <StarStore_Empty>（Empty）</StarStore_Empty>
 

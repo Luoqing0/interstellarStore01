@@ -27,3 +27,14 @@ plans/
 # OS files
 Thumbs.db
 Desktop.ini
+
+# AI tool configs
+.trae/
+
+# Change logs (temporary)
+修改记录_*.md
+
+# Root temp files
+/新会话提示词.md
+/项目状态.md
+/*.png

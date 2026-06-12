@@ -94,7 +94,7 @@ namespace 星际商店
         public static 布局类型 当前布局 = 布局类型.大;  // 默认大布局
 
         // 布局相关参数（根据布局类型动态调整）
-        // 大布局2x4：图标更大，品质材料半行，价格+白银图标，数量+单位
+        // 大布局3x4：图标更大，品质材料半行，价格+白银图标，数量+单位
         // 中布局4x4，小布局6x6
         private float 当前图标尺寸比例 => 当前布局 == 布局类型.大 ? 0.42f : (当前布局 == 布局类型.中 ? 0.40f : 0.35f);
         private float 当前图标最大尺寸 => 当前布局 == 布局类型.大 ? 72f : (当前布局 == 布局类型.中 ? 40f : 32f);
@@ -149,7 +149,9 @@ namespace 星际商店
         private const float 图标尺寸比例 = 0.40f;
         private const float 看板宽 = 220f;  // 独立看板宽度（不占用网格空间）
         private const float 分类列宽 = 80f;   // 左侧分类列宽度
+        private const float 分页栏高 = 26f;     // 分页控件高度
         private string 缓存问候文字 = "";     // 缓存问候避免每帧变化
+        public ThingDef 当前折扣物品 = null;   // AI：看板/交易/物品网格共享的折扣物品
 
         // ===== 淘宝×科幻电商风格颜色 =====
         // 基底 - 深邃太空背景
@@ -209,7 +211,7 @@ namespace 星际商店
         // ===== 窗口大小 =====
         public override Vector2 RequestedTabSize
         {
-            get { return new Vector2(1350f, 800f); }  // 加宽容纳侧边栏+2x4网格
+            get { return new Vector2(1350f, 880f); }  // AI：加高80px容纳大布局数量控件
         }
 
         // 窗口位置居中
@@ -218,6 +220,38 @@ namespace 星际商店
             base.PostOpen();
             windowRect.x = (UI.screenWidth - windowRect.width) / 2f;
             windowRect.y = (UI.screenHeight - windowRect.height) / 2f;
+
+            // AI 辅助生成：看板独立窗口，紧贴主窗口左侧
+            if (看板窗口 == null)
+            {
+                看板窗口 = new Window_看板(this);
+                Find.WindowStack.Add(看板窗口);
+            }
+            更新看板窗口位置();
+        }
+
+        /// <summary>
+        /// 同步看板窗口位置到主窗口左侧
+        /// </summary>
+        private void 更新看板窗口位置()
+        {
+            if (看板窗口 == null) return;
+            // 看板窗口紧贴主窗口左侧，顶部对齐，高度略短（留出底部栏空间）
+            float kbX = windowRect.x - 看板宽 - 4f;
+            float kbY = windowRect.y + 标题栏Y偏移;
+            float kbH = windowRect.height - 标题栏Y偏移 - 底部栏Y偏移 - 4f;
+            看板窗口.更新位置(kbX, kbY, kbH);
+        }
+
+        public override void PreClose()
+        {
+            base.PreClose();
+            // 关闭看板窗口
+            if (看板窗口 != null)
+            {
+                看板窗口.Close(false);
+                看板窗口 = null;
+            }
         }
 
         public override void OnAcceptKeyPressed()
@@ -244,12 +278,17 @@ namespace 星际商店
                 缓存问候文字 = cfg.greetings[Rand.Range(0, cfg.greetings.Count)];
             else
                 缓存问候文字 = "";
+            // AI 辅助生成：初始化折扣物品
+            当前折扣物品 = cfg?.获取今日折扣物品(GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f));
             // AI 辅助生成：商店开门提示音
             SoundDef.Named("UI_ButtonPrompt").PlayOneShot(new TargetInfo(UI.MouseCell(), Find.CurrentMap));
         }
 
         public override void DoWindowContents(Rect inRect)
         {
+            // 同步看板窗口位置（窗口可能被拖动）
+            更新看板窗口位置();
+
             // 绘制渐变背景（顶部亮→底部暗）
             GUI.color = 渐变顶色;
             Widgets.DrawRectFast(new Rect(inRect.x, inRect.y, inRect.width, inRect.height / 2f), 渐变顶色);
@@ -257,22 +296,18 @@ namespace 星际商店
             Widgets.DrawRectFast(new Rect(inRect.x, inRect.y + inRect.height / 2f, inRect.width, inRect.height / 2f), 渐变底色);
             GUI.color = Color.white;
 
-            // ===== 顶部标题栏 =====
-            // 看板在最左侧，顶部与标题栏对齐
-            float 看板X = inRect.x + 水平内边距;
-            float 看板Y = inRect.y + 标题栏Y偏移;
-            float 看板高 = inRect.height - 标题栏Y偏移 - 底部栏Y偏移 - 4f;
-            float 商店区X = 看板X + 看板宽 + 区域间距;
-            float 商店区宽 = inRect.xMax - 水平内边距 - 商店区X;
+            // ===== 看板已移至独立窗口，商店区从 inRect 左侧开始 =====
+            float 商店区X = inRect.x + 水平内边距;
+            float 商店区宽 = inRect.width - 水平内边距 * 2f;
 
-            // 标题栏在商店区
-            Rect 标题区域 = new Rect(商店区X, 看板Y, 商店区宽, 标题栏高);
+            // ===== 顶部标题栏 =====
+            Rect 标题区域 = new Rect(商店区X, inRect.y + 标题栏Y偏移, 商店区宽, 标题栏高);
             绘制标题栏(标题区域);
 
             // ===== 布局区域计算 =====
+            // AI 辅助生成：内容高减去分页栏空间，避免与底部栏重叠
             float 内容Y = 标题区域.yMax + 区域间距;
-            float 内容高 = inRect.yMax - 4f - 内容Y - 底部栏Y偏移 - 区域间距;
-            float 分页栏高 = 30f;
+            float 内容高 = inRect.yMax - 4f - 内容Y - 底部栏Y偏移 - 分页栏高 - 区域间距 * 2;
 
             // 分类列、网格、购物车都在商店区内
             float 分类列X = 商店区X;
@@ -280,21 +315,24 @@ namespace 星际商店
             float 当前购物车宽 = 显示购物车 ? 购物车宽 : 0f;
             float 网格宽 = 商店区宽 - 分类列宽 - 区域间距 - 当前购物车宽 - (显示购物车 ? 购物车间距 : 0f);
 
-            // 先绘制网格（底层），再绘制分类列和看板（上层，z-order正确）
+            // AI 辅助生成：预估算网格实际所需宽度，收紧右侧空白
+            // 使用与绘制物品网格相同的格子尺寸公式
+            float 预估可用宽 = 网格宽 - 网格内边距;
+            float 预估可用高 = 内容高 - 网格内边距;
+            float 预估格 = Mathf.Min(预估可用宽 / 列数, 预估可用高 / 行数);
+            预估格 -= 间距;
+            预估格 = Mathf.Clamp(预估格, 格子最小尺寸, 格子最大尺寸);
+            float 预估行高 = 预估格 + 间距;
+            if (当前布局 == 布局类型.大) 预估行高 += 20f;
+            float 实际网格宽 = 列数 * 预估行高 + 网格内边距;
+            网格宽 = Mathf.Min(网格宽, 实际网格宽);
+
+            // 先绘制网格（底层），再绘制分类列（上层，z-order正确）
             Rect 网格区域 = new Rect(网格X, 内容Y, 网格宽, 内容高);
             绘制物品网格(网格区域);
 
             Rect 分类列区域 = new Rect(分类列X, 内容Y, 分类列宽, 内容高);
             绘制分类列(分类列区域);
-
-            // 看板（顶部与标题栏对齐，底部在底部栏之上，略短于商店）
-            Rect 看板区域 = new Rect(看板X, 看板Y, 看板宽, 看板高);
-            绘制看板(看板区域);
-
-            // 看板右侧垂直分隔线
-            GUI.color = new Color(0.25f, 0.18f, 0.10f, 0.7f);
-            Widgets.DrawLineVertical(看板区域.xMax + 1f, 看板区域.y, 看板区域.height);
-            GUI.color = Color.white;
 
             // ===== 分页控件（在网格下方）=====
             Rect 分页区域 = new Rect(网格X, 网格区域.yMax + 区域间距, 网格宽, 分页栏高);
@@ -413,11 +451,10 @@ namespace 星际商店
             int 总页数 = Mathf.Max(1, Mathf.CeilToInt((float)当前显示物品.Count / 每页物品数));
             当前页码 = Mathf.Clamp(当前页码, 1, 总页数);
 
-            // 显示物品数量和格子尺寸信息（增加行高避免截断）
+            // 显示物品数量和格子尺寸信息
             GUI.color = new Color(0.5f, 0.5f, 0.7f);
             Text.Font = GameFont.Tiny;
-            float 信息Y = rect.y + 2f;  // 直接从顶部开始，不再居中计算
-            Widgets.Label(new Rect(rect.x + 2f, 信息Y, 250f, 20f),
+            Widgets.Label(new Rect(rect.x + 2f, rect.y + 2f, 180f, 20f),
                 "StarStore_CellInfo".Translate(当前显示物品.Count, (int)缓存格子尺寸));
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
@@ -425,8 +462,8 @@ namespace 星际商店
             if (总页数 <= 1) return;
 
             float 按钮宽 = 24f;
-            float 分页Y = rect.y + 2f;  // 与信息行对齐
-            float 分页起始X = rect.x + 260f;  // 在信息右侧
+            float 分页Y = rect.y + 2f;
+            float 分页起始X = rect.x + 190f;
 
             // 首页按钮
             Rect 首页Rect = new Rect(分页起始X, 分页Y, 按钮宽, 20f);
@@ -436,24 +473,24 @@ namespace 星际商店
             Rect 上一页Rect = new Rect(分页起始X + 26f, 分页Y, 按钮宽, 20f);
             if (Widgets.ButtonText(上一页Rect, "<")) { if (当前页码 > 1) 当前页码--; }
 
-            // 页码显示（增加高度）
+            // 页码显示
             GUI.color = 文字色;
             Text.Font = GameFont.Tiny;
-            Widgets.Label(new Rect(分页起始X + 56f, 分页Y + 2f, 80f, 18f),
+            Widgets.Label(new Rect(分页起始X + 56f, 分页Y + 2f, 70f, 18f),
                 "StarStore_PageInfo".Translate(当前页码, 总页数));
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
 
             // 下一页按钮
-            Rect 下一页Rect = new Rect(分页起始X + 136f, 分页Y, 按钮宽, 20f);
+            Rect 下一页Rect = new Rect(分页起始X + 126f, 分页Y, 按钮宽, 20f);
             if (Widgets.ButtonText(下一页Rect, ">")) { if (当前页码 < 总页数) 当前页码++; }
 
             // 末页按钮
-            Rect 末页Rect = new Rect(分页起始X + 162f, 分页Y, 按钮宽, 20f);
+            Rect 末页Rect = new Rect(分页起始X + 152f, 分页Y, 按钮宽, 20f);
             if (Widgets.ButtonText(末页Rect, ">|")) { 当前页码 = 总页数; }
 
-            // 跳转输入框（增加高度）
-            Rect 跳转Rect = new Rect(分页起始X + 196f, 分页Y, 40f, 20f);
+            // 跳转输入框
+            Rect 跳转Rect = new Rect(分页起始X + 186f, 分页Y, 40f, 20f);
             Widgets.TextFieldNumeric(跳转Rect, ref 当前页码, ref 跳转页码输入, 1, 总页数);
         }
     }

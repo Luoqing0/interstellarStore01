@@ -44,14 +44,12 @@ namespace 星际商店
             float 改善 = 获取交易改善(Find.CurrentMap);
             float 价格 = 基础价 * 乘数 * Mathf.Max(0.05f, 1f - 改善); // 最低 5% 价格
 
-            // 折扣检查（AI 辅助生成：每日随机折扣物品）
-            StarStore_SidebarConfigDef 折扣cfg = 侧边栏管理器.配置;
-            if (折扣cfg != null)
+            // 折扣检查（AI 辅助生成：使用共享折扣物品，与看板刷新同步）
+            if (当前折扣物品 != null && def.defName == 当前折扣物品.defName)
             {
-                int 今日天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
-                ThingDef 折扣物品 = 折扣cfg.获取今日折扣物品(今日天数);
-                if (折扣物品 != null && def.defName == 折扣物品.defName)
-                    价格 *= 折扣cfg.获取折扣比例();
+                StarStore_SidebarConfigDef 折扣cfg2 = 侧边栏管理器.配置;
+                if (折扣cfg2 != null)
+                    价格 *= 折扣cfg2.获取折扣比例();
             }
             return 价格;
         }

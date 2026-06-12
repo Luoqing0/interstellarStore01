@@ -14,8 +14,11 @@ namespace 星际商店
         // ================================================================
         private const float 看板内边距 = 8f;
         private Vector2 看板滚动;
-        private int 新闻随机种子 = -1;  // 点击刷新时随机变化
-        private int 折扣随机种子 = -1;  // 折扣区独立随机种子
+        private int 新闻随机种子 = -1;
+        private int 折扣随机种子 = -1;
+        private ThingDef 上次折扣物品 = null;  // AI：防止刷新后折扣物品变null导致区域消失
+
+        public Window_看板 看板窗口;
 
         // 深色报纸风配色
         private static readonly Color 看板背景色 = new Color(0.10f, 0.07f, 0.04f, 0.92f);
@@ -27,11 +30,15 @@ namespace 星际商店
         private static readonly Color 看板区块新闻色 = new Color(0.6f, 0.55f, 0.4f);
         private static readonly Color 看板区块故事色 = new Color(0.7f, 0.55f, 0.3f);
 
+        public void 绘制看板公开(Rect rect)
+        {
+            绘制看板(rect);
+        }
+
         private void 绘制看板(Rect rect)
         {
             StarStore_SidebarConfigDef cfg = 侧边栏管理器.配置;
 
-            // 看板背景（深棕羊皮纸底色，与商店蓝紫完全不同）
             Widgets.DrawRectFast(rect, 看板背景色);
             GUI.color = 看板边框色;
             Widgets.DrawBox(rect);
@@ -40,7 +47,6 @@ namespace 星际商店
             string title = cfg != null ? cfg.sidebarTitle : "星际商报";
             float 可用宽 = rect.width - 看板内边距 * 2f;
 
-            // 标题 - 暗金色报纸标题感
             GUI.color = 看板标题色;
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperCenter;
@@ -50,7 +56,6 @@ namespace 星际商店
 
             float 内容Y = rect.y + 32f;
 
-            // 看板娘图片（大区域）
             Texture2D mascot = cfg?.获取看板娘贴图();
             if (mascot != null)
             {
@@ -60,7 +65,6 @@ namespace 星际商店
                 内容Y += 图标尺寸 + 4f;
             }
 
-            // 随机问候（使用 PreOpen 缓存的文字，避免每帧抖动）
             if (!string.IsNullOrEmpty(缓存问候文字))
             {
                 GUI.color = 看板文字色;
@@ -74,10 +78,8 @@ namespace 星际商店
                 内容Y += 问候高 + 10f;
             }
 
-            // 游戏内日期
             int 今日天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
 
-            // 滚动内容区
             Rect 视图Rect = new Rect(rect.x + 看板内边距, 内容Y, 可用宽, rect.yMax - 内容Y - 4f);
             float 滚动内容高 = 400f;
             Rect 滚动内容Rect = new Rect(0f, 0f, 可用宽 - 16f, 滚动内容高);
@@ -85,32 +87,41 @@ namespace 星际商店
 
             float cy = 0f;
 
-            // 每日折扣（游戏内日期，可用刷新按钮切换）
+            // 每日折扣 —— AI：防止刷新后折扣物品为null导致区域消失
             ThingDef 折扣物品 = cfg?.获取今日折扣物品(今日天数);
             if (折扣随机种子 >= 0 && cfg != null)
-                折扣物品 = cfg.获取今日折扣物品(折扣随机种子);
+            {
+                // 用随机种子查一次，如果非null就用它
+                ThingDef 随机物品 = cfg.获取今日折扣物品(折扣随机种子);
+                if (随机物品 != null)
+                    折扣物品 = 随机物品;
+                // 如果随机种子返回null则保持原折扣物品（不消失）
+            }
+            if (折扣物品 == null && 上次折扣物品 != null)
+                折扣物品 = 上次折扣物品;  // 保底：用上次的
             if (折扣物品 != null && cfg != null)
             {
+                上次折扣物品 = 折扣物品;  // AI：记住本次，防刷新变null
                 float 折数 = cfg.获取折扣比例() * 10f;
-                string 折扣文本 = "🎫 " + 折扣物品.LabelCap + " " + 折数.ToString("F1") + "折";
+                string 折扣文本 = "折扣 " + 折扣物品.LabelCap + " " + 折数.ToString("F1") + "折";
                 cy = 绘制看板区块(滚动内容Rect, cy, "每日折扣",
                     看板区块折扣色, 折扣文本, 可用宽 - 4f, false);
 
-                // 开发者模式：刷新折扣按钮
                 if (Prefs.DevMode)
                 {
                     Rect 折扣刷新Rect = new Rect(滚动内容Rect.width - 4f, cy - 20f, 28f, 16f);
                     if (Widgets.ButtonText(折扣刷新Rect, "刷新"))
                     {
                         折扣随机种子 = Rand.Range(0, 99999);
+                        ThingDef 新折扣 = cfg.获取今日折扣物品(折扣随机种子);
+                        if (新折扣 != null) 当前折扣物品 = 新折扣;  // AI：同步给交易和物品网格
                     }
                 }
             }
 
-            // 新闻公告（带刷新按钮）
+            // 新闻公告
             string 新闻;
             if (新闻随机种子 >= 0 && cfg != null && cfg.newsList != null && cfg.newsList.Count > 0)
-                // 已刷新过：随机取一条
                 新闻 = cfg.newsList[Rand.RangeSeeded(0, cfg.newsList.Count, 新闻随机种子)];
             else
                 新闻 = cfg?.获取今日新闻(今日天数) ?? "暂无新闻";
@@ -134,18 +145,16 @@ namespace 星际商店
 
         private float 绘制看板区块(Rect rect, float y, string 标题, Color 标题色, string 内容, float 文本宽, bool 显示刷新按钮)
         {
-            // 区块标题
             GUI.color = 标题色;
             Text.Font = GameFont.Small;
             Rect 标题Rect = new Rect(0f, y, rect.width - (显示刷新按钮 ? 28f : 0f), 22f);
             Widgets.Label(标题Rect, 标题);
             GUI.color = Color.white;
 
-            // 新闻刷新按钮
             if (显示刷新按钮)
             {
                 Rect 刷新Rect = new Rect(rect.width - 26f, y + 1f, 24f, 18f);
-                if (Widgets.ButtonText(刷新Rect, "⟳"))
+                if (Widgets.ButtonText(刷新Rect, "刷新"))
                 {
                     新闻随机种子 = Rand.Range(0, 99999);
                     看板滚动 = Vector2.zero;
@@ -158,7 +167,6 @@ namespace 星际商店
             Widgets.Label(new Rect(0f, y + 22f, 文本宽, 内容高), 内容);
             GUI.color = Color.white;
 
-            // 分隔线（暗棕）
             float 下Y = y + 22f + 内容高 + 4f;
             GUI.color = 看板分隔色;
             Widgets.DrawLineHorizontal(0f, 下Y, rect.width);

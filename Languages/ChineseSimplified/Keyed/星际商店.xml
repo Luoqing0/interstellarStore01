@@ -20,6 +20,8 @@
   <StarStore_Inventory>库存: {0}</StarStore_Inventory>
   <StarStore_Cart>购物车</StarStore_Cart>
   <StarStore_CartEmpty>购物车为空</StarStore_CartEmpty>
+  <StarStore_BuyList>购买清单</StarStore_BuyList>
+  <StarStore_SellList>出售清单</StarStore_SellList>
   <StarStore_CellInfo>共 {0} 件 | 格子: {1}px</StarStore_CellInfo>
   <StarStore_PageInfo>第 {0}/{1} 页</StarStore_PageInfo>
 

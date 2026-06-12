@@ -164,7 +164,7 @@ namespace 星际商店
                 GUI.color = new Color(1f, 0.75f, 0.2f);
                 Text.Font = GameFont.Tiny;
                 Widgets.Label(new Rect(价格列X - inRect.x - 5f, ry + 4f, 70f, 22f),
-                    "⛃" + row.unitPrice.ToString("F0"));
+                    "银" + row.unitPrice.ToString("F0"));
                 Text.Font = GameFont.Small;
                 GUI.color = Color.white;
 
@@ -195,7 +195,7 @@ namespace 星际商店
                 GUI.color = new Color(1f, 0.75f, 0.2f);
                 Text.Font = GameFont.Tiny;
                 Widgets.Label(new Rect(qX + 92f, ry + 4f, 60f, 22f),
-                    "⛃" + 小计.ToString("F0"));
+                    "银" + 小计.ToString("F0"));
                 Text.Font = GameFont.Small;
                 GUI.color = Color.white;
 
