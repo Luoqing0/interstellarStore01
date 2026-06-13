@@ -66,6 +66,17 @@ namespace 星际商店
                     当前页码 = 1;
                     刷新物品列表();
                 }
+
+                // AI 辅助生成：仅储存区复选框（在仅库存右侧紧凑排列）
+                float 储存区X = 库存X + 115f;
+                Rect 储存区开关 = new Rect(储存区X, rect.y + 5f, 130f, 22f);
+                bool 旧储存区 = 仅储存区;
+                Widgets.CheckboxLabeled(储存区开关, "StarStore_StorageOnly".Translate(), ref 仅储存区);
+                if (仅储存区 != 旧储存区)
+                {
+                    当前页码 = 1;
+                    刷新物品列表();
+                }
             }
 
             // 右侧按钮

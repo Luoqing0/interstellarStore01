@@ -37,9 +37,15 @@
   <!-- Transaction -->
   <StarStore_SelectVariant>Select Variant</StarStore_SelectVariant>
   <StarStore_PurchaseComplete>Purchase complete! Drop pods incoming.</StarStore_PurchaseComplete>
+  <StarStore_PurchaseIndoor>Purchase complete! Items delivered directly to your base.</StarStore_PurchaseIndoor>
   <StarStore_SaleComplete>Sale complete! Silver received: ⛃{0}</StarStore_SaleComplete>
+  <StarStore_SaleIndoor>Sale complete! ⛃{0} silver delivered to your base.</StarStore_SaleIndoor>
   <StarStore_InsufficientSilver>Not enough silver! Need ⛃{0}, have ⛃{1}</StarStore_InsufficientSilver>
   <StarStore_Locked>Locked:</StarStore_Locked>
+
+  <!-- Header -->
+  <StarStore_StockOnly>Stock Only</StarStore_StockOnly>
+  <StarStore_StorageOnly>Storage Only</StarStore_StorageOnly>
 
   <!-- Categories -->
   <StarStore_Category_Weapons>Weapons</StarStore_Category_Weapons>

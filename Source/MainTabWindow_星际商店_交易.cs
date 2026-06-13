@@ -373,14 +373,20 @@ namespace 星际商店
 
                 try
                 {
-                    Thing 物品 = ThingMaker.MakeThing(key.def, stuff);
-                    if (key.quality != null)
+                    int 剩余数量 = kv.Value;
+                    while (剩余数量 > 0)
                     {
-                        var comp = 物品.TryGetComp<CompQuality>();
-                        if (comp != null) comp.SetQuality(key.quality.Value, ArtGenerationContext.Outsider);
+                        Thing 物品 = ThingMaker.MakeThing(key.def, stuff);
+                        if (key.quality != null)
+                        {
+                            var comp = 物品.TryGetComp<CompQuality>();
+                            if (comp != null) comp.SetQuality(key.quality.Value, ArtGenerationContext.Outsider);
+                        }
+                        int 本次数量 = Mathf.Min(剩余数量, key.def.stackLimit);
+                        物品.stackCount = 本次数量;
+                        待生成.Add(物品);
+                        剩余数量 -= 本次数量;
                     }
-                    物品.stackCount = kv.Value;
-                    待生成.Add(物品);
                 }
                 catch (System.Exception ex)
                 {
@@ -416,10 +422,21 @@ namespace 星际商店
 
             // AI 辅助生成：使用运输舱生成物品（优先轨道交易信标位置）
             IntVec3 dropSpot = 获取有效降落点(map);
-            DropPodUtility.DropThingsNear(dropSpot, map, 待生成);
+            if (dropSpot.IsValid && dropSpot.InBounds(map) && !dropSpot.Roofed(map))
+            {
+                // 方案A：运输舱投放（室外/无屋顶）
+                DropPodUtility.DropThingsNear(dropSpot, map, 待生成);
+                Messages.Message("StarStore_PurchaseComplete".Translate(), new LookTargets(dropSpot, map), MessageTypeDefOf.TaskCompletion);
+            }
+            else
+            {
+                // 方案B：直接生成在地面（室内/屋顶下，运输舱无法通过）
+                IntVec3 center = 获取室内生成点(map);
+                for (int i = 0; i < 待生成.Count; i++)
+                    GenPlace.TryPlaceThing(待生成[i], center, map, ThingPlaceMode.Near);
+                Messages.Message("StarStore_PurchaseIndoor".Translate(), new LookTargets(center, map), MessageTypeDefOf.TaskCompletion);
+            }
             购买交易数量.Clear();
-            // 点击消息可跳转到降落点
-            Messages.Message("StarStore_PurchaseComplete".Translate(), new LookTargets(dropSpot, map), MessageTypeDefOf.TaskCompletion);
             刷新物品列表();
         }
 
@@ -479,17 +496,42 @@ namespace 星际商店
             {
                 Thing silver = ThingMaker.MakeThing(ThingDefOf.Silver, null);
                 silver.stackCount = 白银数量;
-                IntVec3 dropSpot = 获取有效降落点(map);
-                // AI 辅助生成：使用运输舱生成白银收益
-                DropPodUtility.DropThingsNear(dropSpot, map, new List<Thing> { silver });
+
+                IntVec3 saleDropSpot = 获取有效降落点(map);
+                if (saleDropSpot.IsValid && saleDropSpot.InBounds(map) && !saleDropSpot.Roofed(map))
+                {
+                    // 方案A：运输舱投放（室外/无屋顶）
+                    DropPodUtility.DropThingsNear(saleDropSpot, map, new List<Thing> { silver });
+                    Messages.Message("StarStore_SaleComplete".Translate(白银数量), new LookTargets(saleDropSpot, map), MessageTypeDefOf.TaskCompletion);
+                }
+                else
+                {
+                    // 方案B：直接生成在地面（室内/屋顶下）
+                    IntVec3 center = 获取室内生成点(map);
+                    GenPlace.TryPlaceThing(silver, center, map, ThingPlaceMode.Near);
+                    Messages.Message("StarStore_SaleIndoor".Translate(白银数量), new LookTargets(center, map), MessageTypeDefOf.TaskCompletion);
+                }
             }
             出售交易数量.Clear();
             库存映射帧 = -1; // 出售后库存已变化，使缓存失效
             缓存白银帧 = -1; // 白银收益已生成，使缓存失效
-            // 点击消息可跳转到降落点
-            IntVec3 saleDropSpot = 获取有效降落点(map);
-            Messages.Message("StarStore_SaleComplete".Translate(白银数量), new LookTargets(saleDropSpot, map), MessageTypeDefOf.TaskCompletion);
             刷新物品列表();
+        }
+
+        // AI 辅助生成：室内生成点（用于全室内地图无运输舱投放时）
+        private IntVec3 获取室内生成点(Map map)
+        {
+            // 优先使用选中的殖民者位置
+            Pawn 选中殖民者 = Find.Selector.SingleSelectedThing as Pawn;
+            if (选中殖民者 != null)
+                return 选中殖民者.Position;
+
+            // 回退到地图中心附近的可通行格
+            IntVec3 center = map.Center;
+            if (center.Walkable(map))
+                return center;
+
+            return CellFinder.RandomClosewalkCellNear(center, map, 10);
         }
 
         private IntVec3 获取有效降落点(Map map)

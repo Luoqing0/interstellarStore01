@@ -17,6 +17,7 @@ namespace 星际商店
         // ===== 模式 =====
         private bool 是购买模式 = true;
         private bool 仅显示库存 = false;
+        public bool 仅储存区 = false;
 
         // ===== 滚动位置 =====
         private Vector2 网格滚动位置 = Vector2.zero;
@@ -434,6 +435,8 @@ namespace 星际商店
                     if (thing.def.IsCorpse) continue;
                     // 排除碎片（Chunk）
                     if (thing.def.thingCategories != null && thing.def.thingCategories.Any(c => c.defName == "Chunks")) continue;
+                    // AI 辅助生成：仅储存区模式下，跳过不在储存区内的物品
+                    if (仅储存区 && !thing.IsInAnyStorage()) continue;
 
                     if (!库存映射.ContainsKey(thing.def))
                         库存映射[thing.def] = new List<Thing>();

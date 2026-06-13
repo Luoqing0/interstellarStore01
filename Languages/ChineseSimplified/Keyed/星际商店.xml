@@ -39,6 +39,7 @@
 
   <!-- 卖出模式 -->
   <StarStore_StockOnly>仅库存物品</StarStore_StockOnly>
+  <StarStore_StorageOnly>仅储存区</StarStore_StorageOnly>
   <StarStore_StockCount>{0} 件</StarStore_StockCount>
 
   <!-- 布局控制 -->
@@ -60,8 +61,10 @@
   <StarStore_InsufficientSilver>白银不足，无法完成交易。需要 ⛃ {0}，当前拥有: ⛃ {1}</StarStore_InsufficientSilver>
   <StarStore_InsufficientStock>库存不足：{0}</StarStore_InsufficientStock>
   <StarStore_PurchaseComplete>交易完成！物品已送达。</StarStore_PurchaseComplete>
+  <StarStore_PurchaseIndoor>交易完成！物品已直接生成在基地内。</StarStore_PurchaseIndoor>
   <StarStore_PurchasePartialDropFail>部分物品(×{0})无法放置到降落点。建议清理交易信标附近区域。</StarStore_PurchasePartialDropFail>
   <StarStore_SaleComplete>出售完成！获得 ⛃ {0} 白银。</StarStore_SaleComplete>
+  <StarStore_SaleIndoor>出售完成！⛃{0} 白银已直接生成在基地内。</StarStore_SaleIndoor>
   <StarStore_SaleSilverDropFail>白银收益 ⛃ {0} 放置失败，收入可能丢失。</StarStore_SaleSilverDropFail>
   <StarStore_MainWindowUnavailable>商店主窗口不可用，请重新打开商店。</StarStore_MainWindowUnavailable>
 
