@@ -353,6 +353,7 @@ namespace 星际商店
 
             float 总花费 = 0f;
             List<Thing> 待生成 = new List<Thing>();
+            bool 含有动物 = false;
             foreach (KeyValuePair<TransactionKey, int> kv in 购买交易数量)
             {
                 if (kv.Value <= 0) continue;
@@ -366,6 +367,37 @@ namespace 星际商店
 
                 float 单价 = 获取购买价格(key.def, key.quality, key.stuff);
                 总花费 += 单价 * kv.Value;
+
+                // 动物（Pawn）特殊处理：ThingMaker.MakeThing 会创建畸形 Pawn，
+                // 缺少 faction/kindDef/年龄等初始化，生成到地图后会污染 MapPawns 内部列表，
+                // 导致 MapPawns.get_AllPawnsUnspawned() NRE → 游戏卡死
+                if (key.def.race != null)
+                {
+                    含有动物 = true;
+                    PawnKindDef kindDef = DefDatabase<PawnKindDef>.AllDefs
+                        .FirstOrDefault(k => k.race == key.def);
+                    if (kindDef == null)
+                    {
+                        Log.Error($"星际商店: 无法找到 {key.def.defName} 的 PawnKindDef，跳过");
+                        Messages.Message("StarStore_CreateItemFailed".Translate(key.def.label), MessageTypeDefOf.RejectInput);
+                        return;
+                    }
+                    try
+                    {
+                        for (int i = 0; i < kv.Value; i++)
+                        {
+                            Pawn pawn = PawnGenerator.GeneratePawn(kindDef, Faction.OfPlayer);
+                            待生成.Add(pawn);
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Log.Error($"星际商店: 无法生成动物 {key.def.defName}: {ex.Message}");
+                        Messages.Message("StarStore_CreateItemFailed".Translate(key.def.label), MessageTypeDefOf.RejectInput);
+                        return;
+                    }
+                    continue;
+                }
 
                 ThingDef stuff = key.stuff;
                 if (key.def.MadeFromStuff && stuff == null)
@@ -425,15 +457,41 @@ namespace 星际商店
             if (dropSpot.IsValid && dropSpot.InBounds(map) && !dropSpot.Roofed(map))
             {
                 // 方案A：运输舱投放（室外/无屋顶）
-                DropPodUtility.DropThingsNear(dropSpot, map, 待生成);
+                if (含有动物)
+                {
+                    // 动物和物品分开处理：物品用 DropPodUtility，动物用 GenSpawn
+                    List<Thing> 仅物品 = 待生成.Where(t => !(t is Pawn)).ToList();
+                    List<Thing> 仅动物 = 待生成.Where(t => t is Pawn).ToList();
+                    if (仅物品.Count > 0)
+                        DropPodUtility.DropThingsNear(dropSpot, map, 仅物品);
+                    for (int i = 0; i < 仅动物.Count; i++)
+                        GenSpawn.Spawn((Pawn)仅动物[i], dropSpot, map, 0);
+                }
+                else
+                {
+                    DropPodUtility.DropThingsNear(dropSpot, map, 待生成);
+                }
                 Messages.Message("StarStore_PurchaseComplete".Translate(), new LookTargets(dropSpot, map), MessageTypeDefOf.TaskCompletion);
             }
             else
             {
                 // 方案B：直接生成在地面（室内/屋顶下，运输舱无法通过）
                 IntVec3 center = 获取室内生成点(map);
-                for (int i = 0; i < 待生成.Count; i++)
-                    GenPlace.TryPlaceThing(待生成[i], center, map, ThingPlaceMode.Near);
+                if (含有动物)
+                {
+                    // 动物和物品分开处理：物品用 GenPlace，动物用 GenSpawn
+                    List<Thing> 仅物品 = 待生成.Where(t => !(t is Pawn)).ToList();
+                    List<Thing> 仅动物 = 待生成.Where(t => t is Pawn).ToList();
+                    for (int i = 0; i < 仅物品.Count; i++)
+                        GenPlace.TryPlaceThing(仅物品[i], center, map, ThingPlaceMode.Near);
+                    for (int i = 0; i < 仅动物.Count; i++)
+                        GenSpawn.Spawn((Pawn)仅动物[i], CellFinder.RandomClosewalkCellNear(center, map, 10), map, 0);
+                }
+                else
+                {
+                    for (int i = 0; i < 待生成.Count; i++)
+                        GenPlace.TryPlaceThing(待生成[i], center, map, ThingPlaceMode.Near);
+                }
                 Messages.Message("StarStore_PurchaseIndoor".Translate(), new LookTargets(center, map), MessageTypeDefOf.TaskCompletion);
             }
             购买交易数量.Clear();
