@@ -1,70 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     Interstellar Store - English Language File
+     ============================================================ -->
 <LanguageData>
-
-  <!-- Star Store - Main Window -->
-  <StarStore_Title>Interstellar Store</StarStore_Title>
-  <StarStore_Cart>Cart</StarStore_Cart>
+  <!-- Main Window -->
+  <StarStore_Title>✦ Interstellar Store ✦</StarStore_Title>
   <StarStore_BuyMode>Buy</StarStore_BuyMode>
   <StarStore_SellMode>Sell</StarStore_SellMode>
-  <StarStore_LayoutLarge>Large</StarStore_LayoutLarge>
-  <StarStore_LayoutMedium>Medium</StarStore_LayoutMedium>
-  <StarStore_LayoutSmall>Small</StarStore_LayoutSmall>
-  <StarStore_SearchHint>Search...</StarStore_SearchHint>
-  <StarStore_Favorites>Favorites</StarStore_Favorites>
+  <StarStore_Filter>Filter</StarStore_Filter>
   <StarStore_All>All</StarStore_All>
-  <StarStore_InventoryOnly>Inventory Only</StarStore_InventoryOnly>
-
-  <!-- Cart -->
-  <StarStore_PurchaseList>Purchase List</StarStore_PurchaseList>
-  <StarStore_SaleList>Sell List</StarStore_SaleList>
+  <StarStore_Favorites>Favorites</StarStore_Favorites>
+  <StarStore_NoItems>No items available</StarStore_NoItems>
+  <StarStore_SelectedCount>{0} selected  |  ⛃ {1}</StarStore_SelectedCount>
+  <StarStore_BuyButton>⚡ Purchase</StarStore_BuyButton>
+  <StarStore_SellButton>💰 Sell</StarStore_SellButton>
+  <StarStore_ClearButton>Clear</StarStore_ClearButton>
+  <StarStore_Quantity>Qty:</StarStore_Quantity>
+  <StarStore_Inventory>Stock: {0}</StarStore_Inventory>
+  <StarStore_Cart>Cart</StarStore_Cart>
+  <StarStore_CartEmpty>Cart is empty</StarStore_CartEmpty>
   <StarStore_BuyList>Purchase List</StarStore_BuyList>
   <StarStore_SellList>Sell List</StarStore_SellList>
-  <StarStore_Subtotal>Subtotal: ⛃{0}</StarStore_Subtotal>
-  <StarStore_Empty>（Empty）</StarStore_Empty>
-
-  <!-- Pagination -->
-  <StarStore_CellInfo>{0} items, {1}px per cell</StarStore_CellInfo>
+  <StarStore_CellInfo>{0} items | Cell: {1}px</StarStore_CellInfo>
   <StarStore_PageInfo>Page {0}/{1}</StarStore_PageInfo>
 
-  <!-- Bottom Bar -->
-  <StarStore_SelectedCount>Selected: {0} items, total: ⛃{1}</StarStore_SelectedCount>
-  <StarStore_SilverBalance>Silver: ⛃{0}</StarStore_SilverBalance>
-  <StarStore_SilverShortfall>Need ⛃{0}, shortfall: ⛃{1}</StarStore_SilverShortfall>
-  <StarStore_ClearButton>Clear</StarStore_ClearButton>
-  <StarStore_BuyButton>Purchase</StarStore_BuyButton>
-  <StarStore_SellButton>Sell</StarStore_SellButton>
+  <!-- Category Tabs -->
+  <StarStore_Cat_Food>Food</StarStore_Cat_Food>
+  <StarStore_Cat_Medicine>Medicine</StarStore_Cat_Medicine>
+  <StarStore_Cat_Weapons>Weapons</StarStore_Cat_Weapons>
+  <StarStore_Cat_Apparel>Apparel</StarStore_Cat_Apparel>
+  <StarStore_Cat_RawMaterials>Raw Materials</StarStore_Cat_RawMaterials>
+  <StarStore_Cat_Manufactured>Manufactured</StarStore_Cat_Manufactured>
+  <StarStore_Cat_Buildings>Buildings</StarStore_Cat_Buildings>
+  <StarStore_Cat_Furniture>Furniture</StarStore_Cat_Furniture>
+  <StarStore_Cat_Electronics>Electronics</StarStore_Cat_Electronics>
+  <StarStore_Cat_Misc>Misc</StarStore_Cat_Misc>
 
-  <!-- Transaction -->
-  <StarStore_SelectVariant>Select Variant</StarStore_SelectVariant>
-  <StarStore_PurchaseComplete>Purchase complete! Drop pods incoming.</StarStore_PurchaseComplete>
-  <StarStore_PurchaseIndoor>Purchase complete! Items delivered directly to your base.</StarStore_PurchaseIndoor>
-  <StarStore_SaleComplete>Sale complete! Silver received: ⛃{0}</StarStore_SaleComplete>
-  <StarStore_SaleIndoor>Sale complete! ⛃{0} silver delivered to your base.</StarStore_SaleIndoor>
-  <StarStore_InsufficientSilver>Not enough silver! Need ⛃{0}, have ⛃{1}</StarStore_InsufficientSilver>
-  <StarStore_Locked>Locked:</StarStore_Locked>
-
-  <!-- Header -->
+  <!-- Sell Mode -->
   <StarStore_StockOnly>Stock Only</StarStore_StockOnly>
   <StarStore_StorageOnly>Storage Only</StarStore_StorageOnly>
+  <StarStore_StockCount>{0} items</StarStore_StockCount>
 
-  <!-- Categories -->
-  <StarStore_Category_Weapons>Weapons</StarStore_Category_Weapons>
-  <StarStore_Category_Apparel>Apparel</StarStore_Category_Apparel>
-  <StarStore_Category_Medical>Medical</StarStore_Category_Medical>
-  <StarStore_Category_Food>Food</StarStore_Category_Food>
-  <StarStore_Category_Buildings>Buildings</StarStore_Category_Buildings>
-  <StarStore_Category_Furniture>Furniture</StarStore_Category_Furniture>
-  <StarStore_Category_Electronics>Electronics</StarStore_Category_Electronics>
-  <StarStore_Category_Production>Production</StarStore_Category_Production>
-  <StarStore_Category_Resources>Resources</StarStore_Category_Resources>
-  <StarStore_Category_Animals>Animals</StarStore_Category_Animals>
-  <StarStore_Category_Luxury>Luxury</StarStore_Category_Luxury>
-  <StarStore_Category_Other>Other</StarStore_Category_Other>
+  <!-- Layout Control -->
+  <StarStore_Rows>Rows:</StarStore_Rows>
+  <StarStore_Cols>Cols:</StarStore_Cols>
 
-  <!-- Sidebar -->
-  <StarStore_SidebarTitle>Star Trader News</StarStore_SidebarTitle>
-  <StarStore_DailyDiscount>Daily Discount</StarStore_DailyDiscount>
-  <StarStore_News>Galactic News</StarStore_News>
-  <StarStore_Backstory>Backstory</StarStore_Backstory>
+  <!-- Filter Panel -->
+  <StarStore_FilterTitle>Filter Options</StarStore_FilterTitle>
+  <StarStore_FilterTechOnly>Researched Only</StarStore_FilterTechOnly>
+  <StarStore_FilterByMod>Filter by Mod:</StarStore_FilterByMod>
+  <StarStore_AllMods>★ All Mods</StarStore_AllMods>
+  <StarStore_FilterApply>Apply</StarStore_FilterApply>
 
+  <!-- Bottom Bar -->
+  <StarStore_SilverShortfall> (Silver shortfall: {0} / {1})</StarStore_SilverShortfall>
+
+  <!-- Messages -->
+  <StarStore_ConditionNotMet>Conditions not met. Cannot purchase: {0}</StarStore_ConditionNotMet>
+  <StarStore_InsufficientSilver>Not enough silver! Need ⛃ {0}, have ⛃ {1}</StarStore_InsufficientSilver>
+  <StarStore_InsufficientStock>Insufficient stock: {0}</StarStore_InsufficientStock>
+  <StarStore_PurchaseComplete>Purchase complete! Items delivered.</StarStore_PurchaseComplete>
+  <StarStore_PurchaseIndoor>Purchase complete! Items delivered directly to your base.</StarStore_PurchaseIndoor>
+  <StarStore_PurchasePartialDropFail>Some items (×{0}) could not be placed at the drop spot. Clear the area near your trade beacons.</StarStore_PurchasePartialDropFail>
+  <StarStore_SaleComplete>Sale complete! Received ⛃ {0} silver.</StarStore_SaleComplete>
+  <StarStore_SaleIndoor>Sale complete! ⛃{0} silver delivered to your base.</StarStore_SaleIndoor>
+  <StarStore_SaleSilverDropFail>Silver proceeds ⛃ {0} failed to place. Income may be lost.</StarStore_SaleSilverDropFail>
+  <StarStore_MainWindowUnavailable>Store main window unavailable. Please reopen the store.</StarStore_MainWindowUnavailable>
+
+  <!-- Trade Conditions -->
+  <StarStore_RequireResearch>Requires research: {0}</StarStore_RequireResearch>
+  <StarStore_RequireItem>Requires item: {0}</StarStore_RequireItem>
+  <StarStore_Locked>🔒</StarStore_Locked>
+  <StarStore_Hidden>🔒 Hidden</StarStore_Hidden>
+
+  <!-- Settings -->
+  <StarStore_SettingsTitle>Interstellar Store Settings</StarStore_SettingsTitle>
+  <StarStore_SettingsRows>Default rows: {0}</StarStore_SettingsRows>
+  <StarStore_SettingsCols>Default columns: {0}</StarStore_SettingsCols>
+  <StarStore_SettingsBuyMultiplier>Buy price multiplier: {0}</StarStore_SettingsBuyMultiplier>
+  <StarStore_SettingsSellMultiplier>Sell price multiplier: {0}</StarStore_SettingsSellMultiplier>
+
+  <!-- Dev Mode - Config Window -->
+  <StarStore_ConfigTitle>⚙ Trade Condition Config - {0}</StarStore_ConfigTitle>
+  <StarStore_ConfigItemInfo>Item: {0} | Base price: {1}</StarStore_ConfigItemInfo>
+  <StarStore_ConfigResearchInput>Required research (DefName, leave blank for none):</StarStore_ConfigResearchInput>
+  <StarStore_ConfigItemInput>Required colony item (DefName, leave blank for none):</StarStore_ConfigItemInput>
+  <StarStore_ConfigIdentified>✓ Identified: {0}</StarStore_ConfigIdentified>
+  <StarStore_ConfigNotFound>✗ {0} not found</StarStore_ConfigNotFound>
+  <StarStore_ConfigIdentifiedResearch>✓ Identified: {0} (Unlocked: {1})</StarStore_ConfigIdentifiedResearch>
+  <StarStore_ConfigHide>🔒 Hide this item</StarStore_ConfigHide>
+  <StarStore_ConfigUnhide>🔓 Unhide this item</StarStore_ConfigUnhide>
+  <StarStore_ConfigSave>Save Conditions</StarStore_ConfigSave>
+  <StarStore_ConfigDelete>Delete Conditions</StarStore_ConfigDelete>
+  <StarStore_ConfigClose>Close</StarStore_ConfigClose>
+  <StarStore_ConfigSaved>Conditions saved!</StarStore_ConfigSaved>
+  <StarStore_ConfigDeleted>Conditions deleted!</StarStore_ConfigDeleted>
+  <StarStore_ConfigUnhidden>Unhidden</StarStore_ConfigUnhidden>
+  <StarStore_ConfigHidden>Hidden</StarStore_ConfigHidden>
+  <StarStore_ConfigExport>📤 Export All Configs to XML (Save to Desktop)</StarStore_ConfigExport>
+  <StarStore_ConfigExported>Config exported to desktop: {0}</StarStore_ConfigExported>
+  <StarStore_ConfigNoExport>No trade conditions to export.</StarStore_ConfigNoExport>
+  <StarStore_ConfigExportFailed>Export failed: {0}</StarStore_ConfigExportFailed>
+
+  <!-- Quality/Material Trading -->
+  <StarStore_QualityLabel>Quality: {0}</StarStore_QualityLabel>
+  <StarStore_MaterialLabel>Material: {0}</StarStore_MaterialLabel>
+  <StarStore_QualityDefault>Quality: Normal</StarStore_QualityDefault>
+  <StarStore_CreateItemFailed>Cannot create item: {0}</StarStore_CreateItemFailed>
+
+  <!-- Sell Variant Dialog -->
+  <StarStore_SellDialogTitle>Sell — {0}</StarStore_SellDialogTitle>
+  <StarStore_NoVariants>No variants available</StarStore_NoVariants>
+  <StarStore_Variant>Variant</StarStore_Variant>
+  <StarStore_Stock>Stock</StarStore_Stock>
+  <StarStore_UnitPrice>Unit Price</StarStore_UnitPrice>
+  <StarStore_Amount>Amount</StarStore_Amount>
+  <StarStore_SelectedSummary>Selected: {0} items</StarStore_SelectedSummary>
+  <StarStore_ExpectedRevenue>Expected revenue: ⛃ {0}</StarStore_ExpectedRevenue>
+  <StarStore_MaxAll>Sell All</StarStore_MaxAll>
+  <StarStore_AddToCart>Add to Cart</StarStore_AddToCart>
+  <StarStore_AddedVariants>Added {0} variants to cart</StarStore_AddedVariants>
+  <StarStore_SelectVariant>Select Variant...</StarStore_SelectVariant>
 </LanguageData>

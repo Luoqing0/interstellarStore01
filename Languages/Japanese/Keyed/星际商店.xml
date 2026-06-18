@@ -1,62 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     インターステラ・ストア - 日本語言語ファイル
+     ============================================================ -->
 <LanguageData>
-
-  <!-- インターステラ・ストア - メインウィンドウ -->
-  <StarStore_Title>インターステラ商店</StarStore_Title>
-  <StarStore_Cart>カート</StarStore_Cart>
+  <!-- メインウィンドウ -->
+  <StarStore_Title>✦ インターステラ商店 ✦</StarStore_Title>
   <StarStore_BuyMode>購入</StarStore_BuyMode>
   <StarStore_SellMode>売却</StarStore_SellMode>
-  <StarStore_LayoutLarge>大</StarStore_LayoutLarge>
-  <StarStore_LayoutMedium>中</StarStore_LayoutMedium>
-  <StarStore_LayoutSmall>小</StarStore_LayoutSmall>
-  <StarStore_SearchHint>検索...</StarStore_SearchHint>
-  <StarStore_Favorites>お気に入り</StarStore_Favorites>
+  <StarStore_Filter>フィルター</StarStore_Filter>
   <StarStore_All>すべて</StarStore_All>
-  <StarStore_InventoryOnly>在庫のみ</StarStore_InventoryOnly>
-
-  <!-- カート -->
-  <StarStore_PurchaseList>購入リスト</StarStore_PurchaseList>
-  <StarStore_SaleList>売却リスト</StarStore_SaleList>
-  <StarStore_Subtotal>小計: ⛃{0}</StarStore_Subtotal>
-  <StarStore_Empty>（空）</StarStore_Empty>
-
-  <!-- ページネーション -->
-  <StarStore_CellInfo>{0} アイテム, {1}px/セル</StarStore_CellInfo>
+  <StarStore_Favorites>お気に入り</StarStore_Favorites>
+  <StarStore_NoItems>利用可能なアイテムはありません</StarStore_NoItems>
+  <StarStore_SelectedCount>選択中: {0} 件  |  ⛃ {1}</StarStore_SelectedCount>
+  <StarStore_BuyButton>⚡ 購入</StarStore_BuyButton>
+  <StarStore_SellButton>💰 売却</StarStore_SellButton>
+  <StarStore_ClearButton>クリア</StarStore_ClearButton>
+  <StarStore_Quantity>数量:</StarStore_Quantity>
+  <StarStore_Inventory>在庫: {0}</StarStore_Inventory>
+  <StarStore_Cart>カート</StarStore_Cart>
+  <StarStore_CartEmpty>カートは空です</StarStore_CartEmpty>
+  <StarStore_BuyList>購入リスト</StarStore_BuyList>
+  <StarStore_SellList>売却リスト</StarStore_SellList>
+  <StarStore_CellInfo>合計 {0} 件 | セル: {1}px</StarStore_CellInfo>
   <StarStore_PageInfo>ページ {0}/{1}</StarStore_PageInfo>
 
+  <!-- カテゴリタブ -->
+  <StarStore_Cat_Food>食料</StarStore_Cat_Food>
+  <StarStore_Cat_Medicine>医療</StarStore_Cat_Medicine>
+  <StarStore_Cat_Weapons>武器</StarStore_Cat_Weapons>
+  <StarStore_Cat_Apparel>衣類</StarStore_Cat_Apparel>
+  <StarStore_Cat_RawMaterials>原材料</StarStore_Cat_RawMaterials>
+  <StarStore_Cat_Manufactured>加工品</StarStore_Cat_Manufactured>
+  <StarStore_Cat_Buildings>建築物</StarStore_Cat_Buildings>
+  <StarStore_Cat_Furniture>家具</StarStore_Cat_Furniture>
+  <StarStore_Cat_Electronics>電子機器</StarStore_Cat_Electronics>
+  <StarStore_Cat_Misc>その他</StarStore_Cat_Misc>
+
+  <!-- 売却モード -->
+  <StarStore_StockOnly>在庫のみ</StarStore_StockOnly>
+  <StarStore_StorageOnly>保管場所のみ</StarStore_StorageOnly>
+  <StarStore_StockCount>{0} 件</StarStore_StockCount>
+
+  <!-- レイアウト制御 -->
+  <StarStore_Rows>行:</StarStore_Rows>
+  <StarStore_Cols>列:</StarStore_Cols>
+
+  <!-- フィルターパネル -->
+  <StarStore_FilterTitle>フィルター条件</StarStore_FilterTitle>
+  <StarStore_FilterTechOnly>研究済みのみ表示</StarStore_FilterTechOnly>
+  <StarStore_FilterByMod>Mod フィルター:</StarStore_FilterByMod>
+  <StarStore_AllMods>★ すべてのMod</StarStore_AllMods>
+  <StarStore_FilterApply>適用</StarStore_FilterApply>
+
   <!-- ボトムバー -->
-  <StarStore_SelectedCount>選択中: {0} アイテム, 合計: ⛃{1}</StarStore_SelectedCount>
-  <StarStore_SilverBalance>シルバー: ⛃{0}</StarStore_SilverBalance>
-  <StarStore_SilverShortfall>⛃{0} 必要, ⛃{1} 不足</StarStore_SilverShortfall>
-  <StarStore_ClearButton>クリア</StarStore_ClearButton>
-  <StarStore_BuyButton>購入する</StarStore_BuyButton>
-  <StarStore_SellButton>売却する</StarStore_SellButton>
+  <StarStore_SilverShortfall> (シルバー不足: {0} / {1})</StarStore_SilverShortfall>
 
-  <!-- 取引 -->
-  <StarStore_SelectVariant>バリエーションを選択</StarStore_SelectVariant>
-  <StarStore_PurchaseComplete>購入完了！輸送ポッドが到着します。</StarStore_PurchaseComplete>
-  <StarStore_SaleComplete>売却完了！シルバー受取: ⛃{0}</StarStore_SaleComplete>
-  <StarStore_InsufficientSilver>シルバー不足！⛃{0} 必要, ⛃{1} 所持</StarStore_InsufficientSilver>
-  <StarStore_Locked>ロック:</StarStore_Locked>
+  <!-- メッセージ -->
+  <StarStore_ConditionNotMet>条件を満たしていません。購入できません: {0}</StarStore_ConditionNotMet>
+  <StarStore_InsufficientSilver>シルバー不足。取引を完了できません。⛃ {0} 必要、現在: ⛃ {1}</StarStore_InsufficientSilver>
+  <StarStore_InsufficientStock>在庫不足: {0}</StarStore_InsufficientStock>
+  <StarStore_PurchaseComplete>取引完了！アイテムが配送されました。</StarStore_PurchaseComplete>
+  <StarStore_PurchaseIndoor>取引完了！アイテムが拠点内に直接生成されました。</StarStore_PurchaseIndoor>
+  <StarStore_PurchasePartialDropFail>一部のアイテム(×{0})を着陸地点に配置できませんでした。交易ビーコン周辺を整理してください。</StarStore_PurchasePartialDropFail>
+  <StarStore_SaleComplete>売却完了！⛃ {0} シルバーを獲得しました。</StarStore_SaleComplete>
+  <StarStore_SaleIndoor>売却完了！⛃{0} シルバーが拠点内に直接生成されました。</StarStore_SaleIndoor>
+  <StarStore_SaleSilverDropFail>シルバー収益 ⛃ {0} の配置に失敗しました。収入が失われる可能性があります。</StarStore_SaleSilverDropFail>
+  <StarStore_MainWindowUnavailable>ストアのメインウィンドウが利用できません。ストアを開き直してください。</StarStore_MainWindowUnavailable>
 
-  <!-- カテゴリ -->
-  <StarStore_Category_Weapons>武器</StarStore_Category_Weapons>
-  <StarStore_Category_Apparel>衣類</StarStore_Category_Apparel>
-  <StarStore_Category_Medical>医療</StarStore_Category_Medical>
-  <StarStore_Category_Food>食料</StarStore_Category_Food>
-  <StarStore_Category_Buildings>建築物</StarStore_Category_Buildings>
-  <StarStore_Category_Furniture>家具</StarStore_Category_Furniture>
-  <StarStore_Category_Electronics>電子機器</StarStore_Category_Electronics>
-  <StarStore_Category_Production>生産</StarStore_Category_Production>
-  <StarStore_Category_Resources>資源</StarStore_Category_Resources>
-  <StarStore_Category_Animals>動物</StarStore_Category_Animals>
-  <StarStore_Category_Luxury>贅沢品</StarStore_Category_Luxury>
-  <StarStore_Category_Other>その他</StarStore_Category_Other>
+  <!-- 取引条件 -->
+  <StarStore_RequireResearch>研究が必要: {0}</StarStore_RequireResearch>
+  <StarStore_RequireItem>アイテムが必要: {0}</StarStore_RequireItem>
+  <StarStore_Locked>🔒</StarStore_Locked>
+  <StarStore_Hidden>🔒 非表示</StarStore_Hidden>
 
-  <!-- サイドバー -->
-  <StarStore_SidebarTitle>星間商報</StarStore_SidebarTitle>
-  <StarStore_DailyDiscount>本日の割引</StarStore_DailyDiscount>
-  <StarStore_News>銀河ニュース</StarStore_News>
-  <StarStore_Backstory>背景ストーリー</StarStore_Backstory>
+  <!-- 設定画面 -->
+  <StarStore_SettingsTitle>インターステラ商店 設定</StarStore_SettingsTitle>
+  <StarStore_SettingsRows>デフォルト行数: {0}</StarStore_SettingsRows>
+  <StarStore_SettingsCols>デフォルト列数: {0}</StarStore_SettingsCols>
+  <StarStore_SettingsBuyMultiplier>購入価格倍率: {0}</StarStore_SettingsBuyMultiplier>
+  <StarStore_SettingsSellMultiplier>売却価格倍率: {0}</StarStore_SettingsSellMultiplier>
 
+  <!-- 開発者モード - 設定ウィンドウ -->
+  <StarStore_ConfigTitle>⚙ 取引条件設定 - {0}</StarStore_ConfigTitle>
+  <StarStore_ConfigItemInfo>アイテム: {0} | 基本価格: {1}</StarStore_ConfigItemInfo>
+  <StarStore_ConfigResearchInput>必要な研究プロジェクト (DefName, 空欄で制限なし):</StarStore_ConfigResearchInput>
+  <StarStore_ConfigItemInput>必要なコロニーアイテム (DefName, 空欄で制限なし):</StarStore_ConfigItemInput>
+  <StarStore_ConfigIdentified>✓ 認識済み: {0}</StarStore_ConfigIdentified>
+  <StarStore_ConfigNotFound>✗ {0}が見つかりません</StarStore_ConfigNotFound>
+  <StarStore_ConfigIdentifiedResearch>✓ 認識済み: {0} (解除済み: {1})</StarStore_ConfigIdentifiedResearch>
+  <StarStore_ConfigHide>🔒 このアイテムを非表示</StarStore_ConfigHide>
+  <StarStore_ConfigUnhide>🔓 このアイテムの非表示を解除</StarStore_ConfigUnhide>
+  <StarStore_ConfigSave>条件を保存</StarStore_ConfigSave>
+  <StarStore_ConfigDelete>条件を削除</StarStore_ConfigDelete>
+  <StarStore_ConfigClose>閉じる</StarStore_ConfigClose>
+  <StarStore_ConfigSaved>条件が保存されました！</StarStore_ConfigSaved>
+  <StarStore_ConfigDeleted>条件が削除されました！</StarStore_ConfigDeleted>
+  <StarStore_ConfigUnhidden>非表示が解除されました</StarStore_ConfigUnhidden>
+  <StarStore_ConfigHidden>非表示になりました</StarStore_ConfigHidden>
+  <StarStore_ConfigExport>📤 すべての設定をXMLにエクスポート (デスクトップに保存)</StarStore_ConfigExport>
+  <StarStore_ConfigExported>設定がデスクトップにエクスポートされました: {0}</StarStore_ConfigExported>
+  <StarStore_ConfigNoExport>エクスポートする取引条件がありません。</StarStore_ConfigNoExport>
+  <StarStore_ConfigExportFailed>エクスポート失敗: {0}</StarStore_ConfigExportFailed>
+
+  <!-- 品質/素材取引 -->
+  <StarStore_QualityLabel>品質: {0}</StarStore_QualityLabel>
+  <StarStore_MaterialLabel>素材: {0}</StarStore_MaterialLabel>
+  <StarStore_QualityDefault>品質: 標準</StarStore_QualityDefault>
+  <StarStore_CreateItemFailed>アイテムを作成できません: {0}</StarStore_CreateItemFailed>
+
+  <!-- 売却バリエーション -->
+  <StarStore_SellDialogTitle>売却 — {0}</StarStore_SellDialogTitle>
+  <StarStore_NoVariants>利用可能なバリエーションはありません</StarStore_NoVariants>
+  <StarStore_Variant>バリエーション</StarStore_Variant>
+  <StarStore_Stock>在庫</StarStore_Stock>
+  <StarStore_UnitPrice>単価</StarStore_UnitPrice>
+  <StarStore_Amount>数量</StarStore_Amount>
+  <StarStore_SelectedSummary>選択中: {0} 件</StarStore_SelectedSummary>
+  <StarStore_ExpectedRevenue>予想収益: ⛃ {0}</StarStore_ExpectedRevenue>
+  <StarStore_MaxAll>すべて売却</StarStore_MaxAll>
+  <StarStore_AddToCart>カートに追加</StarStore_AddToCart>
+  <StarStore_AddedVariants>{0} 件のバリエーションをカートに追加しました</StarStore_AddedVariants>
+  <StarStore_SelectVariant>バリエーションを選択...</StarStore_SelectVariant>
 </LanguageData>

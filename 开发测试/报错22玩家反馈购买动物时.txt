@@ -1,0 +1,82 @@
+Root level exception in OnGUI(): System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+[Ref BE05672F] Duplicate stacktrace, see ref for original
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Log.Error_Patch4 (string)
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Root.OnGUI_Patch2 (Verse.Root)
+
+Exception processing alert AnimalTab.Alert_HandlerInvalid: System.NullReferenceException: Object reference not set to an instance of an object
+[Ref 29FDB969]
+  at Verse.MapPawns.get_AllPawnsUnspawned () [0x00047] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at Verse.MapPawns.get_AllPawns () [0x00000] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at AnimalTab.Alert_HandlerInvalid+<get_InvalidHandlers>d__1.MoveNext () [0x0006c] in <7908b23b0ac845cd999c10df0950d665>:0 
+  at System.Collections.Generic.List`1[T].AddEnumerable (System.Collections.Generic.IEnumerable`1[T] enumerable) [0x00059] in <51fded79cd284d4d911c5949aff4cb21>:0 
+System.Collections.Generic.List`1[[Verse.Pawn, Assembly-CSharp, Version=1.6.9655.19392, Culture=neutral, PublicKeyToken=null]]..ctor(IEnumerable`1 collection)
+  at System.Linq.Enumerable.ToList[TSource] (System.Collections.Generic.IEnumerable`1[T] source) [0x00018] in <1f993cbf88314b1baa1e10ca917bdc64>:0 
+  at AnimalTab.Alert_HandlerInvalid.GetReport () [0x00006] in <7908b23b0ac845cd999c10df0950d665>:0 
+  at RimWorld.Alert.Recalculate () [0x00000] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at RimWorld.AlertsReadout.CheckAddOrRemoveAlert (RimWorld.Alert alert, System.Boolean forceRemove) [0x00000] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - TRANSPILER net.pardeike.rimworld.lib.harmony: IEnumerable`1 VisualExceptions.ExceptionsAndActivatorHandler:Transpiler(IEnumerable`1 instructions, MethodBase original)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Log.Error_Patch4 (string)
+Verse.Log:ErrorOnce (string,int)
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:RimWorld.AlertsReadout.CheckAddOrRemoveAlert_Patch1 (RimWorld.AlertsReadout,RimWorld.Alert,bool)
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:RimWorld.AlertsReadout.AlertsReadoutUpdate_Patch2 (RimWorld.AlertsReadout)
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:RimWorld.UIRoot_Play.UIRootUpdate_Patch1 (RimWorld.UIRoot_Play)
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Root.Update_Patch2 (Verse.Root)
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Root_Play.Update_Patch1 (Verse.Root_Play)
+
+Root level exception in OnGUI(): System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+[Ref BE05672F]
+ [0x0000c] in <51fded79cd284d4d911c5949aff4cb21>:0 
+  at System.Collections.Generic.List`1[T].get_Item (System.Int32 index) [0x00009] in <51fded79cd284d4d911c5949aff4cb21>:0 
+  at RimWorld.ColonistBar.ColonistBarOnGUI () [0x00094] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - PREFIX rimworld.Nals.CustomPortraits: Boolean CustomPortraits.HarmonyPatches:PrefixColonistBarOnGUI()
+  at RimWorld.MapInterface.MapInterfaceOnGUI_BeforeMainTabs () [0x0005d] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - PREFIX Dubwise.DubsPaintShop: Void DubRoss.Harmony_MapInterfaceOnGUI_BeforeMainTabs:Prefix()
+    - PREFIX Lotus.FixedPawnGenerate: Void FixedPawnGenerate.FPGPortraitHarmony+Patch_MainTabWindow_Inspect:Prefix()
+    - POSTFIX Bubbles: Void Bubbles.Access.RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs:Postfix()
+    - POSTFIX WealthHereMod: Void WealthHere.Patch_MapInterface_MapInterfaceOnGUI_BeforeMainTabs:Postfix()
+  at RimWorld.UIRoot_Play.UIRootOnGUI () [0x0003e] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - PREFIX ChezhouLib.lib: Boolean ChezhouLib.DebugTools.Patch_UIRootPlay_UIRootOnGUI_ClScreenshotCapture:Prefix()
+    - PREFIX cj.rimtalk: Void RimTalk.UI.OverlayPatch:Prefix()
+    - PREFIX Dubwise.PerformanceAnalyzer: Void Analyzer.H_KeyPresses:OnGUI()
+    - POSTFIX cj.rimtalk: Void RimTalk.UI.OverlayPatch:Postfix()
+    - POSTFIX championarmor.hediffs.core: Void ChampionArmorHediffs.Patch_UIRoot_Play_UIRootOnGUI_EagleEyeHotkey:Postfix()
+    - POSTFIX Krkr.RocketMan: Void RocketMan.KeyBinder:OnGUI()
+  at Verse.Root.OnGUI () [0x00046] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - TRANSPILER net.pardeike.rimworld.lib.harmony: IEnumerable`1 VisualExceptions.ExceptionsAndActivatorHandler:Transpiler(IEnumerable`1 instructions, MethodBase original)
+    - POSTFIX UnlimitedHugs.HugsLib: Void HugsLib.Patches.Root_OnGUI_Patch:OnGUIHookUnfiltered()
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Log.Error_Patch4 (string)
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Root.OnGUI_Patch2 (Verse.Root)
+
+Root level exception in OnGUI(): System.NullReferenceException: Object reference not set to an instance of an object
+[Ref CCDA7CDC]
+  at Verse.MapPawns.get_AllPawnsUnspawned () [0x00047] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at Verse.MapPawns.get_AllPawns () [0x00000] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at Verse.MapPawns.FreeHumanlikesOfFaction (RimWorld.Faction faction) [0x00013] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at Verse.MapPawns.get_FreeColonists () [0x00006] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at RimWorld.ColonistBar.CheckRecacheEntries () [0x000ae] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at RimWorld.ColonistBar.get_Entries () [0x00000] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+  at RimWorld.ColonistBar.ColonistBarOnGUI () [0x00039] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - PREFIX rimworld.Nals.CustomPortraits: Boolean CustomPortraits.HarmonyPatches:PrefixColonistBarOnGUI()
+  at RimWorld.MapInterface.MapInterfaceOnGUI_BeforeMainTabs () [0x0005d] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - PREFIX Dubwise.DubsPaintShop: Void DubRoss.Harmony_MapInterfaceOnGUI_BeforeMainTabs:Prefix()
+    - PREFIX Lotus.FixedPawnGenerate: Void FixedPawnGenerate.FPGPortraitHarmony+Patch_MainTabWindow_Inspect:Prefix()
+    - POSTFIX Bubbles: Void Bubbles.Access.RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs:Postfix()
+    - POSTFIX WealthHereMod: Void WealthHere.Patch_MapInterface_MapInterfaceOnGUI_BeforeMainTabs:Postfix()
+  at RimWorld.UIRoot_Play.UIRootOnGUI () [0x0003e] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - PREFIX ChezhouLib.lib: Boolean ChezhouLib.DebugTools.Patch_UIRootPlay_UIRootOnGUI_ClScreenshotCapture:Prefix()
+    - PREFIX cj.rimtalk: Void RimTalk.UI.OverlayPatch:Prefix()
+    - PREFIX Dubwise.PerformanceAnalyzer: Void Analyzer.H_KeyPresses:OnGUI()
+    - POSTFIX cj.rimtalk: Void RimTalk.UI.OverlayPatch:Postfix()
+    - POSTFIX championarmor.hediffs.core: Void ChampionArmorHediffs.Patch_UIRoot_Play_UIRootOnGUI_EagleEyeHotkey:Postfix()
+    - POSTFIX Krkr.RocketMan: Void RocketMan.KeyBinder:OnGUI()
+  at Verse.Root.OnGUI () [0x00046] in <239ae808e7f5427aa8022d09e89ee1ed>:0 
+    - TRANSPILER net.pardeike.rimworld.lib.harmony: IEnumerable`1 VisualExceptions.ExceptionsAndActivatorHandler:Transpiler(IEnumerable`1 instructions, MethodBase original)
+    - POSTFIX UnlimitedHugs.HugsLib: Void HugsLib.Patches.Root_OnGUI_Patch:OnGUIHookUnfiltered()
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Log.Error_Patch4 (string)
+(wrapper dynamic-method) MonoMod.Utils.DynamicMethodDefinition:Verse.Root.OnGUI_Patch2 (Verse.Root)
