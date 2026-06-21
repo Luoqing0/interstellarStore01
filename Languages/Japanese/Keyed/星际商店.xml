@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ============================================================
      インターステラ・ストア - 日本語言語ファイル
+     AI 辅助生成
      ============================================================ -->
 <LanguageData>
   <!-- メインウィンドウ -->
@@ -30,12 +31,19 @@
   <StarStore_Cat_Weapons>武器</StarStore_Cat_Weapons>
   <StarStore_Cat_Apparel>衣類</StarStore_Cat_Apparel>
   <StarStore_Cat_Animals>動物</StarStore_Cat_Animals>
+  <StarStore_Cat_Mechanoids>メカノイド</StarStore_Cat_Mechanoids>
   <StarStore_Cat_RawMaterials>原材料</StarStore_Cat_RawMaterials>
   <StarStore_Cat_Manufactured>加工品</StarStore_Cat_Manufactured>
   <StarStore_Cat_Buildings>建築物</StarStore_Cat_Buildings>
   <StarStore_Cat_Furniture>家具</StarStore_Cat_Furniture>
   <StarStore_Cat_Electronics>電子機器</StarStore_Cat_Electronics>
+  <StarStore_Cat_Bundles>バンドル</StarStore_Cat_Bundles>
   <StarStore_Cat_Misc>その他</StarStore_Cat_Misc>
+
+  <!-- ソート -->
+  <StarStore_SortBy名称>名前</StarStore_SortBy名称>
+  <StarStore_SortBy价格>価格</StarStore_SortBy价格>
+  <StarStore_SortBy科技>技術</StarStore_SortBy科技>
 
   <!-- 売却モード -->
   <StarStore_StockOnly>在庫のみ</StarStore_StockOnly>
@@ -67,6 +75,9 @@
   <StarStore_SaleIndoor>売却完了！⛃{0} シルバーが拠点内に直接生成されました。</StarStore_SaleIndoor>
   <StarStore_SaleSilverDropFail>シルバー収益 ⛃ {0} の配置に失敗しました。収入が失われる可能性があります。</StarStore_SaleSilverDropFail>
   <StarStore_MainWindowUnavailable>ストアのメインウィンドウが利用できません。ストアを開き直してください。</StarStore_MainWindowUnavailable>
+  <StarStore_DailyRefresh>インターステラ商店の日替わり割引とバンドルが更新されました。</StarStore_DailyRefresh>
+  <StarStore_DevRefreshDiscount>開発者：割引を手動更新しました。</StarStore_DevRefreshDiscount>
+  <StarStore_DevRefreshBundles>開発者：バンドルを手動更新しました。</StarStore_DevRefreshBundles>
 
   <!-- 取引条件 -->
   <StarStore_RequireResearch>研究が必要: {0}</StarStore_RequireResearch>
@@ -122,4 +133,14 @@
   <StarStore_AddToCart>カートに追加</StarStore_AddToCart>
   <StarStore_AddedVariants>{0} 件のバリエーションをカートに追加しました</StarStore_AddedVariants>
   <StarStore_SelectVariant>バリエーションを選択...</StarStore_SelectVariant>
+
+  <!-- バンドル -->
+  <StarStore_BundleBuy>バンドルを購入</StarStore_BundleBuy>
+  <StarStore_BundleOriginalPrice>元値：⛃ {0}</StarStore_BundleOriginalPrice>
+  <StarStore_BundleDiscountPrice>現価：⛃ {0}</StarStore_BundleDiscountPrice>
+  <StarStore_BundleEmpty>バンドルがありません</StarStore_BundleEmpty>
+  <StarStore_BundleBuyOnly>バンドルは購入モードでのみ表示されます</StarStore_BundleBuyOnly>
+  <StarStore_BundlePurchased>{0} を購入しました。アイテムが配送されました。</StarStore_BundlePurchased>
+  <StarStore_BundlePurchasedIndoor>{0} を購入しました。アイテムが拠点内に生成されました。</StarStore_BundlePurchasedIndoor>
+  <StarStore_BundleCannotAfford>{0} を購入できません。⛃ {1} 必要、現在 ⛃ {2}。</StarStore_BundleCannotAfford>
 </LanguageData>

@@ -2,6 +2,7 @@
 <!-- ============================================================
      星际商店 - 简体中文语言文件
      所有UI文字都在这里定义，方便翻译成其他语言
+     AI 辅助生成
      ============================================================ -->
 <LanguageData>
   <!-- 主窗口 -->
@@ -31,12 +32,19 @@
   <StarStore_Cat_Weapons>武器</StarStore_Cat_Weapons>
   <StarStore_Cat_Apparel>衣物</StarStore_Cat_Apparel>
   <StarStore_Cat_Animals>动物</StarStore_Cat_Animals>
+  <StarStore_Cat_Mechanoids>机械族</StarStore_Cat_Mechanoids>
   <StarStore_Cat_RawMaterials>原材料</StarStore_Cat_RawMaterials>
   <StarStore_Cat_Manufactured>制成品</StarStore_Cat_Manufactured>
   <StarStore_Cat_Buildings>建筑</StarStore_Cat_Buildings>
   <StarStore_Cat_Furniture>家具</StarStore_Cat_Furniture>
   <StarStore_Cat_Electronics>电子</StarStore_Cat_Electronics>
+  <StarStore_Cat_Bundles>捆绑包</StarStore_Cat_Bundles>
   <StarStore_Cat_Misc>杂项</StarStore_Cat_Misc>
+
+  <!-- 排序 -->
+  <StarStore_SortBy名称>名字</StarStore_SortBy名称>
+  <StarStore_SortBy价格>价格</StarStore_SortBy价格>
+  <StarStore_SortBy科技>科技</StarStore_SortBy科技>
 
   <!-- 卖出模式 -->
   <StarStore_StockOnly>仅库存物品</StarStore_StockOnly>
@@ -68,6 +76,9 @@
   <StarStore_SaleIndoor>出售完成！⛃{0} 白银已直接生成在基地内。</StarStore_SaleIndoor>
   <StarStore_SaleSilverDropFail>白银收益 ⛃ {0} 放置失败，收入可能丢失。</StarStore_SaleSilverDropFail>
   <StarStore_MainWindowUnavailable>商店主窗口不可用，请重新打开商店。</StarStore_MainWindowUnavailable>
+  <StarStore_DailyRefresh>星际商店每日折扣与礼包已刷新。</StarStore_DailyRefresh>
+  <StarStore_DevRefreshDiscount>开发者：折扣已手动刷新。</StarStore_DevRefreshDiscount>
+  <StarStore_DevRefreshBundles>开发者：礼包已手动刷新。</StarStore_DevRefreshBundles>
 
   <!-- 交易条件 -->
   <StarStore_RequireResearch>需要研究: {0}</StarStore_RequireResearch>
@@ -123,4 +134,14 @@
   <StarStore_AddToCart>加入购物车</StarStore_AddToCart>
   <StarStore_AddedVariants>已添加 {0} 件变体到购物车</StarStore_AddedVariants>
   <StarStore_SelectVariant>选择变体出售...</StarStore_SelectVariant>
+
+  <!-- 捆绑包 -->
+  <StarStore_BundleBuy>购买礼包</StarStore_BundleBuy>
+  <StarStore_BundleOriginalPrice>原价：⛃ {0}</StarStore_BundleOriginalPrice>
+  <StarStore_BundleDiscountPrice>现价：⛃ {0}</StarStore_BundleDiscountPrice>
+  <StarStore_BundleEmpty>暂无捆绑包</StarStore_BundleEmpty>
+  <StarStore_BundleBuyOnly>捆绑包仅可在购买模式下查看</StarStore_BundleBuyOnly>
+  <StarStore_BundlePurchased>已购买 {0}，物品已送达。</StarStore_BundlePurchased>
+  <StarStore_BundlePurchasedIndoor>已购买 {0}，物品已直接生成在基地内。</StarStore_BundlePurchasedIndoor>
+  <StarStore_BundleCannotAfford>白银不足，无法购买 {0}。需要 ⛃ {1}，当前 ⛃ {2}。</StarStore_BundleCannotAfford>
 </LanguageData>

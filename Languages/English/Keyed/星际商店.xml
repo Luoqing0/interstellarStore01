@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ============================================================
      Interstellar Store - English Language File
+     AI 辅助生成
      ============================================================ -->
 <LanguageData>
   <!-- Main Window -->
@@ -30,12 +31,19 @@
   <StarStore_Cat_Weapons>Weapons</StarStore_Cat_Weapons>
   <StarStore_Cat_Apparel>Apparel</StarStore_Cat_Apparel>
   <StarStore_Cat_Animals>Animals</StarStore_Cat_Animals>
+  <StarStore_Cat_Mechanoids>Mechanoids</StarStore_Cat_Mechanoids>
   <StarStore_Cat_RawMaterials>Raw Materials</StarStore_Cat_RawMaterials>
   <StarStore_Cat_Manufactured>Manufactured</StarStore_Cat_Manufactured>
   <StarStore_Cat_Buildings>Buildings</StarStore_Cat_Buildings>
   <StarStore_Cat_Furniture>Furniture</StarStore_Cat_Furniture>
   <StarStore_Cat_Electronics>Electronics</StarStore_Cat_Electronics>
+  <StarStore_Cat_Bundles>Bundles</StarStore_Cat_Bundles>
   <StarStore_Cat_Misc>Misc</StarStore_Cat_Misc>
+
+  <!-- Sorting -->
+  <StarStore_SortBy名称>Name</StarStore_SortBy名称>
+  <StarStore_SortBy价格>Price</StarStore_SortBy价格>
+  <StarStore_SortBy科技>Tech</StarStore_SortBy科技>
 
   <!-- Sell Mode -->
   <StarStore_StockOnly>Stock Only</StarStore_StockOnly>
@@ -67,6 +75,9 @@
   <StarStore_SaleIndoor>Sale complete! ⛃{0} silver delivered to your base.</StarStore_SaleIndoor>
   <StarStore_SaleSilverDropFail>Silver proceeds ⛃ {0} failed to place. Income may be lost.</StarStore_SaleSilverDropFail>
   <StarStore_MainWindowUnavailable>Store main window unavailable. Please reopen the store.</StarStore_MainWindowUnavailable>
+  <StarStore_DailyRefresh>Interstellar Store daily deals and bundles refreshed.</StarStore_DailyRefresh>
+  <StarStore_DevRefreshDiscount>Dev: discount refreshed.</StarStore_DevRefreshDiscount>
+  <StarStore_DevRefreshBundles>Dev: bundles refreshed.</StarStore_DevRefreshBundles>
 
   <!-- Trade Conditions -->
   <StarStore_RequireResearch>Requires research: {0}</StarStore_RequireResearch>
@@ -122,4 +133,14 @@
   <StarStore_AddToCart>Add to Cart</StarStore_AddToCart>
   <StarStore_AddedVariants>Added {0} variants to cart</StarStore_AddedVariants>
   <StarStore_SelectVariant>Select Variant...</StarStore_SelectVariant>
+
+  <!-- Bundles -->
+  <StarStore_BundleBuy>Buy Bundle</StarStore_BundleBuy>
+  <StarStore_BundleOriginalPrice>Original: ⛃ {0}</StarStore_BundleOriginalPrice>
+  <StarStore_BundleDiscountPrice>Now: ⛃ {0}</StarStore_BundleDiscountPrice>
+  <StarStore_BundleEmpty>No bundles available</StarStore_BundleEmpty>
+  <StarStore_BundleBuyOnly>Bundles are only available in buy mode</StarStore_BundleBuyOnly>
+  <StarStore_BundlePurchased>Purchased {0}. Items delivered.</StarStore_BundlePurchased>
+  <StarStore_BundlePurchasedIndoor>Purchased {0}. Items delivered indoors.</StarStore_BundlePurchasedIndoor>
+  <StarStore_BundleCannotAfford>Cannot afford {0}. Need ⛃ {1}, have ⛃ {2}.</StarStore_BundleCannotAfford>
 </LanguageData>
