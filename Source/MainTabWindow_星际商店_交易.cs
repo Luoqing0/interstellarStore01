@@ -129,6 +129,7 @@ namespace 星际商店
         }
 
         // 白银总量缓存（避免多处独立遍历白银堆叠）
+        // AI 辅助生成：只统计当前可用白银，排除被小人预留或持有的堆叠
         private int 获取白银总量(Map map)
         {
             if (map == null) return 0;
@@ -139,10 +140,28 @@ namespace 星际商店
             int total = 0;
             List<Thing> silverList = map.listerThings.ThingsOfDef(ThingDefOf.Silver);
             for (int idx = 0; idx < silverList.Count; idx++)
-                total += silverList[idx].stackCount;
+            {
+                Thing silver = silverList[idx];
+                if (白银可用(silver, map))
+                    total += silver.stackCount;
+            }
             缓存白银总量 = total;
             缓存白银帧 = currentFrame;
             return 缓存白银总量;
+        }
+
+        /// <summary>
+        /// 判断一堆白银是否可以被商店交易使用
+        /// </summary>
+        private bool 白银可用(Thing silver, Map map)
+        {
+            if (silver == null || silver.Destroyed || !silver.Spawned || silver.Map != map)
+                return false;
+            if (map.reservationManager.IsReserved(silver))
+                return false;
+            if (ThingOwnerUtility.AnyParentIs<Pawn>(silver))
+                return false;
+            return true;
         }
 
         // ================================================================
@@ -155,115 +174,7 @@ namespace 星际商店
         {
             if (分类Key == "StarStore_All") return true;
             if (分类Key == "StarStore_Favorites") return 收藏列表.Contains(def.defName);
-            if (def.thingCategories == null) return false;
-
-            // 获取物品的所有分类（包括父分类）
-            HashSet<string> 所有分类 = 获取所有分类(def);
-
-            if (分类Key == "StarStore_Cat_Food")
-                return 所有分类.Any(c =>
-                    c == "Foods" || c == "FoodMeals" || c == "FoodRaw" ||
-                    c == "FoodManufactured" || c == "PlantsFood" ||
-                    c == "AnimalProducts" || c == "Eggs" ||
-                    c == "MeatRaw" || c == "Milk" ||
-                    c.StartsWith("Food"));
-            if (分类Key == "StarStore_Cat_Medicine")
-                return 所有分类.Any(c =>
-                    c == "Medicine" || c == "Drugs" ||
-                    c == "MedicalItems" || c.StartsWith("Drug") ||
-                    c.StartsWith("Medi"));
-            if (分类Key == "StarStore_Cat_Weapons")
-                return 所有分类.Any(c =>
-                    c == "Weapons" || c.StartsWith("Weapon") ||
-                    c == "Guns" || c == "MeleeWeapons" ||
-                    c == "RangedWeapons" || c == "Grenades" ||
-                    c == "MortarShells");
-            if (分类Key == "StarStore_Cat_Apparel")
-                return 所有分类.Any(c =>
-                    c == "Apparel" || c.StartsWith("Apparel") ||
-                    c == "Armor" || c == "Clothing" ||
-                    c == "Headgear" || c == "Shields");
-            if (分类Key == "StarStore_Cat_RawMaterials")
-                return 所有分类.Any(c =>
-                    c == "Resources" || c == "RawMaterials" ||
-                    c == "Metals" || c == "StoneBlocks" ||
-                    c == "Wood" || c == "Textile" ||
-                    c == "Leather" || c == "Fabrics" ||
-                    c == "Chemicals" || c.StartsWith("Resource") ||
-                    c.StartsWith("Raw") || c.StartsWith("Stone") ||
-                    c.StartsWith("Metal"));
-            if (分类Key == "StarStore_Cat_Manufactured")
-                return 所有分类.Any(c =>
-                    c == "Manufactured" || c == "Components" ||
-                    c == "Parts" || c == "Tools" ||
-                    c == "CraftingMaterials" || c.StartsWith("Manufactur"));
-            if (分类Key == "StarStore_Cat_Buildings")
-                return 所有分类.Any(c =>
-                    c == "Buildings" || c.StartsWith("Building") ||
-                    c == "Structures" || c == "Floors" ||
-                    c == "Walls" || c == "Doors" ||
-                    c == "Security" || c == "Power" ||
-                    c == "Production" || c.StartsWith("Structure"));
-            if (分类Key == "StarStore_Cat_Furniture")
-                return 所有分类.Any(c =>
-                    c == "BuildingsFurniture" || c == "Furniture" ||
-                    c == "BuildingsJoy" || c == "Joy" ||
-                    c == "BuildingsArt" || c == "Art" ||
-                    c == "BuildingsTemperature" || c == "Temperature" ||
-                    c == "Beds" || c == "Tables" || c == "Chairs" ||
-                    c == "Lighting" || c == "Storage" ||
-                    c == "Containers" || c == "Sculpture" ||
-                    c == "Recreation" || c == "Furnishings");
-            if (分类Key == "StarStore_Cat_Electronics")
-                return 所有分类.Any(c =>
-                    c == "BuildingsPower" || c == "Power" ||
-                    c == "BuildingsSecurity" || c == "Security" ||
-                    c == "BuildingsProduction" || c == "Production" ||
-                    c == "BuildingsSpecial" || c == "Special" ||
-                    c == "BuildingsMisc" || c == "Misc" ||
-                    c == "Electronics" || c.StartsWith("Electron") ||
-                    c == "Components" || c == "Chips" ||
-                    c == "Mechanoids" || c == "MechParts" ||
-                    c == "Energy" || c == "Batteries" || c == "Solar");
-            if (分类Key == "StarStore_Cat_Misc")
-                return 所有分类.Any(c =>
-                    c == "Misc" || c == "Miscellaneous" ||
-                    c == "Items" || c == "Goods" ||
-                    c == "Chunks" || c == "Corpses" ||
-                    c == "Animals" || c == "Plants" ||
-                    c == "Seeds" || c == "Books");
-            return false;
-        }
-
-        /// <summary>
-        /// 递归获取物品的所有分类（包括父分类）
-        /// </summary>
-        private HashSet<string> 获取所有分类(ThingDef def)
-        {
-            HashSet<string> 结果 = new HashSet<string>();
-            if (def.thingCategories == null) return 结果;
-
-            foreach (ThingCategoryDef cat in def.thingCategories)
-            {
-                添加分类及父分类(cat, 结果);
-            }
-            return 结果;
-        }
-
-        /// <summary>
-        /// 递归添加分类及其所有父分类
-        /// </summary>
-        private void 添加分类及父分类(ThingCategoryDef cat, HashSet<string> 结果)
-        {
-            if (cat == null || 结果.Contains(cat.defName)) return;
-
-            结果.Add(cat.defName);
-
-            // 递归添加父分类
-            if (cat.parent != null)
-            {
-                添加分类及父分类(cat.parent, 结果);
-            }
+            return 星际商店工具.物品属于具体分类(def, 分类Key);
         }
 
         // ================================================================
@@ -331,8 +242,9 @@ namespace 星际商店
             }
 
             // 已解锁科技筛选
+            // AI 辅助生成：同时检查 ThingDef.researchPrerequisites 与 recipeMaker 中的研究前提
             if (仅已解锁科技)
-                query = query.Where(d => d.researchPrerequisites == null || d.researchPrerequisites.All(r => r.IsFinished));
+                query = query.Where(d => 已解锁所有研究(d));
 
             // 模组筛选
             if (筛选模组 != "StarStore_AllMods")
@@ -341,6 +253,26 @@ namespace 星际商店
             }
 
             当前显示物品 = query.OrderBy(d => d.label).ToList();
+        }
+
+        /// <summary>
+        /// 完整检查 ThingDef 本身与 recipeMaker 中的研究前提是否全部完成
+        /// </summary>
+        private bool 已解锁所有研究(ThingDef def)
+        {
+            if (def.researchPrerequisites != null)
+                foreach (var r in def.researchPrerequisites)
+                    if (!r.IsFinished) return false;
+
+            if (def.recipeMaker != null)
+            {
+                if (def.recipeMaker.researchPrerequisite != null && !def.recipeMaker.researchPrerequisite.IsFinished)
+                    return false;
+                if (def.recipeMaker.researchPrerequisites != null)
+                    foreach (var r in def.recipeMaker.researchPrerequisites)
+                        if (!r.IsFinished) return false;
+            }
+            return true;
         }
 
         // ================================================================
@@ -353,7 +285,6 @@ namespace 星际商店
 
             float 总花费 = 0f;
             List<Thing> 待生成 = new List<Thing>();
-            bool 含有动物 = false;
             foreach (KeyValuePair<TransactionKey, int> kv in 购买交易数量)
             {
                 if (kv.Value <= 0) continue;
@@ -373,7 +304,6 @@ namespace 星际商店
                 // 导致 MapPawns.get_AllPawnsUnspawned() NRE → 游戏卡死
                 if (key.def.race != null)
                 {
-                    含有动物 = true;
                     PawnKindDef kindDef = DefDatabase<PawnKindDef>.AllDefs
                         .FirstOrDefault(k => k.race == key.def);
                     if (kindDef == null)
@@ -444,7 +374,7 @@ namespace 星际商店
             while (si < silverThings.Count && 剩余白银 > 0)
             {
                 Thing silver = silverThings[si];
-                if (silver == null || silver.Destroyed) { si++; continue; }
+                if (silver == null || silver.Destroyed || !白银可用(silver, map)) { si++; continue; }
                 int 扣除 = Mathf.Min(剩余白银, silver.stackCount);
                 剩余白银 -= 扣除;
                 silver.SplitOff(扣除);
@@ -452,50 +382,45 @@ namespace 星际商店
             }
             缓存白银帧 = -1;
 
+            if (剩余白银 > 0)
+            {
+                Messages.Message("StarStore_InsufficientSilver".Translate(需要白银, 获取白银总量(map)), MessageTypeDefOf.RejectInput);
+                return;
+            }
+
             // AI 辅助生成：使用运输舱生成物品（优先轨道交易信标位置）
+            // 统一处理普通物品与动物：DropPodUtility.DropThingsNear 内部会把每个 Thing（含 Pawn）
+            // 装入 ActiveTransporterInfo.innerContainer，落地后自动生成，因此动物无需单独 GenSpawn。
             IntVec3 dropSpot = 获取有效降落点(map);
             if (dropSpot.IsValid && dropSpot.InBounds(map) && !dropSpot.Roofed(map))
             {
                 // 方案A：运输舱投放（室外/无屋顶）
-                if (含有动物)
-                {
-                    // 动物和物品分开处理：物品用 DropPodUtility，动物用 GenSpawn
-                    List<Thing> 仅物品 = 待生成.Where(t => !(t is Pawn)).ToList();
-                    List<Thing> 仅动物 = 待生成.Where(t => t is Pawn).ToList();
-                    if (仅物品.Count > 0)
-                        DropPodUtility.DropThingsNear(dropSpot, map, 仅物品);
-                    for (int i = 0; i < 仅动物.Count; i++)
-                        GenSpawn.Spawn((Pawn)仅动物[i], dropSpot, map, 0);
-                }
-                else
-                {
-                    DropPodUtility.DropThingsNear(dropSpot, map, 待生成);
-                }
+                DropPodUtility.DropThingsNear(dropSpot, map, 待生成, 110, canInstaDropDuringInit: false, leaveSlag: false, canRoofPunch: true, forbid: false, allowFogged: false);
                 Messages.Message("StarStore_PurchaseComplete".Translate(), new LookTargets(dropSpot, map), MessageTypeDefOf.TaskCompletion);
             }
             else
             {
                 // 方案B：直接生成在地面（室内/屋顶下，运输舱无法通过）
                 IntVec3 center = 获取室内生成点(map);
-                if (含有动物)
+                for (int i = 0; i < 待生成.Count; i++)
                 {
-                    // 动物和物品分开处理：物品用 GenPlace，动物用 GenSpawn
-                    List<Thing> 仅物品 = 待生成.Where(t => !(t is Pawn)).ToList();
-                    List<Thing> 仅动物 = 待生成.Where(t => t is Pawn).ToList();
-                    for (int i = 0; i < 仅物品.Count; i++)
-                        GenPlace.TryPlaceThing(仅物品[i], center, map, ThingPlaceMode.Near);
-                    for (int i = 0; i < 仅动物.Count; i++)
-                        GenSpawn.Spawn((Pawn)仅动物[i], CellFinder.RandomClosewalkCellNear(center, map, 10), map, 0);
-                }
-                else
-                {
-                    for (int i = 0; i < 待生成.Count; i++)
+                    if (待生成[i] is Pawn pawn)
+                        GenSpawn.Spawn(pawn, CellFinder.RandomClosewalkCellNear(center, map, 10), map, WipeMode.Vanish);
+                    else
                         GenPlace.TryPlaceThing(待生成[i], center, map, ThingPlaceMode.Near);
                 }
                 Messages.Message("StarStore_PurchaseIndoor".Translate(), new LookTargets(center, map), MessageTypeDefOf.TaskCompletion);
             }
             购买交易数量.Clear();
             刷新物品列表();
+        }
+
+        // 出售执行计划：避免先扣后失败导致物品被吞
+        private class 出售计划项
+        {
+            public TransactionKey key;
+            public List<Thing> candidates;
+            public int amount;
         }
 
         private void 执行卖出()
@@ -505,6 +430,10 @@ namespace 星际商店
 
             float 总收益 = 0f;
             var 库存映射数据 = 获取库存映射(map);
+
+            // AI 辅助生成：两阶段交易
+            // 阶段1：预检查所有购物车项的库存是否都充足，任一不足则整单取消，不会扣除任何物品
+            List<出售计划项> 执行计划 = new List<出售计划项>();
             foreach (var kv in 出售交易数量)
             {
                 if (kv.Value <= 0) continue;
@@ -530,14 +459,20 @@ namespace 星际商店
                     return;
                 }
 
-                int 剩余卖出 = kv.Value;
-                for (int j = 0; j < candidates.Count && 剩余卖出 > 0; j++)
+                执行计划.Add(new 出售计划项 { key = kv.Key, candidates = candidates, amount = kv.Value });
+            }
+
+            // 阶段2：全部预检查通过后，统一扣除库存并累加收益
+            foreach (var plan in 执行计划)
+            {
+                int 剩余卖出 = plan.amount;
+                for (int j = 0; j < plan.candidates.Count && 剩余卖出 > 0; j++)
                 {
-                    Thing t = candidates[j];
+                    Thing t = plan.candidates[j];
                     if (t == null || t.Destroyed) continue;
                     int 本次卖出数 = Mathf.Min(剩余卖出, t.stackCount);
                     // 使用与 UI 一致的出售价格公式，并考虑物品耐久度
-                    float 基础单价 = 获取出售价格(kv.Key.def, kv.Key.quality, kv.Key.stuff);
+                    float 基础单价 = 获取出售价格(plan.key.def, plan.key.quality, plan.key.stuff);
                     float hpFactor = Mathf.Clamp01((float)t.HitPoints / (float)t.MaxHitPoints);
                     float 单价 = 基础单价 * hpFactor;
                     总收益 += 单价 * 本次卖出数;

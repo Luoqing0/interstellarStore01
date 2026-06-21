@@ -153,6 +153,7 @@ namespace 星际商店
         private const float 分页栏高 = 26f;     // 分页控件高度
         private string 缓存问候文字 = "";     // 缓存问候避免每帧变化
         public ThingDef 当前折扣物品 = null;   // AI：看板/交易/物品网格共享的折扣物品
+        private int 上次折扣天数 = -1;         // 检测跨天时刷新折扣物品
 
         // ===== 淘宝×科幻电商风格颜色 =====
         // 基底 - 深邃太空背景
@@ -204,7 +205,7 @@ namespace 星际商店
         {
             "StarStore_All", "StarStore_Favorites",
             "StarStore_Cat_Food", "StarStore_Cat_Medicine", "StarStore_Cat_Weapons",
-            "StarStore_Cat_Apparel", "StarStore_Cat_RawMaterials",
+            "StarStore_Cat_Apparel", "StarStore_Cat_Animals", "StarStore_Cat_RawMaterials",
             "StarStore_Cat_Manufactured", "StarStore_Cat_Buildings", "StarStore_Cat_Furniture",
             "StarStore_Cat_Electronics", "StarStore_Cat_Misc"
         };
@@ -280,13 +281,24 @@ namespace 星际商店
             else
                 缓存问候文字 = "";
             // AI 辅助生成：初始化折扣物品
-            当前折扣物品 = cfg?.获取今日折扣物品(GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f));
+            上次折扣天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
+            当前折扣物品 = cfg?.获取今日折扣物品(上次折扣天数);
             // AI 辅助生成：商店开门提示音
             SoundDef.Named("UI_ButtonPrompt").PlayOneShot(new TargetInfo(UI.MouseCell(), Find.CurrentMap));
         }
 
         public override void DoWindowContents(Rect inRect)
         {
+            // 检测跨天：刷新折扣物品并更新物品列表
+            int 当前天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
+            if (当前天数 != 上次折扣天数)
+            {
+                上次折扣天数 = 当前天数;
+                StarStore_SidebarConfigDef cfg = 侧边栏管理器.配置;
+                当前折扣物品 = cfg?.获取今日折扣物品(当前天数);
+                刷新物品列表();
+            }
+
             // 同步看板窗口位置（窗口可能被拖动）
             更新看板窗口位置();
 

@@ -80,8 +80,11 @@ namespace 星际商店
         /// <summary>随机问候语列表（每次打开商店随机挑一条）</summary>
         public List<string> greetings = new List<string>();
 
-        /// <summary>每日折扣物品 defName 列表</summary>
+        /// <summary>每日折扣物品 defName 列表（旧配置，useRandomCategoryDiscount=false 时生效）</summary>
         public List<string> dailyDiscountThingDefs = new List<string>();
+
+        /// <summary>是否使用“随机类别+随机物品”的每日折扣（默认开启）</summary>
+        public bool useRandomCategoryDiscount = true;
 
         /// <summary>折扣比例（0-1 之间，默认0.8）</summary>
         public float discountPercent = 0.8f;
@@ -98,6 +101,8 @@ namespace 星际商店
         // 缓存
         private Texture2D _mascotTex;
         private string _lastTexPath = "";
+        private int _lastDiscountDay = -1;
+        private ThingDef _cachedDiscountThing;
 
         /// <summary>获取看板娘贴图（带缓存）</summary>
         public Texture2D 获取看板娘贴图()
@@ -110,12 +115,74 @@ namespace 星际商店
             return _mascotTex;
         }
 
-        /// <summary>根据游戏内天数获取每日折扣</summary>
+        /// <summary>
+        /// 根据游戏内天数获取每日折扣物品
+        /// 默认按天随机一个商品类别，再从该类别可购买物品中随机一个
+        /// </summary>
         public ThingDef 获取今日折扣物品(int 游戏天数)
         {
-            if (dailyDiscountThingDefs == null || dailyDiscountThingDefs.Count == 0) return null;
-            int idx = (游戏天数 * 47) % dailyDiscountThingDefs.Count;
-            return DefDatabase<ThingDef>.GetNamedSilentFail(dailyDiscountThingDefs[idx]);
+            // 缓存：同一天返回同一物品
+            if (_lastDiscountDay == 游戏天数 && _cachedDiscountThing != null)
+                return _cachedDiscountThing;
+
+            // 旧配置兼容：关闭随机类别且提供了固定列表时，使用旧逻辑
+            if (!useRandomCategoryDiscount && dailyDiscountThingDefs != null && dailyDiscountThingDefs.Count > 0)
+            {
+                int idx = (游戏天数 * 47) % dailyDiscountThingDefs.Count;
+                _cachedDiscountThing = DefDatabase<ThingDef>.GetNamedSilentFail(dailyDiscountThingDefs[idx]);
+                _lastDiscountDay = 游戏天数;
+                return _cachedDiscountThing;
+            }
+
+            // 候选分类（与商店左侧分类一致，排除 All / Favorites / Misc）
+            List<string> 候选分类 = new List<string>
+            {
+                "StarStore_Cat_Food", "StarStore_Cat_Medicine", "StarStore_Cat_Weapons",
+                "StarStore_Cat_Apparel", "StarStore_Cat_Animals", "StarStore_Cat_RawMaterials",
+                "StarStore_Cat_Manufactured", "StarStore_Cat_Buildings", "StarStore_Cat_Furniture",
+                "StarStore_Cat_Electronics"
+            };
+
+            // 先收集每个分类下可购买的物品
+            Dictionary<string, List<ThingDef>> 分类物品表 = new Dictionary<string, List<ThingDef>>();
+            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefs)
+            {
+                if (def.destroyOnDrop || def.BaseMarketValue <= 0f) continue;
+                if (def.tradeability != Tradeability.Buyable && def.tradeability != Tradeability.All) continue;
+                if (!def.thingCategories.NullOrEmpty())
+                {
+                    foreach (string cat in 候选分类)
+                    {
+                        if (星际商店.星际商店工具.物品属于具体分类(def, cat))
+                        {
+                            if (!分类物品表.ContainsKey(cat))
+                                分类物品表[cat] = new List<ThingDef>();
+                            分类物品表[cat].Add(def);
+                            break; // 一个物品只归入第一个匹配分类
+                        }
+                    }
+                }
+            }
+
+            // 移除空分类
+            候选分类.RemoveAll(c => !分类物品表.ContainsKey(c) || 分类物品表[c].Count == 0);
+            if (候选分类.Count == 0)
+            {
+                _cachedDiscountThing = null;
+                _lastDiscountDay = 游戏天数;
+                return null;
+            }
+
+            // 使用确定性随机：同一天结果稳定，跨天自动更换
+            Rand.PushState(游戏天数 * 73856093 + 19349663);
+            string 选中分类 = 候选分类[Rand.Range(0, 候选分类.Count)];
+            List<ThingDef> 物品列表 = 分类物品表[选中分类];
+            ThingDef 选中物品 = 物品列表[Rand.Range(0, 物品列表.Count)];
+            Rand.PopState();
+
+            _cachedDiscountThing = 选中物品;
+            _lastDiscountDay = 游戏天数;
+            return _cachedDiscountThing;
         }
 
         /// <summary>根据游戏内天数获取新闻</summary>
