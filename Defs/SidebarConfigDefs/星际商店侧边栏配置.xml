@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     星际商店 - 侧边栏配置
+     看板娘/问候语/每日折扣/新闻公告/背景故事/黑名单
+     可通过修改此XML自定义内容
+     AI 辅助生成
+     ============================================================ -->
 <Defs>
-  <!-- ============================================================
-        星际商店 - 侧边栏配置
-        看板娘/问候语/每日折扣/新闻公告/背景故事
-        可通过修改此XML自定义内容
-        ============================================================ -->
-
   <StarStore_SidebarConfigDef>
     <defName>StarStore_DefaultSidebar</defName>
     <label>默认侧边栏配置</label>
@@ -14,12 +14,16 @@
     <!-- 侧边栏标题 -->
     <sidebarTitle>星际商报</sidebarTitle>
 
-    <!-- 看板娘图片路径（相对于 Textures/ 目录） -->
-    <!-- 推荐尺寸：140x140 ~ 200x200 像素 -->
-    <!-- 如果没有图片，会自动隐藏看板娘区域 -->
+    <!-- 旧单一看板娘图片路径（未配置 mascotDefNames 时生效） -->
     <!-- <mascotTexturePath>UI/starstore_mascot</mascotTexturePath> -->
 
-    <!-- 随机问候语列表（每次打开商店随机挑一条） -->
+    <!-- 多个看板娘 defName 列表（每次打开商店随机选一个） -->
+    <mascotDefNames>
+      <li>StarStore_Mascot_Default</li>
+      <li>StarStore_Mascot_Robot</li>
+    </mascotDefNames>
+
+    <!-- 随机问候语列表（未配置看板娘 Def 时的兼容字段） -->
     <greetings>
       <li>欢迎光临星际商店，今天需要些什么？</li>
       <li>好久不见，旅行者！新货已到，进来看看？</li>
@@ -32,7 +36,10 @@
       <li>要来一些鼠条吗？</li>
     </greetings>
 
-    <!-- 每日折扣物品 defName 列表（基于游戏内日期随机选取） -->
+    <!-- 是否使用随机类别+随机物品的每日折扣（true 时 dailyDiscountThingDefs 失效） -->
+    <useRandomCategoryDiscount>true</useRandomCategoryDiscount>
+
+    <!-- 每日折扣物品 defName 列表（关闭随机折扣时使用） -->
     <dailyDiscountThingDefs>
       <li>Gun_Revolver</li>
       <li>Gun_PumpShotgun</li>
@@ -53,6 +60,19 @@
 
     <!-- 折扣比例（0.0~1.0 之间，0.8 表示8折） -->
     <discountPercent>0.8</discountPercent>
+
+    <!-- 折扣黑名单：这些 ThingDef defName 不会成为每日折扣物品 -->
+    <discountBlacklist>
+      <li>Silver</li>
+    </discountBlacklist>
+
+    <!-- 折扣分类黑名单：这些分类 Key 不会进入每日折扣候选 -->
+    <discountCategoryBlacklist>
+      <!-- <li>StarStore_Cat_Misc</li> -->
+    </discountCategoryBlacklist>
+
+    <!-- 是否将礼包内固定物品排除在每日折扣候选池之外 -->
+    <excludeBundleItemsFromDiscount>true</excludeBundleItemsFromDiscount>
 
     <!-- 新闻公告列表（基于游戏内日期随机选取） -->
     <newsList>

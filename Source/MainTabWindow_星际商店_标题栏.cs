@@ -40,8 +40,30 @@ namespace 星际商店
             搜索文本 = Widgets.TextField(搜索Rect, 搜索文本);
             if (搜索文本 != 旧搜索) { 当前页码 = 1; 刷新物品列表(); }
 
-            // 布局选择按钮（大/中/小）- 放在搜索框右侧
-            float 布局X = 搜索Rect.xMax + 10f;
+            // 排序按钮（搜索框右侧）
+            float 排序X = 搜索Rect.xMax + 10f;
+            Rect 排序按钮Rect = new Rect(排序X, rect.y + 4f, 70f, 按钮标准高);
+            string sortLabel = ("StarStore_SortBy" + 当前排序方式).Translate() + (排序正序 ? "↑" : "↓");
+            绘制科幻按钮(排序按钮Rect, sortLabel, false);
+            if (Widgets.ButtonInvisible(排序按钮Rect))
+            {
+                List<FloatMenuOption> opts = new List<FloatMenuOption>();
+                foreach (排序方式 m in System.Enum.GetValues(typeof(排序方式)))
+                {
+                    排序方式 captured = m;
+                    opts.Add(new FloatMenuOption(("StarStore_SortBy" + m).Translate(), () =>
+                    {
+                        if (当前排序方式 == captured) 排序正序 = !排序正序;
+                        else { 当前排序方式 = captured; 排序正序 = true; }
+                        当前页码 = 1;
+                        刷新物品列表();
+                    }));
+                }
+                Find.WindowStack.Add(new FloatMenu(opts));
+            }
+
+            // 布局选择按钮（大/中/小）- 放在排序按钮右侧
+            float 布局X = 排序按钮Rect.xMax + 10f;
             Rect 大布局按钮 = new Rect(布局X, rect.y + 4f, 24f, 20f);
             Rect 中布局按钮 = new Rect(布局X + 26f, rect.y + 4f, 24f, 20f);
             Rect 小布局按钮 = new Rect(布局X + 52f, rect.y + 4f, 24f, 20f);

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     星际商店 - 看板娘配置
+     每位看板娘拥有独立贴图与问候语池
+     AI 辅助生成
+     ============================================================ -->
+<Defs>
+  <StarStore_MascotDef>
+    <defName>StarStore_Mascot_Default</defName>
+    <label>默认看板娘</label>
+    <texturePath>UI/starstore_mascot</texturePath>
+    <greetings>
+      <li>欢迎光临星际商店！</li>
+      <li>今天需要点什么？</li>
+      <li>新货已到，进来看看吧~</li>
+    </greetings>
+  </StarStore_MascotDef>
+
+  <StarStore_MascotDef>
+    <defName>StarStore_Mascot_Robot</defName>
+    <label>机械助手</label>
+    <texturePath>UI/starstore_mascot_robot</texturePath>
+    <greetings>
+      <li>系统已上线，等待指令。</li>
+      <li>今日汇率已更新。</li>
+      <li>检测到殖民地信用良好，欢迎选购。</li>
+    </greetings>
+  </StarStore_MascotDef>
+</Defs>
