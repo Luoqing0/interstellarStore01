@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
+using RimWorld;
 
 namespace 星际商店
 {
@@ -44,6 +46,8 @@ namespace 星际商店
                     c == "Headgear" || c == "Shields");
             if (分类Key == "StarStore_Cat_Animals")
                 return 所有分类.Any(c => c == "Animals") || (def.race != null && def.race.Animal);
+            if (分类Key == "StarStore_Cat_Mechanoids")
+                return def.race != null && def.race.IsMechanoid;
             if (分类Key == "StarStore_Cat_RawMaterials")
                 return 所有分类.Any(c =>
                     c == "Resources" || c == "RawMaterials" ||
@@ -120,6 +124,160 @@ namespace 星际商店
             if (cat.parent != null)
             {
                 添加分类及父分类(cat.parent, 结果);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 机械族管理器 - 静态缓存原版与模组机械族
+    /// AI 辅助生成
+    /// </summary>
+    public static class 机械族管理器
+    {
+        private static List<ThingDef> _机械族Race列表;
+        private static Dictionary<ThingDef, List<PawnKindDef>> _机械族Kind映射;
+        private static bool _已构建;
+
+        private static void 构建缓存()
+        {
+            _机械族Race列表 = new List<ThingDef>();
+            _机械族Kind映射 = new Dictionary<ThingDef, List<PawnKindDef>>();
+            foreach (PawnKindDef kind in DefDatabase<PawnKindDef>.AllDefs)
+            {
+                if (kind.race == null || kind.race.race == null || !kind.race.race.IsMechanoid)
+                    continue;
+                if (!_机械族Race列表.Contains(kind.race))
+                    _机械族Race列表.Add(kind.race);
+                if (!_机械族Kind映射.ContainsKey(kind.race))
+                    _机械族Kind映射[kind.race] = new List<PawnKindDef>();
+                _机械族Kind映射[kind.race].Add(kind);
+            }
+            _已构建 = true;
+        }
+
+        public static List<ThingDef> 获取所有机械族Race()
+        {
+            if (!_已构建) 构建缓存();
+            return _机械族Race列表;
+        }
+
+        public static PawnKindDef 获取主要Kind(ThingDef race)
+        {
+            if (!_已构建) 构建缓存();
+            if (_机械族Kind映射.TryGetValue(race, out List<PawnKindDef> list) && list.Count > 0)
+                return list[0];
+            return null;
+        }
+
+        public static List<PawnKindDef> 获取所有Kind(ThingDef race)
+        {
+            if (!_已构建) 构建缓存();
+            return _机械族Kind映射.TryGetValue(race, out List<PawnKindDef> list) ? list : new List<PawnKindDef>();
+        }
+    }
+
+    /// <summary>
+    /// 捆绑包管理器 - 价格计算与内容生成
+    /// AI 辅助生成
+    /// </summary>
+    public static class 捆绑包管理器
+    {
+        private static List<StarStore_BundleDef> _所有有效礼包;
+
+        public static List<StarStore_BundleDef> 获取所有有效礼包()
+        {
+            if (_所有有效礼包 == null)
+                _所有有效礼包 = DefDatabase<StarStore_BundleDef>.AllDefs.Where(b => b.是否有效()).ToList();
+            return _所有有效礼包;
+        }
+
+        public static void 刷新缓存()
+        {
+            _所有有效礼包 = null;
+        }
+
+        public static float 计算条目价格(StarStore_BundleDef.BundleEntry entry)
+        {
+            if (entry?.thingDef == null) return 0f;
+            return entry.thingDef.BaseMarketValue * entry.count;
+        }
+
+        public static float 获取原价(StarStore_BundleDef bundle)
+        {
+            float sum = 0f;
+            if (bundle.fixedItems != null)
+                foreach (var e in bundle.fixedItems)
+                    sum += 计算条目价格(e);
+            if (bundle.randomGroups != null)
+            {
+                foreach (var g in bundle.randomGroups)
+                {
+                    if (g.thingDefPool == null || g.thingDefPool.Count == 0) continue;
+                    float avg = g.thingDefPool.Average(d => d.BaseMarketValue);
+                    sum += avg * g.count * g.itemCountRange.Average;
+                }
+            }
+            return sum;
+        }
+
+        public static float 获取折扣价(StarStore_BundleDef bundle)
+        {
+            return 获取原价(bundle) * bundle.获取折扣率();
+        }
+
+        public static List<Thing> 生成礼包内容(StarStore_BundleDef bundle)
+        {
+            List<Thing> result = new List<Thing>();
+            if (bundle.fixedItems != null)
+            {
+                foreach (var e in bundle.fixedItems)
+                    result.AddRange(创建单个物品(e.thingDef, e.stuff, e.randomQuality ? null : (QualityCategory?)e.quality, e.count));
+            }
+            if (bundle.randomGroups != null)
+            {
+                foreach (var g in bundle.randomGroups)
+                {
+                    if (g.thingDefPool == null || g.thingDefPool.Count == 0) continue;
+                    int itemCount = g.itemCountRange.RandomInRange;
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                        ThingDef def = g.thingDefPool.RandomElement();
+                        QualityCategory? q = g.randomQuality ? null : (QualityCategory?)QualityCategory.Normal;
+                        result.AddRange(创建单个物品(def, null, q, g.count));
+                    }
+                }
+            }
+            return result;
+        }
+
+        private static IEnumerable<Thing> 创建单个物品(ThingDef def, ThingDef stuff, QualityCategory? quality, int count)
+        {
+            if (def == null) yield break;
+
+            // 动物 / 机械族：使用 PawnGenerator 完整生成管线
+            if (def.race != null)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    PawnKindDef kind = 机械族管理器.获取主要Kind(def) ?? DefDatabase<PawnKindDef>.AllDefs.FirstOrDefault(k => k.race == def);
+                    if (kind == null) continue;
+                    Faction fac = def.race.IsMechanoid ? Faction.OfMechanoids : Faction.OfPlayer;
+                    yield return PawnGenerator.GeneratePawn(kind, fac);
+                }
+                yield break;
+            }
+
+            ThingDef actualStuff = def.MadeFromStuff ? (stuff ?? def.defaultStuff ?? ThingDefOf.Steel) : null;
+            int remaining = count;
+            while (remaining > 0)
+            {
+                Thing t = ThingMaker.MakeThing(def, actualStuff);
+                if (quality.HasValue && t.TryGetComp<CompQuality>() is CompQuality cq)
+                    cq.SetQuality(quality.Value, ArtGenerationContext.Outsider);
+                int stack = Mathf.Min(remaining, def.stackLimit);
+                t.stackCount = stack;
+                yield return t;
+                remaining -= stack;
             }
         }
     }

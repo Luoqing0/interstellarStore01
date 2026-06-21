@@ -18,6 +18,10 @@ namespace 星际商店
         private int 折扣随机种子 = -1;
         private ThingDef 上次折扣物品 = null;  // AI：防止刷新后折扣物品变null导致区域消失
 
+        // 看板折扣帧级缓存（避免每帧调用 获取今日折扣物品 导致卡顿）
+        private int 看板缓存天数 = -1;
+        private ThingDef 看板缓存折扣物品 = null;
+
         public Window_看板 看板窗口;
 
         // 深色报纸风配色
@@ -33,6 +37,24 @@ namespace 星际商店
         public void 绘制看板公开(Rect rect)
         {
             绘制看板(rect);
+        }
+
+        /// <summary>带帧级缓存的折扣物品获取</summary>
+        private ThingDef 获取看板折扣物品(StarStore_SidebarConfigDef cfg, int 今日天数)
+        {
+            if (cfg == null) return null;
+            if (折扣随机种子 >= 0)
+            {
+                // 开发者手动刷新模式：用随机种子强制重新计算一次
+                ThingDef devItem = cfg.获取今日折扣物品(折扣随机种子);
+                if (devItem != null)
+                    return devItem;
+            }
+            if (看板缓存天数 == 今日天数 && 看板缓存折扣物品 != null)
+                return 看板缓存折扣物品;
+            看板缓存折扣物品 = cfg.获取今日折扣物品(今日天数);
+            看板缓存天数 = 今日天数;
+            return 看板缓存折扣物品;
         }
 
         private void 绘制看板(Rect rect)
@@ -56,7 +78,7 @@ namespace 星际商店
 
             float 内容Y = rect.y + 32f;
 
-            Texture2D mascot = cfg?.获取看板娘贴图();
+            Texture2D mascot = 当前看板娘?.获取贴图() ?? cfg?.获取看板娘贴图();
             if (mascot != null)
             {
                 float 图标尺寸 = Mathf.Min(可用宽 - 8f, 140f);
@@ -65,14 +87,15 @@ namespace 星际商店
                 内容Y += 图标尺寸 + 4f;
             }
 
-            if (!string.IsNullOrEmpty(缓存问候文字))
+            string 问候 = 当前问候语 ?? 缓存问候文字;
+            if (!string.IsNullOrEmpty(问候))
             {
                 GUI.color = 看板文字色;
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.UpperCenter;
-                float 问候高 = Text.CalcHeight(缓存问候文字, 可用宽 - 4f);
+                float 问候高 = Text.CalcHeight(问候, 可用宽 - 4f);
                 Rect 问候Rect = new Rect(rect.x + 看板内边距, 内容Y, 可用宽, 问候高 + 4f);
-                Widgets.Label(问候Rect, 缓存问候文字);
+                Widgets.Label(问候Rect, 问候);
                 Text.Anchor = TextAnchor.UpperLeft;
                 GUI.color = Color.white;
                 内容Y += 问候高 + 10f;
@@ -88,15 +111,7 @@ namespace 星际商店
             float cy = 0f;
 
             // 每日折扣 —— AI：防止刷新后折扣物品为null导致区域消失
-            ThingDef 折扣物品 = cfg?.获取今日折扣物品(今日天数);
-            if (折扣随机种子 >= 0 && cfg != null)
-            {
-                // 用随机种子查一次，如果非null就用它
-                ThingDef 随机物品 = cfg.获取今日折扣物品(折扣随机种子);
-                if (随机物品 != null)
-                    折扣物品 = 随机物品;
-                // 如果随机种子返回null则保持原折扣物品（不消失）
-            }
+            ThingDef 折扣物品 = 获取看板折扣物品(cfg, 今日天数);
             if (折扣物品 == null && 上次折扣物品 != null)
                 折扣物品 = 上次折扣物品;  // 保底：用上次的
             if (折扣物品 != null && cfg != null)
@@ -115,6 +130,7 @@ namespace 星际商店
                         折扣随机种子 = Rand.Range(0, 99999);
                         ThingDef 新折扣 = cfg.获取今日折扣物品(折扣随机种子);
                         if (新折扣 != null) 当前折扣物品 = 新折扣;  // AI：同步给交易和物品网格
+                        Messages.Message("StarStore_DevRefreshDiscount".Translate(), MessageTypeDefOf.TaskCompletion);
                     }
                 }
             }

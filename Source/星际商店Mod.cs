@@ -74,10 +74,13 @@ namespace 星际商店
     /// </summary>
     public class StarStore_SidebarConfigDef : Def
     {
-        /// <summary>看板娘图片路径（相对于 Textures/ 目录）</summary>
+        /// <summary>看板娘图片路径（旧单一看板娘兼容字段）</summary>
         public string mascotTexturePath = "UI/starstore_mascot";
 
-        /// <summary>随机问候语列表（每次打开商店随机挑一条）</summary>
+        /// <summary>多个看板娘 defName 列表（每次打开商店随机选一个）</summary>
+        public List<string> mascotDefNames = new List<string>();
+
+        /// <summary>随机问候语列表（旧单一看板娘兼容字段）</summary>
         public List<string> greetings = new List<string>();
 
         /// <summary>每日折扣物品 defName 列表（旧配置，useRandomCategoryDiscount=false 时生效）</summary>
@@ -88,6 +91,15 @@ namespace 星际商店
 
         /// <summary>折扣比例（0-1 之间，默认0.8）</summary>
         public float discountPercent = 0.8f;
+
+        /// <summary>折扣黑名单：不会成为每日折扣物品的 ThingDef defName</summary>
+        public List<string> discountBlacklist = new List<string>();
+
+        /// <summary>折扣分类黑名单：不会进入每日折扣候选的分类 Key</summary>
+        public List<string> discountCategoryBlacklist = new List<string>();
+
+        /// <summary>是否将礼包内固定物品排除在每日折扣候选池之外</summary>
+        public bool excludeBundleItemsFromDiscount = true;
 
         /// <summary>新闻公告列表</summary>
         public List<string> newsList = new List<string>();
@@ -104,7 +116,7 @@ namespace 星际商店
         private int _lastDiscountDay = -1;
         private ThingDef _cachedDiscountThing;
 
-        /// <summary>获取看板娘贴图（带缓存）</summary>
+        /// <summary>获取看板娘贴图（旧单一看板娘兼容）</summary>
         public Texture2D 获取看板娘贴图()
         {
             if (_mascotTex == null || _lastTexPath != mascotTexturePath)
@@ -115,9 +127,18 @@ namespace 星际商店
             return _mascotTex;
         }
 
+        /// <summary>从配置的 mascotDefNames 中随机选择一位看板娘</summary>
+        public StarStore_MascotDef 随机看板娘()
+        {
+            if (mascotDefNames.NullOrEmpty()) return null;
+            string name = mascotDefNames[Rand.Range(0, mascotDefNames.Count)];
+            return DefDatabase<StarStore_MascotDef>.GetNamedSilentFail(name);
+        }
+
+
         /// <summary>
         /// 根据游戏内天数获取每日折扣物品
-        /// 默认按天随机一个商品类别，再从该类别可购买物品中随机一个
+        /// 使用静态缓存、世界种子、价值加权、黑名单与历史去重
         /// </summary>
         public ThingDef 获取今日折扣物品(int 游戏天数)
         {
@@ -134,37 +155,17 @@ namespace 星际商店
                 return _cachedDiscountThing;
             }
 
-            // 候选分类（与商店左侧分类一致，排除 All / Favorites / Misc）
-            List<string> 候选分类 = new List<string>
+            var 分类物品表 = 星际商店.星际商店折扣缓存.获取分类物品表();
+            if (分类物品表 == null || 分类物品表.Count == 0)
             {
-                "StarStore_Cat_Food", "StarStore_Cat_Medicine", "StarStore_Cat_Weapons",
-                "StarStore_Cat_Apparel", "StarStore_Cat_Animals", "StarStore_Cat_RawMaterials",
-                "StarStore_Cat_Manufactured", "StarStore_Cat_Buildings", "StarStore_Cat_Furniture",
-                "StarStore_Cat_Electronics"
-            };
-
-            // 先收集每个分类下可购买的物品
-            Dictionary<string, List<ThingDef>> 分类物品表 = new Dictionary<string, List<ThingDef>>();
-            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefs)
-            {
-                if (def.destroyOnDrop || def.BaseMarketValue <= 0f) continue;
-                if (def.tradeability != Tradeability.Buyable && def.tradeability != Tradeability.All) continue;
-                if (!def.thingCategories.NullOrEmpty())
-                {
-                    foreach (string cat in 候选分类)
-                    {
-                        if (星际商店.星际商店工具.物品属于具体分类(def, cat))
-                        {
-                            if (!分类物品表.ContainsKey(cat))
-                                分类物品表[cat] = new List<ThingDef>();
-                            分类物品表[cat].Add(def);
-                            break; // 一个物品只归入第一个匹配分类
-                        }
-                    }
-                }
+                _cachedDiscountThing = null;
+                _lastDiscountDay = 游戏天数;
+                return null;
             }
 
-            // 移除空分类
+            var 候选分类 = 分类物品表.Keys.ToList();
+            if (discountCategoryBlacklist != null)
+                候选分类.RemoveAll(discountCategoryBlacklist.Contains);
             候选分类.RemoveAll(c => !分类物品表.ContainsKey(c) || 分类物品表[c].Count == 0);
             if (候选分类.Count == 0)
             {
@@ -173,11 +174,44 @@ namespace 星际商店
                 return null;
             }
 
-            // 使用确定性随机：同一天结果稳定，跨天自动更换
-            Rand.PushState(游戏天数 * 73856093 + 19349663);
+            // 世界种子 + 游戏天数 确定性随机：同一世界同一天结果稳定
+            int seed = (Find.World?.info?.Seed ?? 0) + 游戏天数 * 73856093;
+            Rand.PushState(seed);
+
             string 选中分类 = 候选分类[Rand.Range(0, 候选分类.Count)];
-            List<ThingDef> 物品列表 = 分类物品表[选中分类];
-            ThingDef 选中物品 = 物品列表[Rand.Range(0, 物品列表.Count)];
+            var 物品列表 = 分类物品表[选中分类]
+                .Where(d => d.BaseMarketValue >= 5f)
+                .Where(d => discountBlacklist == null || !discountBlacklist.Contains(d.defName))
+                .Where(d => !excludeBundleItemsFromDiscount || !星际商店.星际商店折扣缓存.获取礼包物品集合().Contains(d.defName))
+                .ToList();
+
+            ThingDef 选中物品 = null;
+            if (物品列表.Count > 0)
+            {
+                // 价值加权随机：价值越高权重越大
+                float total = 物品列表.Sum(d => d.BaseMarketValue);
+                float roll = Rand.Range(0f, total);
+                foreach (var d in 物品列表)
+                {
+                    roll -= d.BaseMarketValue;
+                    if (roll <= 0f)
+                    {
+                        选中物品 = d;
+                        break;
+                    }
+                }
+                if (选中物品 == null) 选中物品 = 物品列表.Last();
+
+                // 历史去重：命中最近 7 天历史则重抽一次
+                var comp = Current.Game?.GetComponent<星际商店.星际商店GameComponent>();
+                if (comp != null && comp.历史折扣物品 != null && comp.历史折扣物品.Contains(选中物品.defName))
+                {
+                    物品列表.Remove(选中物品);
+                    if (物品列表.Count > 0)
+                        选中物品 = 物品列表[Rand.Range(0, 物品列表.Count)];
+                }
+            }
+
             Rand.PopState();
 
             _cachedDiscountThing = 选中物品;
@@ -435,15 +469,48 @@ namespace 星际商店
     /// </summary>
     public class 星际商店GameComponent : GameComponent
     {
+        /// <summary>玩家收藏的物品 defName 集合（跨存档）</summary>
         public HashSet<string> 收藏列表 = new HashSet<string>();
 
-        public 星际商店GameComponent(Game game) { }
+        /// <summary>最近几天的每日折扣物品，用于去重</summary>
+        public List<string> 历史折扣物品 = new List<string>();
+
+        /// <summary>历史折扣保留长度（最近 N 天）</summary>
+        public const int 历史折扣保留天数 = 7;
+
+        public 星际商店GameComponent() { }
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Collections.Look(ref 收藏列表, "收藏列表", LookMode.Value);
+            Scribe_Collections.Look(ref 历史折扣物品, "历史折扣物品", LookMode.Value);
             if (收藏列表 == null) 收藏列表 = new HashSet<string>();
+            if (历史折扣物品 == null) 历史折扣物品 = new List<string>();
+        }
+
+        public bool 是否收藏(string defName)
+        {
+            return 收藏列表 != null && 收藏列表.Contains(defName);
+        }
+
+        public void 切换收藏(string defName)
+        {
+            if (收藏列表 == null) 收藏列表 = new HashSet<string>();
+            if (收藏列表.Contains(defName))
+                收藏列表.Remove(defName);
+            else
+                收藏列表.Add(defName);
+        }
+
+        /// <summary>记录新的历史折扣物品，并只保留最近 N 条</summary>
+        public void 记录历史折扣(string defName)
+        {
+            if (历史折扣物品 == null) 历史折扣物品 = new List<string>();
+            if (!历史折扣物品.Contains(defName))
+                历史折扣物品.Add(defName);
+            while (历史折扣物品.Count > 历史折扣保留天数)
+                历史折扣物品.RemoveAt(0);
         }
     }
 
