@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     星际商店 - 捆绑包配置
+     礼包内容、折扣、随机组合均在此 XML 配置
+     AI 辅助生成
+     ============================================================ -->
+<Defs>
+  <StarStore_BundleDef>
+    <defName>StarStore_Bundle_Starter</defName>
+    <label>新手开拓包</label>
+    <description>包含基础资源与食物，适合刚落地的殖民地。</description>
+    <iconPath>UI/Buttons/StarStore</iconPath>
+    <discountPercent>0.75</discountPercent>
+    <sortOrder>10</sortOrder>
+    <fixedItems>
+      <li><thingDef>Steel</thingDef><count>200</count></li>
+      <li><thingDef>WoodLog</thingDef><count>150</count></li>
+      <li><thingDef>MealSimple</thingDef><count>50</count></li>
+      <li><thingDef>MedicineIndustrial</thingDef><count>20</count></li>
+    </fixedItems>
+  </StarStore_BundleDef>
+
+  <StarStore_BundleDef>
+    <defName>StarStore_Bundle_Melee</defName>
+    <label>近战格斗包</label>
+    <description>一组实用的近战武器与护甲。</description>
+    <discountPercent>0.70</discountPercent>
+    <sortOrder>20</sortOrder>
+    <fixedItems>
+      <li><thingDef>MeleeWeapon_LongSword</thingDef><count>2</count></li>
+      <li><thingDef>MeleeWeapon_Gladius</thingDef><count>2</count></li>
+      <li><thingDef>Apparel_FlakVest</thingDef><count>2</count></li>
+    </fixedItems>
+  </StarStore_BundleDef>
+
+  <StarStore_BundleDef>
+    <defName>StarStore_Bundle_RandomMedical</defName>
+    <label>随机医疗补给</label>
+    <description>从医疗物资池中随机抽取的补给包。</description>
+    <discountPercent>0.80</discountPercent>
+    <sortOrder>30</sortOrder>
+    <randomGroups>
+      <li>
+        <count>3</count>
+        <itemCountRange>3~6</itemCountRange>
+        <thingDefPool>
+          <li>MedicineIndustrial</li>
+          <li>MedicineUltratech</li>
+          <li>Penoxycyline</li>
+        </thingDefPool>
+      </li>
+    </randomGroups>
+  </StarStore_BundleDef>
+</Defs>
