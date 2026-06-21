@@ -94,6 +94,19 @@ namespace 星际商店
         public enum 布局类型 { 大, 中, 小 }
         public static 布局类型 当前布局 = 布局类型.大;  // 默认大布局
 
+        // ===== 排序方式 =====
+        public enum 排序方式 { 名称, 价格, 科技 }
+        private 排序方式 当前排序方式 = 排序方式.名称;
+        private bool 排序正序 = true;
+
+        // ===== 看板娘（每次打开商店随机） =====
+        private StarStore_MascotDef 当前看板娘 = null;
+        private string 当前问候语 = "";
+
+        // ===== 当前分类快捷判断 =====
+        private bool 当前显示捆绑包 => 当前分类标签 == "StarStore_Cat_Bundles";
+        private bool 当前显示机械族 => 当前分类标签 == "StarStore_Cat_Mechanoids";
+
         // 布局相关参数（根据布局类型动态调整）
         // 大布局3x4：图标更大，品质材料半行，价格+白银图标，数量+单位
         // 中布局4x4，小布局6x6
@@ -205,9 +218,10 @@ namespace 星际商店
         {
             "StarStore_All", "StarStore_Favorites",
             "StarStore_Cat_Food", "StarStore_Cat_Medicine", "StarStore_Cat_Weapons",
-            "StarStore_Cat_Apparel", "StarStore_Cat_Animals", "StarStore_Cat_RawMaterials",
-            "StarStore_Cat_Manufactured", "StarStore_Cat_Buildings", "StarStore_Cat_Furniture",
-            "StarStore_Cat_Electronics", "StarStore_Cat_Misc"
+            "StarStore_Cat_Apparel", "StarStore_Cat_Animals", "StarStore_Cat_Mechanoids",
+            "StarStore_Cat_RawMaterials", "StarStore_Cat_Manufactured", "StarStore_Cat_Buildings",
+            "StarStore_Cat_Furniture", "StarStore_Cat_Electronics", "StarStore_Cat_Bundles",
+            "StarStore_Cat_Misc"
         };
 
         // ===== 窗口大小 =====
@@ -268,35 +282,59 @@ namespace 星际商店
             Instance = this;
             // 强制大布局（忽略设置中的行/列数）
             应用布局(布局类型.大);
-            // 确保 GameComponent 存在（收藏列表持久化用）
+            // 确保 GameComponent 存在（收藏列表与历史折扣持久化用）
             if (Current.Game != null && Current.Game.GetComponent<星际商店GameComponent>() == null)
             {
-                Current.Game.components.Add(new 星际商店GameComponent(Current.Game));
+                Current.Game.components.Add(new 星际商店GameComponent());
             }
             刷新物品列表();
+            刷新礼包列表();
             // AI 辅助生成：缓存问候文字（避免每帧抖动）
             StarStore_SidebarConfigDef cfg = 侧边栏管理器.配置;
-            if (cfg != null && cfg.greetings != null && cfg.greetings.Count > 0)
-                缓存问候文字 = cfg.greetings[Rand.Range(0, cfg.greetings.Count)];
+            当前看板娘 = cfg?.随机看板娘();
+            if (当前看板娘 != null && !当前看板娘.greetings.NullOrEmpty())
+                当前问候语 = 当前看板娘.greetings[Rand.Range(0, 当前看板娘.greetings.Count)];
+            else if (cfg != null && cfg.greetings != null && cfg.greetings.Count > 0)
+                当前问候语 = cfg.greetings[Rand.Range(0, cfg.greetings.Count)];
             else
-                缓存问候文字 = "";
+                当前问候语 = "";
+            // 保留旧字段兼容：看板窗口仍可能读取 缓存问候文字
+            缓存问候文字 = 当前问候语;
             // AI 辅助生成：初始化折扣物品
             上次折扣天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
             当前折扣物品 = cfg?.获取今日折扣物品(上次折扣天数);
+            记录折扣历史();
             // AI 辅助生成：商店开门提示音
             SoundDef.Named("UI_ButtonPrompt").PlayOneShot(new TargetInfo(UI.MouseCell(), Find.CurrentMap));
         }
 
+        /// <summary>刷新有效礼包缓存（随机礼包内容会重新抽取）</summary>
+        private void 刷新礼包列表()
+        {
+            捆绑包管理器.刷新缓存();
+        }
+
+        /// <summary>把当前折扣物品记录到历史去重列表</summary>
+        private void 记录折扣历史()
+        {
+            if (当前折扣物品 == null) return;
+            var comp = Current.Game?.GetComponent<星际商店GameComponent>();
+            comp?.记录历史折扣(当前折扣物品.defName);
+        }
+
         public override void DoWindowContents(Rect inRect)
         {
-            // 检测跨天：刷新折扣物品并更新物品列表
+            // 检测跨天：刷新折扣物品、礼包并更新物品列表
             int 当前天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
             if (当前天数 != 上次折扣天数)
             {
                 上次折扣天数 = 当前天数;
                 StarStore_SidebarConfigDef cfg = 侧边栏管理器.配置;
                 当前折扣物品 = cfg?.获取今日折扣物品(当前天数);
+                记录折扣历史();
                 刷新物品列表();
+                刷新礼包列表();
+                Messages.Message("StarStore_DailyRefresh".Translate(), MessageTypeDefOf.TaskCompletion);
             }
 
             // 同步看板窗口位置（窗口可能被拖动）

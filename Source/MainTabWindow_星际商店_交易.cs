@@ -165,9 +165,6 @@ namespace 星际商店
         }
 
         // ================================================================
-        //  判断物品属于哪个预定义分类
-        // ================================================================
-        // ================================================================
         //  分类判断 - 使用递归检查所有父分类
         // ================================================================
         private bool 物品属于分类(ThingDef def, string 分类Key)
@@ -197,14 +194,24 @@ namespace 星际商店
                 模组列表已初始化 = true;
             }
 
-            IEnumerable<ThingDef> query = DefDatabase<ThingDef>.AllDefs
-                .Where(d => !d.destroyOnDrop && d.BaseMarketValue > 0f && !d.thingCategories.NullOrEmpty());
+            IEnumerable<ThingDef> query;
 
-            // 按购买/卖出模式区分可交易性
-            if (是购买模式)
-                query = query.Where(d => d.tradeability == Tradeability.Buyable || d.tradeability == Tradeability.All);
+            // AI 辅助生成：机械族使用单独缓存列表（tradeability 通常为 None）
+            if (当前显示机械族)
+            {
+                query = 机械族管理器.获取所有机械族Race();
+            }
             else
-                query = query.Where(d => d.tradeability == Tradeability.Sellable || d.tradeability == Tradeability.All);
+            {
+                query = DefDatabase<ThingDef>.AllDefs
+                    .Where(d => !d.destroyOnDrop && d.BaseMarketValue > 0f && !d.thingCategories.NullOrEmpty());
+
+                // 按购买/卖出模式区分可交易性
+                if (是购买模式)
+                    query = query.Where(d => d.tradeability == Tradeability.Buyable || d.tradeability == Tradeability.All);
+                else
+                    query = query.Where(d => d.tradeability == Tradeability.Sellable || d.tradeability == Tradeability.All);
+            }
 
             // 分类过滤
             if (当前分类标签 != "StarStore_All")
@@ -220,7 +227,7 @@ namespace 星际商店
             }
 
             // 卖出模式
-            if (!是购买模式)
+            if (!是购买模式 && !当前显示机械族)
             {
                 Map map = Find.CurrentMap;
                 if (map != null && 仅显示库存)
@@ -243,7 +250,7 @@ namespace 星际商店
 
             // 已解锁科技筛选
             // AI 辅助生成：同时检查 ThingDef.researchPrerequisites 与 recipeMaker 中的研究前提
-            if (仅已解锁科技)
+            if (仅已解锁科技 && !当前显示机械族)
                 query = query.Where(d => 已解锁所有研究(d));
 
             // 模组筛选
@@ -252,7 +259,22 @@ namespace 星际商店
                 query = query.Where(d => (d.modContentPack?.Name ?? "Unknown") == 筛选模组);
             }
 
-            当前显示物品 = query.OrderBy(d => d.label).ToList();
+            // AI 辅助生成：排序支持（名称/价格/科技，正序/倒序）
+            IOrderedEnumerable<ThingDef> ordered;
+            switch (当前排序方式)
+            {
+                case 排序方式.价格:
+                    ordered = query.OrderBy(d => d.BaseMarketValue);
+                    break;
+                case 排序方式.科技:
+                    ordered = query.OrderBy(d => d.techLevel);
+                    break;
+                case 排序方式.名称:
+                default:
+                    ordered = query.OrderBy(d => d.label);
+                    break;
+            }
+            当前显示物品 = (排序正序 ? ordered : ordered.Reverse()).ToList();
         }
 
         /// <summary>
@@ -298,6 +320,33 @@ namespace 星际商店
 
                 float 单价 = 获取购买价格(key.def, key.quality, key.stuff);
                 总花费 += 单价 * kv.Value;
+
+                // AI 辅助生成：机械族购买分支
+                if (key.def.race != null && key.def.race.IsMechanoid)
+                {
+                    PawnKindDef kindDef = 机械族管理器.获取主要Kind(key.def);
+                    if (kindDef == null)
+                    {
+                        Log.Error($"星际商店: 无法找到 {key.def.defName} 的机械族 PawnKindDef，跳过");
+                        Messages.Message("StarStore_CreateItemFailed".Translate(key.def.label), MessageTypeDefOf.RejectInput);
+                        return;
+                    }
+                    try
+                    {
+                        for (int i = 0; i < kv.Value; i++)
+                        {
+                            Pawn pawn = PawnGenerator.GeneratePawn(kindDef, Faction.OfMechanoids);
+                            待生成.Add(pawn);
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Log.Error($"星际商店: 无法生成机械族 {key.def.defName}: {ex.Message}");
+                        Messages.Message("StarStore_CreateItemFailed".Translate(key.def.label), MessageTypeDefOf.RejectInput);
+                        return;
+                    }
+                    continue;
+                }
 
                 // 动物（Pawn）特殊处理：ThingMaker.MakeThing 会创建畸形 Pawn，
                 // 缺少 faction/kindDef/年龄等初始化，生成到地图后会污染 MapPawns 内部列表，
