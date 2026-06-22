@@ -168,21 +168,8 @@ namespace 星际商店
                 刷新物品列表();
             }
 
-            // 信息按钮
-            Rect 信息按钮Rect = new Rect(rect.xMax - 20f, rect.y + 2f, 18f, 18f);
-            bool 信息hover = Mouse.IsOver(信息按钮Rect);
-            GUI.color = 信息hover ? 主色调 : new Color(0.4f, 0.5f, 0.7f);
-            Text.Anchor = TextAnchor.MiddleCenter;
-            Text.Font = GameFont.Tiny;
-            Widgets.Label(信息按钮Rect, "i");
-            Text.Font = GameFont.Small;
-            Text.Anchor = TextAnchor.UpperLeft;
-            GUI.color = Color.white;
-            if (Widgets.ButtonInvisible(信息按钮Rect))
-            {
-                SoundDefOf.Tick_Tiny.PlayOneShot(new TargetInfo(UI.MouseCell(), Find.CurrentMap));
-                Find.WindowStack.Add(new Dialog_InfoCard(def));
-            }
+            // 标准 RimWorld 信息按钮
+            Widgets.InfoCardButton(rect.xMax - 24f, rect.y + 2f, def);
 
             // 物品图标
             float 图标尺寸 = Mathf.Min(格子尺寸 * 当前图标尺寸比例, 当前图标最大尺寸);
