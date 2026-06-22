@@ -77,6 +77,7 @@
   <StarStore_MainWindowUnavailable>Store main window unavailable. Please reopen the store.</StarStore_MainWindowUnavailable>
   <StarStore_DailyRefresh>Interstellar Store daily deals and bundles refreshed.</StarStore_DailyRefresh>
   <StarStore_DevRefreshDiscount>Dev: discount refreshed.</StarStore_DevRefreshDiscount>
+  <StarStore_DevRefreshDiscountFailed>No available discount item found.</StarStore_DevRefreshDiscountFailed>
   <StarStore_DevRefreshBundles>Dev: bundles refreshed.</StarStore_DevRefreshBundles>
 
   <!-- Trade Conditions -->
@@ -143,4 +144,25 @@
   <StarStore_BundlePurchased>Purchased {0}. Items delivered.</StarStore_BundlePurchased>
   <StarStore_BundlePurchasedIndoor>Purchased {0}. Items delivered indoors.</StarStore_BundlePurchasedIndoor>
   <StarStore_BundleCannotAfford>Cannot afford {0}. Need ⛃ {1}, have ⛃ {2}.</StarStore_BundleCannotAfford>
+  <StarStore_BundleDetails>Bundle Details</StarStore_BundleDetails>
+  <StarStore_BundleConfirmTitle>Confirm Purchase - {0}</StarStore_BundleConfirmTitle>
+  <StarStore_BundleConfirmDesc>Spend ⛃ {0} to purchase {1}?</StarStore_BundleConfirmDesc>
+  <StarStore_BundleBuyConfirm>Confirm</StarStore_BundleBuyConfirm>
+  <StarStore_BundleCancel>Cancel</StarStore_BundleCancel>
+  <StarStore_BundleFixedItems>Fixed Contents</StarStore_BundleFixedItems>
+  <StarStore_BundleRandomItems>Random Contents</StarStore_BundleRandomItems>
+  <StarStore_BundleRandomGroup>{0} groups, {1}-{2} items each</StarStore_BundleRandomGroup>
+  <StarStore_BundleTotalItems>{0} items total</StarStore_BundleTotalItems>
+  <StarStore_Cat_Gacha>Gacha</StarStore_Cat_Gacha>
+  <StarStore_GachaNoPools>No gacha pools available</StarStore_GachaNoPools>
+  <StarStore_GachaSinglePull>Single</StarStore_GachaSinglePull>
+  <StarStore_GachaTenPull>x10</StarStore_GachaTenPull>
+  <StarStore_GachaSingleBtn>Draw 1x</StarStore_GachaSingleBtn>
+  <StarStore_GachaTenBtn>Draw 10x</StarStore_GachaTenBtn>
+  <StarStore_GachaInfo>Probabilities</StarStore_GachaInfo>
+  <StarStore_GachaClose>Confirm</StarStore_GachaClose>
+  <StarStore_GachaProbability>{0} - Probabilities</StarStore_GachaProbability>
+  <StarStore_GachaItemCount>{0} items</StarStore_GachaItemCount>
+  <StarStore_GachaSingleResult>{0} - Result</StarStore_GachaSingleResult>
+  <StarStore_GachaTenResult>{0} - x10 Result</StarStore_GachaTenResult>
 </LanguageData>

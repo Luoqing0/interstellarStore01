@@ -4,6 +4,13 @@
      看板娘/问候语/每日折扣/新闻公告/背景故事/黑名单
      可通过修改此XML自定义内容
      AI 辅助生成
+
+     多看板娘随机说明：
+     - <mascotDefNames> 中列出所有可用的 StarStore_MascotDef defName
+     - 每次打开商店会从中随机选择一位看板娘
+     - 若该看板娘配置了 <greetings>，则使用其独立问候语池
+     - 若 mascotDefNames 为空，则回退到旧字段 mascotTexturePath + greetings
+     - 详见 Docs/看板娘配置说明.md
      ============================================================ -->
 <Defs>
   <StarStore_SidebarConfigDef>

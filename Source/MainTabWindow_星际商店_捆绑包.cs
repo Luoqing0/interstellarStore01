@@ -61,7 +61,7 @@ namespace 星际商店
 
             float 可用宽 = rect.width - 网格内边距;
             float 起始Y = Prefs.DevMode ? 32f : 0f;
-            float 卡片高 = 96f;
+            float 卡片高 = 118f;
             float 卡片间距 = 8f;
             float 内容高 = bundles.Count * (卡片高 + 卡片间距) + 网格内边距;
 
@@ -124,14 +124,25 @@ namespace 星际商店
             Text.Font = GameFont.Small;
             Widgets.Label(现价Rect, "StarStore_BundleDiscountPrice".Translate(现价.ToString("F0")));
 
-            // 购买按钮
+            // AI 辅助生成：详情按钮 + 购买按钮（购买改为打开二次确认窗口）
+            Rect 详情按钮Rect = new Rect(rect.xMax - 90f - 内边距, rect.yMax - 60f - 内边距, 90f, 26f);
+            Color 详情按钮色 = new Color(0.35f, 0.30f, 0.48f);
+            Widgets.DrawRectFast(详情按钮Rect, 详情按钮色);
+            GUI.color = Color.white;
+            if (Widgets.ButtonText(详情按钮Rect, "StarStore_BundleDetails".Translate()))
+            {
+                Find.WindowStack.Add(new Dialog_BundleDetails(bundle, false, null));
+            }
+
             Rect 购买按钮Rect = new Rect(rect.xMax - 90f - 内边距, rect.yMax - 28f - 内边距, 90f, 28f);
             bool 可购买 = Find.CurrentMap != null && 获取白银总量(Find.CurrentMap) >= Mathf.RoundToInt(现价);
-            GUI.color = 可购买 ? 购买按钮色 : 按钮不可用色;
+            Color 购买按钮背景色 = 可购买 ? 购买按钮色 : 按钮不可用色;
+            Widgets.DrawRectFast(购买按钮Rect, 购买按钮背景色);
+            GUI.color = Color.white;
             if (Widgets.ButtonText(购买按钮Rect, "StarStore_BundleBuy".Translate()))
             {
                 if (可购买)
-                    执行购买捆绑包(bundle);
+                    Find.WindowStack.Add(new Dialog_BundleDetails(bundle, true, () => 执行购买捆绑包(bundle)));
                 else
                     Messages.Message("StarStore_BundleCannotAfford".Translate(bundle.LabelCap, Mathf.RoundToInt(现价), 获取白银总量(Find.CurrentMap)), MessageTypeDefOf.RejectInput);
             }
@@ -205,24 +216,10 @@ namespace 星际商店
             List<Thing> 待生成 = 捆绑包管理器.生成礼包内容(bundle);
             if (待生成.Count == 0) return;
 
-            IntVec3 dropSpot = 获取有效降落点(map);
-            if (dropSpot.IsValid && dropSpot.InBounds(map) && !dropSpot.Roofed(map))
-            {
-                DropPodUtility.DropThingsNear(dropSpot, map, 待生成, 110, false, false, true, false, false, null);
-                Messages.Message("StarStore_BundlePurchased".Translate(bundle.LabelCap), new LookTargets(dropSpot, map), MessageTypeDefOf.TaskCompletion);
-            }
-            else
-            {
-                IntVec3 center = 获取室内生成点(map);
-                foreach (Thing t in 待生成)
-                {
-                    if (t is Pawn p)
-                        GenSpawn.Spawn(p, CellFinder.RandomClosewalkCellNear(center, map, 10), map, WipeMode.Vanish);
-                    else
-                        GenPlace.TryPlaceThing(t, center, map, ThingPlaceMode.Near);
-                }
-                Messages.Message("StarStore_BundlePurchasedIndoor".Translate(bundle.LabelCap), new LookTargets(center, map), MessageTypeDefOf.TaskCompletion);
-            }
+            // AI 辅助生成：复用主窗口的分发逻辑，建筑直接生成，其他进运输舱
+            LookTargets dropTarget;
+            if (分发购买物品(待生成, map, out dropTarget))
+                Messages.Message("StarStore_BundlePurchased".Translate(bundle.LabelCap), dropTarget, MessageTypeDefOf.TaskCompletion);
         }
     }
 }

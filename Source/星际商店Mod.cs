@@ -113,8 +113,12 @@ namespace 星际商店
         // 缓存
         private Texture2D _mascotTex;
         private string _lastTexPath = "";
+
+        // AI 辅助生成：每日折扣缓存与手动刷新缓存分离，避免互相污染
         private int _lastDiscountDay = -1;
         private ThingDef _cachedDiscountThing;
+        private int _devSeed = -1;
+        private ThingDef _devDiscountThing;
 
         /// <summary>获取看板娘贴图（旧单一看板娘兼容）</summary>
         public Texture2D 获取看板娘贴图()
@@ -137,7 +141,7 @@ namespace 星际商店
 
 
         /// <summary>
-        /// 根据游戏内天数获取每日折扣物品
+        /// 根据游戏内天数获取每日折扣物品（每日自动刷新使用）
         /// 使用静态缓存、世界种子、价值加权、黑名单与历史去重
         /// </summary>
         public ThingDef 获取今日折扣物品(int 游戏天数)
@@ -155,27 +159,43 @@ namespace 星际商店
                 return _cachedDiscountThing;
             }
 
+            // 世界种子 + 游戏天数 确定性随机：同一世界同一天结果稳定
+            int seed = (Find.World?.info?.Seed ?? 0) + 游戏天数 * 73856093;
+            _cachedDiscountThing = 计算折扣物品BySeed(seed);
+            _lastDiscountDay = 游戏天数;
+            return _cachedDiscountThing;
+        }
+
+        /// <summary>
+        /// 根据自定义种子获取手动刷新折扣物品（开发者手动刷新使用）
+        /// 拥有独立缓存，不污染每日折扣缓存
+        /// </summary>
+        public ThingDef 获取手动折扣物品(int seed)
+        {
+            if (_devSeed == seed && _devDiscountThing != null)
+                return _devDiscountThing;
+
+            _devDiscountThing = 计算折扣物品BySeed(seed);
+            _devSeed = seed;
+            return _devDiscountThing;
+        }
+
+        /// <summary>
+        /// 按种子计算折扣物品的公共逻辑
+        /// </summary>
+        private ThingDef 计算折扣物品BySeed(int seed)
+        {
             var 分类物品表 = 星际商店.星际商店折扣缓存.获取分类物品表();
             if (分类物品表 == null || 分类物品表.Count == 0)
-            {
-                _cachedDiscountThing = null;
-                _lastDiscountDay = 游戏天数;
                 return null;
-            }
 
             var 候选分类 = 分类物品表.Keys.ToList();
             if (discountCategoryBlacklist != null)
                 候选分类.RemoveAll(discountCategoryBlacklist.Contains);
             候选分类.RemoveAll(c => !分类物品表.ContainsKey(c) || 分类物品表[c].Count == 0);
             if (候选分类.Count == 0)
-            {
-                _cachedDiscountThing = null;
-                _lastDiscountDay = 游戏天数;
                 return null;
-            }
 
-            // 世界种子 + 游戏天数 确定性随机：同一世界同一天结果稳定
-            int seed = (Find.World?.info?.Seed ?? 0) + 游戏天数 * 73856093;
             Rand.PushState(seed);
 
             string 选中分类 = 候选分类[Rand.Range(0, 候选分类.Count)];
@@ -214,9 +234,7 @@ namespace 星际商店
 
             Rand.PopState();
 
-            _cachedDiscountThing = 选中物品;
-            _lastDiscountDay = 游戏天数;
-            return _cachedDiscountThing;
+            return 选中物品;
         }
 
         /// <summary>根据游戏内天数获取新闻</summary>
@@ -478,7 +496,8 @@ namespace 星际商店
         /// <summary>历史折扣保留长度（最近 N 天）</summary>
         public const int 历史折扣保留天数 = 7;
 
-        public 星际商店GameComponent() { }
+        // AI 辅助生成：RimWorld 1.6 通过 Activator.CreateInstance(type, game) 调用 GameComponent(Game)
+        public 星际商店GameComponent(Game game) { }
 
         public override void ExposeData()
         {
@@ -487,6 +506,16 @@ namespace 星际商店
             Scribe_Collections.Look(ref 历史折扣物品, "历史折扣物品", LookMode.Value);
             if (收藏列表 == null) 收藏列表 = new HashSet<string>();
             if (历史折扣物品 == null) 历史折扣物品 = new List<string>();
+            if (Scribe.mode == LoadSaveMode.PostLoadInit) 清理失效收藏();
+        }
+
+        /// <summary>清理已不存在的 Def 引用，避免移除模组后报错</summary>
+        public void 清理失效收藏()
+        {
+            收藏列表.RemoveWhere(name =>
+                string.IsNullOrEmpty(name) || DefDatabase<ThingDef>.GetNamedSilentFail(name) == null);
+            历史折扣物品.RemoveAll(name =>
+                string.IsNullOrEmpty(name) || DefDatabase<ThingDef>.GetNamedSilentFail(name) == null);
         }
 
         public bool 是否收藏(string defName)

@@ -15,12 +15,7 @@ namespace 星际商店
         private const float 看板内边距 = 8f;
         private Vector2 看板滚动;
         private int 新闻随机种子 = -1;
-        private int 折扣随机种子 = -1;
         private ThingDef 上次折扣物品 = null;  // AI：防止刷新后折扣物品变null导致区域消失
-
-        // 看板折扣帧级缓存（避免每帧调用 获取今日折扣物品 导致卡顿）
-        private int 看板缓存天数 = -1;
-        private ThingDef 看板缓存折扣物品 = null;
 
         public Window_看板 看板窗口;
 
@@ -39,22 +34,11 @@ namespace 星际商店
             绘制看板(rect);
         }
 
-        /// <summary>带帧级缓存的折扣物品获取</summary>
+        /// <summary>获取当前看板应显示的折扣物品（与主窗口共享同一数据源）</summary>
         private ThingDef 获取看板折扣物品(StarStore_SidebarConfigDef cfg, int 今日天数)
         {
-            if (cfg == null) return null;
-            if (折扣随机种子 >= 0)
-            {
-                // 开发者手动刷新模式：用随机种子强制重新计算一次
-                ThingDef devItem = cfg.获取今日折扣物品(折扣随机种子);
-                if (devItem != null)
-                    return devItem;
-            }
-            if (看板缓存天数 == 今日天数 && 看板缓存折扣物品 != null)
-                return 看板缓存折扣物品;
-            看板缓存折扣物品 = cfg.获取今日折扣物品(今日天数);
-            看板缓存天数 = 今日天数;
-            return 看板缓存折扣物品;
+            // AI 辅助生成：统一使用主窗口的当前折扣物品，避免看板与物品格不一致
+            return 当前折扣物品 ?? cfg?.获取今日折扣物品(今日天数);
         }
 
         private void 绘制看板(Rect rect)
@@ -127,10 +111,8 @@ namespace 星际商店
                     Rect 折扣刷新Rect = new Rect(滚动内容Rect.width - 4f, cy - 20f, 28f, 16f);
                     if (Widgets.ButtonText(折扣刷新Rect, "刷新"))
                     {
-                        折扣随机种子 = Rand.Range(0, 99999);
-                        ThingDef 新折扣 = cfg.获取今日折扣物品(折扣随机种子);
-                        if (新折扣 != null) 当前折扣物品 = 新折扣;  // AI：同步给交易和物品网格
-                        Messages.Message("StarStore_DevRefreshDiscount".Translate(), MessageTypeDefOf.TaskCompletion);
+                        // AI 辅助生成：统一走主窗口的手动刷新方法，确保看板与物品格同步
+                        手动刷新折扣();
                     }
                 }
             }

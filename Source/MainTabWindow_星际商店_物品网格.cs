@@ -31,6 +31,13 @@ namespace 星际商店
                 return;
             }
 
+            // AI 辅助生成：抽卡分类使用独立绘制逻辑
+            if (当前显示抽卡)
+            {
+                绘制抽卡网格(rect);
+                return;
+            }
+
             // 分页计算
             int 总页数 = Mathf.Max(1, Mathf.CeilToInt((float)当前显示物品.Count / 每页物品数));
             当前页码 = Mathf.Clamp(当前页码, 1, 总页数);

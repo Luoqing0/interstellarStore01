@@ -77,6 +77,7 @@
   <StarStore_MainWindowUnavailable>ストアのメインウィンドウが利用できません。ストアを開き直してください。</StarStore_MainWindowUnavailable>
   <StarStore_DailyRefresh>インターステラ商店の日替わり割引とバンドルが更新されました。</StarStore_DailyRefresh>
   <StarStore_DevRefreshDiscount>開発者：割引を手動更新しました。</StarStore_DevRefreshDiscount>
+  <StarStore_DevRefreshDiscountFailed>利用可能な割引アイテムが見つかりません。</StarStore_DevRefreshDiscountFailed>
   <StarStore_DevRefreshBundles>開発者：バンドルを手動更新しました。</StarStore_DevRefreshBundles>
 
   <!-- 取引条件 -->
@@ -143,4 +144,25 @@
   <StarStore_BundlePurchased>{0} を購入しました。アイテムが配送されました。</StarStore_BundlePurchased>
   <StarStore_BundlePurchasedIndoor>{0} を購入しました。アイテムが拠点内に生成されました。</StarStore_BundlePurchasedIndoor>
   <StarStore_BundleCannotAfford>{0} を購入できません。⛃ {1} 必要、現在 ⛃ {2}。</StarStore_BundleCannotAfford>
+  <StarStore_BundleDetails>バンドル詳細</StarStore_BundleDetails>
+  <StarStore_BundleConfirmTitle>{0} の購入確認</StarStore_BundleConfirmTitle>
+  <StarStore_BundleConfirmDesc>⛃ {0} を消費して {1} を購入しますか？</StarStore_BundleConfirmDesc>
+  <StarStore_BundleBuyConfirm>購入確認</StarStore_BundleBuyConfirm>
+  <StarStore_BundleCancel>キャンセル</StarStore_BundleCancel>
+  <StarStore_BundleFixedItems>固定内容</StarStore_BundleFixedItems>
+  <StarStore_BundleRandomItems>ランダム内容</StarStore_BundleRandomItems>
+  <StarStore_BundleRandomGroup>{0} グループ, 各 {1}-{2} 個</StarStore_BundleRandomGroup>
+  <StarStore_BundleTotalItems>合計 {0} アイテム</StarStore_BundleTotalItems>
+  <StarStore_Cat_Gacha>ガチャ</StarStore_Cat_Gacha>
+  <StarStore_GachaNoPools>利用可能なガチャプールはありません</StarStore_GachaNoPools>
+  <StarStore_GachaSinglePull>単発</StarStore_GachaSinglePull>
+  <StarStore_GachaTenPull>10連</StarStore_GachaTenPull>
+  <StarStore_GachaSingleBtn>1回引く</StarStore_GachaSingleBtn>
+  <StarStore_GachaTenBtn>10回引く</StarStore_GachaTenBtn>
+  <StarStore_GachaInfo>確率表示</StarStore_GachaInfo>
+  <StarStore_GachaClose>確認</StarStore_GachaClose>
+  <StarStore_GachaProbability>{0} - 確率表示</StarStore_GachaProbability>
+  <StarStore_GachaItemCount>{0} 種</StarStore_GachaItemCount>
+  <StarStore_GachaSingleResult>{0} - 結果</StarStore_GachaSingleResult>
+  <StarStore_GachaTenResult>{0} - 10連結果</StarStore_GachaTenResult>
 </LanguageData>

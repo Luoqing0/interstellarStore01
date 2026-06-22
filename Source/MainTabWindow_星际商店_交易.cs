@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 using RimWorld;
+using RimWorld.Planet;
 
 namespace 星际商店
 {
@@ -199,7 +200,14 @@ namespace 星际商店
             // AI 辅助生成：机械族使用单独缓存列表（tradeability 通常为 None）
             if (当前显示机械族)
             {
-                query = 机械族管理器.获取所有机械族Race();
+                query = 是购买模式
+                    ? 机械族管理器.获取所有机械族Race()
+                    : 机械族管理器.获取殖民地机械族Race(Find.CurrentMap);
+                if (query.EnumerableNullOrEmpty())
+                {
+                    当前显示物品 = new List<ThingDef>();
+                    return;
+                }
             }
             else
             {
@@ -211,6 +219,14 @@ namespace 星际商店
                     query = query.Where(d => d.tradeability == Tradeability.Buyable || d.tradeability == Tradeability.All);
                 else
                     query = query.Where(d => d.tradeability == Tradeability.Sellable || d.tradeability == Tradeability.All);
+
+                // AI 辅助生成：卖出“全部”页合并殖民者机械族
+                if (!是购买模式 && 当前分类标签 == "StarStore_All")
+                {
+                    var mechRaces = 机械族管理器.获取殖民地机械族Race(Find.CurrentMap);
+                    if (!mechRaces.NullOrEmpty())
+                        query = query.Union(mechRaces);
+                }
             }
 
             // 分类过滤
@@ -227,24 +243,32 @@ namespace 星际商店
             }
 
             // 卖出模式
-            if (!是购买模式 && !当前显示机械族)
+            if (!是购买模式)
             {
                 Map map = Find.CurrentMap;
                 if (map != null && 仅显示库存)
                 {
-                    HashSet<ThingDef> 拥有defs = new HashSet<ThingDef>();
-                    List<Thing> allThings = map.listerThings.AllThings;
-                    for (int i = 0; i < allThings.Count; i++)
+                    if (当前显示机械族)
                     {
-                        Thing t = allThings[i];
-                        // 只统计殖民地拥有的物品
-                        if (t.Faction == Faction.OfPlayer || (t.Faction == null && t.IsInAnyStorage()))
-                        {
-                            if (!拥有defs.Contains(t.def))
-                                拥有defs.Add(t.def);
-                        }
+                        var present = 机械族管理器.获取殖民地机械族Race(map).ToHashSet();
+                        query = query.Where(d => present.Contains(d));
                     }
-                    query = query.Where(d => 拥有defs.Contains(d));
+                    else
+                    {
+                        HashSet<ThingDef> 拥有defs = new HashSet<ThingDef>();
+                        List<Thing> allThings = map.listerThings.AllThings;
+                        for (int i = 0; i < allThings.Count; i++)
+                        {
+                            Thing t = allThings[i];
+                            // 只统计殖民地拥有的物品
+                            if (t.Faction == Faction.OfPlayer || (t.Faction == null && t.IsInAnyStorage()))
+                            {
+                                if (!拥有defs.Contains(t.def))
+                                    拥有defs.Add(t.def);
+                            }
+                        }
+                        query = query.Where(d => 拥有defs.Contains(d));
+                    }
                 }
             }
 
@@ -335,7 +359,7 @@ namespace 星际商店
                     {
                         for (int i = 0; i < kv.Value; i++)
                         {
-                            Pawn pawn = PawnGenerator.GeneratePawn(kindDef, Faction.OfMechanoids);
+                            Pawn pawn = PawnGenerator.GeneratePawn(kindDef, Faction.OfPlayer);
                             待生成.Add(pawn);
                         }
                     }
@@ -437,29 +461,10 @@ namespace 星际商店
                 return;
             }
 
-            // AI 辅助生成：使用运输舱生成物品（优先轨道交易信标位置）
-            // 统一处理普通物品与动物：DropPodUtility.DropThingsNear 内部会把每个 Thing（含 Pawn）
-            // 装入 ActiveTransporterInfo.innerContainer，落地后自动生成，因此动物无需单独 GenSpawn。
-            IntVec3 dropSpot = 获取有效降落点(map);
-            if (dropSpot.IsValid && dropSpot.InBounds(map) && !dropSpot.Roofed(map))
-            {
-                // 方案A：运输舱投放（室外/无屋顶）
-                DropPodUtility.DropThingsNear(dropSpot, map, 待生成, 110, canInstaDropDuringInit: false, leaveSlag: false, canRoofPunch: true, forbid: false, allowFogged: false);
-                Messages.Message("StarStore_PurchaseComplete".Translate(), new LookTargets(dropSpot, map), MessageTypeDefOf.TaskCompletion);
-            }
-            else
-            {
-                // 方案B：直接生成在地面（室内/屋顶下，运输舱无法通过）
-                IntVec3 center = 获取室内生成点(map);
-                for (int i = 0; i < 待生成.Count; i++)
-                {
-                    if (待生成[i] is Pawn pawn)
-                        GenSpawn.Spawn(pawn, CellFinder.RandomClosewalkCellNear(center, map, 10), map, WipeMode.Vanish);
-                    else
-                        GenPlace.TryPlaceThing(待生成[i], center, map, ThingPlaceMode.Near);
-                }
-                Messages.Message("StarStore_PurchaseIndoor".Translate(), new LookTargets(center, map), MessageTypeDefOf.TaskCompletion);
-            }
+            // AI 辅助生成：分流投放（建筑不可直接进运输舱）
+            LookTargets dropTarget;
+            if (分发购买物品(待生成, map, out dropTarget))
+                Messages.Message("StarStore_PurchaseComplete".Translate(), dropTarget, MessageTypeDefOf.TaskCompletion);
             购买交易数量.Clear();
             刷新物品列表();
         }
@@ -486,6 +491,19 @@ namespace 星际商店
             foreach (var kv in 出售交易数量)
             {
                 if (kv.Value <= 0) continue;
+
+                // AI 辅助生成：机械族在 listerThings 中找不到，需独立预检
+                if (kv.Key.def.race != null && kv.Key.def.race.IsMechanoid)
+                {
+                    int availableMech = 机械族管理器.获取殖民地机械族(kv.Key.def, map, kv.Value).Count();
+                    if (availableMech < kv.Value)
+                    {
+                        Messages.Message("StarStore_InsufficientStock".Translate(kv.Key.ToString()), MessageTypeDefOf.RejectInput);
+                        return;
+                    }
+                    执行计划.Add(new 出售计划项 { key = kv.Key, candidates = new List<Thing>(), amount = kv.Value });
+                    continue;
+                }
 
                 // 从地图上找到匹配品质/材料的物品（使用帧级缓存避免重复遍历）
                 List<Thing> candidates;
@@ -514,6 +532,26 @@ namespace 星际商店
             // 阶段2：全部预检查通过后，统一扣除库存并累加收益
             foreach (var plan in 执行计划)
             {
+                // AI 辅助生成：机械族活体单独处理（不在 listerThings 中）
+                if (plan.key.def.race != null && plan.key.def.race.IsMechanoid)
+                {
+                    var pawns = 机械族管理器.获取殖民地机械族(plan.key.def, map, plan.amount).ToList();
+                    if (pawns.Count < plan.amount)
+                    {
+                        Messages.Message("StarStore_InsufficientStock".Translate(plan.key.ToString()), MessageTypeDefOf.RejectInput);
+                        return;
+                    }
+                    foreach (Pawn p in pawns)
+                    {
+                        float 基础单价 = 获取出售价格(plan.key.def);
+                        float 单价 = 基础单价 * Mathf.Max(0.1f, p.MarketValue / Mathf.Max(plan.key.def.BaseMarketValue, 1f));
+                        总收益 += 单价;
+                        p.DeSpawn(DestroyMode.Vanish);
+                        Find.WorldPawns.PassToWorld(p, PawnDiscardDecideMode.Decide);
+                    }
+                    continue;
+                }
+
                 int 剩余卖出 = plan.amount;
                 for (int j = 0; j < plan.candidates.Count && 剩余卖出 > 0; j++)
                 {
@@ -540,7 +578,9 @@ namespace 星际商店
                 silver.stackCount = 白银数量;
 
                 IntVec3 saleDropSpot = 获取有效降落点(map);
-                if (saleDropSpot.IsValid && saleDropSpot.InBounds(map) && !saleDropSpot.Roofed(map))
+                // AI 辅助生成：检查投放点是否在水面，水面会摧毁物品
+                if (saleDropSpot.IsValid && saleDropSpot.InBounds(map) && !saleDropSpot.Roofed(map)
+                    && !map.terrainGrid.TerrainAt(saleDropSpot).IsWater)
                 {
                     // 方案A：运输舱投放（室外/无屋顶）
                     DropPodUtility.DropThingsNear(saleDropSpot, map, new List<Thing> { silver });
@@ -602,6 +642,122 @@ namespace 星际商店
                 Log.Warning($"星际商店: 未找到有效交易信标，使用回退位置 {spot}");
             }
             return spot;
+        }
+
+        // ================================================================
+        //  购买物品分发：建筑直接生成，其他进运输舱
+        //  AI 辅助生成
+        // ================================================================
+        private bool 需要直接生成(Thing thing)
+        {
+            if (thing == null || thing.def == null) return false;
+            if (thing is Pawn) return false;                       // 生物走运输舱
+            if (thing.def.category == ThingCategory.Building && !thing.def.Minifiable)
+                return true;                                       // 非迷你建筑必须直接生成
+            return false;
+        }
+
+        private bool 寻找建筑放置点(ThingDef def, Map map, IntVec3 center, out IntVec3 cell)
+        {
+            cell = IntVec3.Invalid;
+            if (map == null || !center.IsValid || !center.InBounds(map)) return false;
+
+            for (int radius = 0; radius <= 20; radius++)
+            {
+                foreach (IntVec3 candidate in GenRadial.RadialCellsAround(center, radius, true))
+                {
+                    if (!candidate.InBounds(map)) continue;
+                    AcceptanceReport report = GenConstruct.CanPlaceBlueprintAt(
+                        def, candidate, Rot4.North, map, true, null, null);
+                    if (report.Accepted)
+                    {
+                        cell = candidate;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 将购买出来的物品分流：非迷你建筑直接生成到地图，其余进运输舱
+        /// AI 辅助生成
+        /// </summary>
+        /// <returns>是否成功投放了物品</returns>
+        private bool 分发购买物品(List<Thing> 待生成, Map map, out LookTargets target)
+        {
+            target = default(LookTargets);
+            if (map == null || 待生成.NullOrEmpty()) return false;
+
+            bool 任何成功 = false;
+            List<Thing> 运输舱物品 = new List<Thing>();
+            List<Thing> 直接建筑 = new List<Thing>();
+            foreach (Thing t in 待生成)
+            {
+                if (需要直接生成(t)) 直接建筑.Add(t);
+                else 运输舱物品.Add(t);
+            }
+
+            // 1. 普通物品、迷你建筑、生物 走运输舱或室内放置
+            if (运输舱物品.Count > 0)
+            {
+                IntVec3 dropSpot = 获取有效降落点(map);
+                // AI 辅助生成：避免物品落入水面被摧毁
+                if (dropSpot.IsValid && dropSpot.InBounds(map) && !dropSpot.Roofed(map)
+                    && !map.terrainGrid.TerrainAt(dropSpot).IsWater)
+                {
+                    DropPodUtility.DropThingsNear(dropSpot, map, 运输舱物品, 110,
+                        canInstaDropDuringInit: false, leaveSlag: false,
+                        canRoofPunch: true, forbid: false, allowFogged: false);
+                    任何成功 = true;
+                    target = new LookTargets(dropSpot, map);
+                }
+                else
+                {
+                    IntVec3 center = 获取室内生成点(map);
+                    bool indoorPlaced = false;
+                    foreach (Thing t in 运输舱物品)
+                    {
+                        if (t is Pawn pawn)
+                        {
+                            GenSpawn.Spawn(pawn, CellFinder.RandomClosewalkCellNear(center, map, 10), map, WipeMode.Vanish);
+                            indoorPlaced = true;
+                        }
+                        else if (GenPlace.TryPlaceThing(t, center, map, ThingPlaceMode.Near))
+                        {
+                            indoorPlaced = true;
+                        }
+                    }
+                    if (indoorPlaced) 任何成功 = true;
+                    target = new LookTargets(center, map);
+                }
+            }
+
+            // 2. 非迷你建筑直接放置
+            if (直接建筑.Count > 0)
+            {
+                IntVec3 center = 获取室内生成点(map);
+                int 未放置数 = 0;
+                foreach (Thing building in 直接建筑)
+                {
+                    if (寻找建筑放置点(building.def, map, center, out IntVec3 cell))
+                    {
+                        GenSpawn.Spawn(building, cell, map, Rot4.North, WipeMode.Vanish);
+                        任何成功 = true;
+                    }
+                    else
+                    {
+                        未放置数 += building.stackCount > 0 ? building.stackCount : 1;
+                        if (!building.Destroyed) building.Destroy();
+                    }
+                }
+                if (未放置数 > 0)
+                {
+                    Messages.Message("StarStore_PurchasePartialDropFail".Translate(未放置数), MessageTypeDefOf.RejectInput);
+                }
+            }
+
+            return 任何成功;
         }
     }
 }

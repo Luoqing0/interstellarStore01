@@ -17,6 +17,14 @@ namespace 星际商店
         /// </summary>
         public static bool 物品属于具体分类(ThingDef def, string 分类Key)
         {
+            // AI 辅助生成：先处理不依赖 thingCategories 的分类（机械族、动物）
+            if (分类Key == "StarStore_Cat_Mechanoids")
+                return def.race != null && def.race.IsMechanoid;
+
+            if (分类Key == "StarStore_Cat_Animals")
+                return (def.race != null && def.race.Animal) ||
+                       获取所有分类(def).Any(c => c == "Animals");
+
             if (def.thingCategories == null) return false;
 
             HashSet<string> 所有分类 = 获取所有分类(def);
@@ -44,10 +52,6 @@ namespace 星际商店
                     c == "Apparel" || c.StartsWith("Apparel") ||
                     c == "Armor" || c == "Clothing" ||
                     c == "Headgear" || c == "Shields");
-            if (分类Key == "StarStore_Cat_Animals")
-                return 所有分类.Any(c => c == "Animals") || (def.race != null && def.race.Animal);
-            if (分类Key == "StarStore_Cat_Mechanoids")
-                return def.race != null && def.race.IsMechanoid;
             if (分类Key == "StarStore_Cat_RawMaterials")
                 return 所有分类.Any(c =>
                     c == "Resources" || c == "RawMaterials" ||
@@ -142,6 +146,18 @@ namespace 星际商店
         {
             _机械族Race列表 = new List<ThingDef>();
             _机械族Kind映射 = new Dictionary<ThingDef, List<PawnKindDef>>();
+
+            // AI 辅助生成：先从 ThingDef 层扫描，避免某些机械族没有 PawnKindDef 映射
+            // 排除尸体类 ThingDef（Corpse_Mech_xxx 等），它们也有 race.IsMechanoid 但不可交易
+            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefs)
+            {
+                if (def.race != null && def.race.IsMechanoid
+                    && def.thingClass != typeof(Corpse)
+                    && !_机械族Race列表.Contains(def))
+                    _机械族Race列表.Add(def);
+            }
+
+            // 再用 PawnKindDef 补充 kind 映射
             foreach (PawnKindDef kind in DefDatabase<PawnKindDef>.AllDefs)
             {
                 if (kind.race == null || kind.race.race == null || !kind.race.race.IsMechanoid)
@@ -153,6 +169,12 @@ namespace 星际商店
                 _机械族Kind映射[kind.race].Add(kind);
             }
             _已构建 = true;
+        }
+
+        public static bool 是机械族(ThingDef def)
+        {
+            if (!_已构建) 构建缓存();
+            return def != null && def.race != null && def.race.IsMechanoid;
         }
 
         public static List<ThingDef> 获取所有机械族Race()
@@ -173,6 +195,33 @@ namespace 星际商店
         {
             if (!_已构建) 构建缓存();
             return _机械族Kind映射.TryGetValue(race, out List<PawnKindDef> list) ? list : new List<PawnKindDef>();
+        }
+
+        /// <summary>获取当前地图上玩家拥有的活体机械族种族列表（卖出模式用）</summary>
+        public static List<ThingDef> 获取殖民地机械族Race(Map map)
+        {
+            if (map == null) return new List<ThingDef>();
+            return map.mapPawns.AllPawns
+                .Where(p => p.Faction == Faction.OfPlayer &&
+                            p.RaceProps != null &&
+                            p.RaceProps.IsMechanoid &&
+                            !p.Dead)
+                .Select(p => p.def)
+                .Distinct()
+                .ToList();
+        }
+
+        /// <summary>获取指定种族的玩家机械族活体 Pawn（卖出模式用）</summary>
+        public static IEnumerable<Pawn> 获取殖民地机械族(ThingDef race, Map map, int amount)
+        {
+            if (map == null || race == null || amount <= 0)
+                return Enumerable.Empty<Pawn>();
+            return map.mapPawns.AllPawns
+                .Where(p => p.def == race &&
+                            p.Faction == Faction.OfPlayer &&
+                            p.RaceProps.IsMechanoid &&
+                            !p.Dead)
+                .Take(amount);
         }
     }
 
@@ -274,6 +323,11 @@ namespace 星际商店
                 Thing t = ThingMaker.MakeThing(def, actualStuff);
                 if (quality.HasValue && t.TryGetComp<CompQuality>() is CompQuality cq)
                     cq.SetQuality(quality.Value, ArtGenerationContext.Outsider);
+
+                // AI 辅助生成：可迷你化建筑先迷你化，避免进入运输舱后被销毁
+                if (def.category == ThingCategory.Building && def.Minifiable)
+                    t = t.MakeMinified();
+
                 int stack = Mathf.Min(remaining, def.stackLimit);
                 t.stackCount = stack;
                 yield return t;

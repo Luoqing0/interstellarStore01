@@ -3,7 +3,7 @@
   <name>星际商店</name>
   <author>Luoqing</author>
   <packageId>luoqing.starstore</packageId>
-  <modVersion>1.0.0</modVersion>
+  <modVersion>1.1.2</modVersion>
   <description>在底部栏增加一个星际商店，可以直接购买大部分物品，支持分类筛选与收藏。支持购买/卖出模式，科幻风格UI，可自定义交易物品和价格。</description>
   <supportedVersions>
     <li>1.6</li>

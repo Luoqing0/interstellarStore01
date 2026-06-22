@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     星际商店 - 抽卡稀有度配置
+     5 级稀有度：普通 / 精良 / 稀有 / 史诗 / 传说
+     权重越高越容易抽到
+     AI 辅助生成
+     ============================================================ -->
+<Defs>
+  <StarStore_GachaRarityDef>
+    <defName>GachaRarity_Common</defName>
+    <label>普通</label>
+    <weight>500</weight>
+    <rarityColor>(0.60, 0.65, 0.72)</rarityColor>
+    <badgeText>普通</badgeText>
+    <priceMultiplier>1.0</priceMultiplier>
+    <tenPullGuaranteeTier>0</tenPullGuaranteeTier>
+    <effectColor>(0.60, 0.65, 0.72)</effectColor>
+  </StarStore_GachaRarityDef>
+
+  <StarStore_GachaRarityDef>
+    <defName>GachaRarity_Uncommon</defName>
+    <label>精良</label>
+    <weight>250</weight>
+    <rarityColor>(0.30, 0.85, 0.45)</rarityColor>
+    <badgeText>精良</badgeText>
+    <priceMultiplier>1.5</priceMultiplier>
+    <tenPullGuaranteeTier>0</tenPullGuaranteeTier>
+    <effectColor>(0.30, 0.85, 0.45)</effectColor>
+  </StarStore_GachaRarityDef>
+
+  <StarStore_GachaRarityDef>
+    <defName>GachaRarity_Rare</defName>
+    <label>稀有</label>
+    <weight>100</weight>
+    <rarityColor>(0.20, 0.85, 0.85)</rarityColor>
+    <badgeText>稀有</badgeText>
+    <priceMultiplier>2.0</priceMultiplier>
+    <tenPullGuaranteeTier>1</tenPullGuaranteeTier>
+    <effectColor>(0.20, 0.85, 0.85)</effectColor>
+  </StarStore_GachaRarityDef>
+
+  <StarStore_GachaRarityDef>
+    <defName>GachaRarity_Epic</defName>
+    <label>史诗</label>
+    <weight>30</weight>
+    <rarityColor>(0.65, 0.30, 0.90)</rarityColor>
+    <badgeText>史诗</badgeText>
+    <priceMultiplier>3.0</priceMultiplier>
+    <tenPullGuaranteeTier>2</tenPullGuaranteeTier>
+    <effectColor>(0.65, 0.30, 0.90)</effectColor>
+  </StarStore_GachaRarityDef>
+
+  <StarStore_GachaRarityDef>
+    <defName>GachaRarity_Legendary</defName>
+    <label>传说</label>
+    <weight>5</weight>
+    <rarityColor>(1.00, 0.85, 0.25)</rarityColor>
+    <badgeText>传说</badgeText>
+    <priceMultiplier>5.0</priceMultiplier>
+    <tenPullGuaranteeTier>2</tenPullGuaranteeTier>
+    <effectColor>(1.00, 0.85, 0.25)</effectColor>
+  </StarStore_GachaRarityDef>
+</Defs>

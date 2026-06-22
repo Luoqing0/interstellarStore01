@@ -78,6 +78,7 @@
   <StarStore_MainWindowUnavailable>商店主窗口不可用，请重新打开商店。</StarStore_MainWindowUnavailable>
   <StarStore_DailyRefresh>星际商店每日折扣与礼包已刷新。</StarStore_DailyRefresh>
   <StarStore_DevRefreshDiscount>开发者：折扣已手动刷新。</StarStore_DevRefreshDiscount>
+  <StarStore_DevRefreshDiscountFailed>未找到可用折扣物品。</StarStore_DevRefreshDiscountFailed>
   <StarStore_DevRefreshBundles>开发者：礼包已手动刷新。</StarStore_DevRefreshBundles>
 
   <!-- 交易条件 -->
@@ -144,4 +145,25 @@
   <StarStore_BundlePurchased>已购买 {0}，物品已送达。</StarStore_BundlePurchased>
   <StarStore_BundlePurchasedIndoor>已购买 {0}，物品已直接生成在基地内。</StarStore_BundlePurchasedIndoor>
   <StarStore_BundleCannotAfford>白银不足，无法购买 {0}。需要 ⛃ {1}，当前 ⛃ {2}。</StarStore_BundleCannotAfford>
+  <StarStore_BundleDetails>礼包详情</StarStore_BundleDetails>
+  <StarStore_BundleConfirmTitle>确认购买 {0}</StarStore_BundleConfirmTitle>
+  <StarStore_BundleConfirmDesc>是否花费 ⛃ {0} 购买 {1}？</StarStore_BundleConfirmDesc>
+  <StarStore_BundleBuyConfirm>确认购买</StarStore_BundleBuyConfirm>
+  <StarStore_BundleCancel>取消</StarStore_BundleCancel>
+  <StarStore_BundleFixedItems>固定内容</StarStore_BundleFixedItems>
+  <StarStore_BundleRandomItems>随机内容</StarStore_BundleRandomItems>
+  <StarStore_BundleRandomGroup>抽 {0} 组, 每组 {1}-{2} 件</StarStore_BundleRandomGroup>
+  <StarStore_BundleTotalItems>共 {0} 件物品</StarStore_BundleTotalItems>
+  <StarStore_Cat_Gacha>抽卡</StarStore_Cat_Gacha>
+  <StarStore_GachaNoPools>暂无可用的抽卡卡池</StarStore_GachaNoPools>
+  <StarStore_GachaSinglePull>单抽</StarStore_GachaSinglePull>
+  <StarStore_GachaTenPull>十连</StarStore_GachaTenPull>
+  <StarStore_GachaSingleBtn>单抽</StarStore_GachaSingleBtn>
+  <StarStore_GachaTenBtn>十连</StarStore_GachaTenBtn>
+  <StarStore_GachaInfo>概率公示</StarStore_GachaInfo>
+  <StarStore_GachaClose>确认</StarStore_GachaClose>
+  <StarStore_GachaProbability>{0} - 概率公示</StarStore_GachaProbability>
+  <StarStore_GachaItemCount>{0} 种物品</StarStore_GachaItemCount>
+  <StarStore_GachaSingleResult>{0} - 抽取结果</StarStore_GachaSingleResult>
+  <StarStore_GachaTenResult>{0} - 十连结果</StarStore_GachaTenResult>
 </LanguageData>
