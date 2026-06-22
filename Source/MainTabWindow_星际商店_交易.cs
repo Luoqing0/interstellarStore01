@@ -109,19 +109,14 @@ namespace 星际商店
             if (缓存改善帧 == currentFrame && 缓存交易改善 >= 0f)
                 return 缓存交易改善;
 
-            List<Building> beacons = map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.OrbitalTradeBeacon);
-            List<Building> consoles = map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.CommsConsole);
-            if (beacons.NullOrEmpty() || consoles.NullOrEmpty())
-            {
-                缓存交易改善 = 0f;
-                缓存改善帧 = currentFrame;
-                return 0f;
-            }
-            // 取最优信标的交易改善（与原版行为一致）
+            // 取殖民地中社交技能最高的殖民者的 TradePriceImprovement
+            // 与原版 RimWorld 一致：TradePriceImprovement 是殖民者社交属性，不是建筑属性
+            // 范围通常在 0.02~0.30 之间，不会出现极端值
             float best = 0f;
-            for (int i = 0; i < beacons.Count; i++)
+            List<Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
+            for (int i = 0; i < colonists.Count; i++)
             {
-                float imp = beacons[i].GetStatValue(StatDefOf.TradePriceImprovement);
+                float imp = colonists[i].GetStatValue(StatDefOf.TradePriceImprovement);
                 if (imp > best) best = imp;
             }
             缓存交易改善 = best;
