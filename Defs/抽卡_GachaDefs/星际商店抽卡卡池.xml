@@ -89,7 +89,7 @@
           <li>MealFine</li>
           <li>PsychiteTea</li>
           <li>Beer</li>
-          <li>Parka</li>
+          <li>Apparel_Parka</li>
         </thingDefs>
       </li>
       <li>
@@ -97,8 +97,8 @@
         <thingDefs>
           <li>Gun_Revolver</li>
           <li>MeleeWeapon_Gladius</li>
-          <li>SimpleHelmet</li>
-          <li>FlakVest</li>
+          <li>Apparel_SimpleHelmet</li>
+          <li>Apparel_FlakVest</li>
         </thingDefs>
       </li>
       <li>
@@ -107,14 +107,14 @@
           <li>Gun_AssaultRifle</li>
           <li>Gun_SniperRifle</li>
           <li>MeleeWeapon_LongSword</li>
-          <li>FlakPants</li>
+          <li>Apparel_FlakPants</li>
         </thingDefs>
       </li>
       <li>
         <rarityDefName>GachaRarity_Epic</rarityDefName>
         <thingDefs>
           <li>Gun_ChargeRifle</li>
-          <li>PowerArmorHelmet</li>
+          <li>Apparel_PowerArmorHelmet</li>
           <li>BionicSpine</li>
           <li>MeleeWeapon_Monosword</li>
         </thingDefs>
@@ -122,7 +122,7 @@
       <li>
         <rarityDefName>GachaRarity_Legendary</rarityDefName>
         <thingDefs>
-          <li>PowerArmor</li>
+          <li>Apparel_PowerArmor</li>
           <li>Gun_ChargeLance</li>
           <li>ArchotechArm</li>
           <li>MeleeWeapon_Zeushammer</li>
@@ -165,14 +165,14 @@
         <thingDefs>
           <li>ComponentSpacer</li>
           <li>Gun_ChargeRifle</li>
-          <li>PowerArmorHelmet</li>
+          <li>Apparel_PowerArmorHelmet</li>
           <li>MeleeWeapon_Monosword</li>
         </thingDefs>
       </li>
       <li>
         <rarityDefName>GachaRarity_Epic</rarityDefName>
         <thingDefs>
-          <li>PowerArmor</li>
+          <li>Apparel_PowerArmor</li>
           <li>BionicLeg</li>
           <li>BionicEye</li>
           <li>Gun_ChargeLance</li>

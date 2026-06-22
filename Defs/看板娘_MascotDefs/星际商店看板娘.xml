@@ -46,7 +46,7 @@
   <StarStore_MascotDef>
     <defName>StarStore_Mascot_Robot</defName>
     <label>机械助手</label>
-    <texturePath>看板娘/starstore_mascot</texturePath>
+    <texturePath>看板娘/机娘</texturePath>
     <greetings>
       <li>系统已上线，等待指令。</li>
       <li>今日汇率已更新。</li>
