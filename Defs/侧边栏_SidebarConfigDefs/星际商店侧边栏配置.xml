@@ -28,6 +28,7 @@
     <mascotDefNames>
       <li>StarStore_Mascot_Default</li>
       <li>StarStore_Mascot_Robot</li>
+      <li>StarStore_Mascot_Catgirl</li>
     </mascotDefNames>
 
     <!-- 随机问候语列表（未配置看板娘 Def 时的兼容字段） -->

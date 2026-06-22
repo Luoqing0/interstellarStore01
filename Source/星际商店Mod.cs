@@ -75,7 +75,7 @@ namespace 星际商店
     public class StarStore_SidebarConfigDef : Def
     {
         /// <summary>看板娘图片路径（旧单一看板娘兼容字段）</summary>
-        public string mascotTexturePath = "UI/starstore_mascot";
+        public string mascotTexturePath = "看板娘/starstore_mascot";
 
         /// <summary>多个看板娘 defName 列表（每次打开商店随机选一个）</summary>
         public List<string> mascotDefNames = new List<string>();

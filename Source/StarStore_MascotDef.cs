@@ -10,7 +10,7 @@ using Verse;
 public class StarStore_MascotDef : Def
 {
     /// <summary>看板娘贴图路径（相对于 Textures/）</summary>
-    public string texturePath = "UI/starstore_mascot";
+    public string texturePath = "看板娘/starstore_mascot";
 
     /// <summary>该看板娘独立的问候语池</summary>
     public List<string> greetings = new List<string>();
