@@ -1,0 +1,53 @@
+==============================
+  星际商店 - 封面提示词（给 AI 生图模型用）
+==============================
+
+提示词设计原则
+- 明确画面主体：运输舱、商店、RimWorld 风格
+- 融入 RimWorld 梗：帽贝、机械族、海狸、采收、风暴、白银、包装生存食品等
+- 指定画风：与游戏原画接近的手绘科幻风格
+- 给出构图和色调：星空蓝紫 + 金色价格标签
+
+---
+
+提示词 1（推荐 - 商城概念图）
+
+A RimWorld mod promotional cover art. In the center, a futuristic holographic shop interface floats above a RimWorld colony at night, showing rows of item icons, a shopping cart, and a glowing golden price tag. In the background, drop pods fall from a starry sky toward an orbital trade beacon. A few boomalopes wander near the edge of the base. RimWorld-style hand-painted sci-fi art, deep space blue and purple tones, warm gold accents, slightly gritty colony aesthetic, no text.
+
+中文大意：
+RimWorld 模组宣传封面。画面中央是一个悬浮在殖民地上空的未来全息商店界面，显示商品图标、购物车和发光的金色价格标签。背景中运输舱从星空降向轨道贸易信标，几只爆炸羊在基地边缘游荡。RimWorld 风格手绘科幻美术，深邃太空蓝紫色调配金色点缀，略带粗粝的殖民地质感，不要文字。
+
+---
+
+提示词 2（梗图风格 - 交易梗）
+
+RimWorld-style humorous cover art. A colonist in tribalwear excitedly opens a drop pod, but instead of weapons it is filled with 500 human leather hats. Above, a giant glowing shop button says "BUY" in alien script. In the corner, a muffalo looks confused. Hand-painted sci-fi colony art, dark blue space background, warm gold and orange UI glow, comedic tone, no readable text.
+
+中文大意：
+RimWorld 风格幽默封面。一个穿部落装的殖民者兴奋地打开运输舱，里面却装满了 500 顶人皮帽。上方一个巨大的发光商店按钮闪烁着 BUY。角落里一只 muffalo 一脸困惑。手绘科幻殖民地美术，深蓝太空背景，暖金和橙色 UI 光效，喜剧基调，不要可读文字。
+
+---
+
+提示词 3（正经展示风格）
+
+A clean RimWorld mod cover image. The foreground shows a sci-fi shop window UI with categories like Food, Weapons, Medicine and Apparel, a silver coin counter, and a "Sell" button. Behind the UI, a small RimWorld base with solar panels, a research bench, and a few colonists working. Starfield sky. RimWorld official art style, muted blues and golds, clear readable composition, no text.
+
+中文大意：
+简洁的 RimWorld 模组封面。前景是科幻商店界面 UI，包含食物、武器、药品、服装等分类，银币计数器和出售按钮。UI 后方是一个小型 RimWorld 基地，有太阳能板、研究台和几位忙碌工作的殖民者。星空背景。RimWorld 官方美术风格，克制的蓝金配色，构图清晰易读，不要文字。
+
+---
+
+提示词 4（纯概念 - 星空商城）
+
+Epic sci-fi illustration for a RimWorld mod. A massive orbital trade station shaped like a floating market hovers over a rim planet. Beams of light transport goods between the station and the surface. Tiny drop pods streak across the sky like shooting stars. Deep violet and indigo space, bright cyan and gold holographic UI elements, cinematic wide shot, no text.
+
+中文大意：
+RimWorld 模组史诗科幻插画。一座形如浮动市场的巨大轨道贸易站悬浮在边缘星球上空。光束在站点与地表之间运送货物。小型运输舱像流星一样划过天空。深紫和靛蓝太空，明亮的青蓝与金色全息 UI 元素，电影级广角镜头，不要文字。
+
+---
+
+使用建议
+- 将上述提示词粘贴到通义千问、腾讯元宝、Midjourney、Stable Diffusion 等工具中
+- 如果结果不够贴近 RimWorld，可在提示词中加入 "RimWorld video game aesthetic" 或 "colony management game art"
+- 生成后检查是否有可读文字或商标，避免 Steam 审核问题
+- 最终输出尺寸建议 1280×720 或 640×360

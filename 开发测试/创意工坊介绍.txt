@@ -1,0 +1,91 @@
+==============================
+  星际商店 - Steam 创意工坊介绍
+==============================
+
+以下内容可直接复制到创意工坊描述页
+
+---
+
+[中文]
+
+厌倦了等待贸易船和远行队？
+
+星际商店在底部栏为你开了一家 24 小时不打烊的星际商城。打开它，直接购买或出售几乎任何物品，货物会通过运输舱空投到轨道贸易信标附近。
+
+主要功能
+- 购买模式：直接购买物品，支持品质与材料选择，价格动态计算
+- 出售模式：出售殖民地库存，支持变体选择
+- 购物车：购买/出售分区显示，实时统计总价与白银余额
+- 12 个分类筛选：食物、药品、武器、服装、原材料、制造品、建筑、家具、电子、杂项等
+- 模组来源筛选：可按来源模组快速筛选物品
+- 搜索框：按名称搜索物品
+- 三种布局：大（3×3）、中（4×4）、小（6×6）
+- 收藏系统：常用物品一键收藏，跨存档保存
+- 每日折扣：每日随机折扣，可在 XML 中配置
+- 看板界面：自带看板娘、问候与新闻
+- 中英日三语：原生中文，附带英文、日文翻译
+
+使用说明
+1. 订阅并启用本模组
+2. 进入游戏后，底部栏会出现「星际商店」按钮
+3. 点击打开商店，开始交易
+
+注意事项
+- 本模组仅支持 RimWorld 1.6
+- 无需 HugsLib 或其他前置模组
+- 在纯室内地图（如房车）购买/出售可能会报黄字错误，建议避免
+- 当前版本仍在持续优化中，欢迎在讨论区或评论区反馈问题
+
+---
+
+[English]
+
+Tired of waiting for trade ships and caravans?
+
+Interstellar Store adds a 24/7 galactic shop to the main tab bar. Open it to directly buy or sell almost any item — purchases arrive via drop pods near your orbital trade beacon.
+
+Features
+- Buy Mode: Purchase items with quality and material selection, dynamic pricing
+- Sell Mode: Sell colony stock, with variant selection
+- Shopping Cart: Separate buy/sell lists with live total and silver balance
+- 12 Categories: Food, Medicine, Weapons, Apparel, Raw Resources, Manufactured, Buildings, Furniture, Electronics, Misc, etc.
+- Mod Source Filter: Filter items by source mod
+- Search Box: Search items by name
+- Three Layouts: Large (3×3), Medium (4×4), Small (6×6)
+- Favorites: Bookmark frequently used items, saved across saves
+- Daily Discounts: Configurable random daily discounts
+- Sidebar Character: Includes a mascot, greetings and news
+- Languages: Chinese (native), English and Japanese included
+
+Notes
+- Requires RimWorld 1.6
+- No required mods
+- Buying/selling on fully indoor maps (e.g. caravan) may produce yellow errors
+- Feedback welcome in the comments or discussion section
+
+---
+
+[Japanese]
+
+交易船や隊商を待つ必要はもうありません。
+
+星間商店は、メインタブバーに24時間営業の星間ショップを追加します。開くだけで、ほぼあらゆるアイテムを直接購入・販売できます。購入品は軌道交易ビーコン付近に輸送ポッドで降下します。
+
+主な機能
+- 購入モード：品質と素材を選択可能、価格は動的に計算
+- 販売モード：入荷バリエーションを選択して販売
+- ショッピングカート：購入・販売を分けて表示、総額と銀残高をリアルタイム表示
+- 12カテゴリー：食料、医薬品、武器、衣服、原材料、製造物、建築、家具、電子、雑貨など
+- MODソースフィルター
+- 名称検索
+- 3種類のレイアウト：大（3×3）、中（4×4）、小（6×6）
+- お気に入り機能
+- 日替わり割引
+- 看板娘、挨拶、ニュース表示
+- 中国語（原文）、英語、日本語対応
+
+注意事項
+- RimWorld 1.6 が必要です
+- 前提MODはありません
+- 完全な屋内マップ（キャラバンなど）では購入・販売時に黄色エラーが出る場合があります
+- コメントやディスカッションでフィードバックをお待ちしています

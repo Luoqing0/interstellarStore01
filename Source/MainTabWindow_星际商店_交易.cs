@@ -112,11 +112,16 @@ namespace 星际商店
             // 取殖民地中社交技能最高的殖民者的 TradePriceImprovement
             // 与原版 RimWorld 一致：TradePriceImprovement 是殖民者社交属性，不是建筑属性
             // 范围通常在 0.02~0.30 之间，不会出现极端值
+            // 修复：跳过 Social 技能被禁用的殖民者，避免 DevMode 下 "disabled stat" 红字报错
             float best = 0f;
             List<Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
+            StatDef tradeStat = StatDefOf.TradePriceImprovement;
             for (int i = 0; i < colonists.Count; i++)
             {
-                float imp = colonists[i].GetStatValue(StatDefOf.TradePriceImprovement);
+                Pawn p = colonists[i];
+                if (p == null || p.skills == null) continue;
+                if (p.skills.GetSkill(SkillDefOf.Social).TotallyDisabled) continue;
+                float imp = p.GetStatValue(tradeStat);
                 if (imp > best) best = imp;
             }
             缓存交易改善 = best;

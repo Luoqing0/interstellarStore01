@@ -27,14 +27,14 @@
           <li>WoodLog</li>
           <li>Cloth</li>
           <li>MealSimple</li>
-          <li>HerbalMedicine</li>
+          <li>MedicineHerbal</li>
           <li>RawPotatoes</li>
         </thingDefs>
       </li>
       <li>
         <rarityDefName>GachaRarity_Uncommon</rarityDefName>
         <thingDefs>
-          <li>Component</li>
+          <li>ComponentIndustrial</li>
           <li>MedicineIndustrial</li>
           <li>Jade</li>
           <li>Neutroamine</li>
@@ -116,7 +116,7 @@
           <li>Gun_ChargeRifle</li>
           <li>Apparel_PowerArmorHelmet</li>
           <li>BionicSpine</li>
-          <li>MeleeWeapon_Monosword</li>
+          <li>MeleeWeapon_MonoSword</li>
         </thingDefs>
       </li>
       <li>
@@ -166,7 +166,7 @@
           <li>ComponentSpacer</li>
           <li>Gun_ChargeRifle</li>
           <li>Apparel_PowerArmorHelmet</li>
-          <li>MeleeWeapon_Monosword</li>
+          <li>MeleeWeapon_MonoSword</li>
         </thingDefs>
       </li>
       <li>

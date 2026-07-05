@@ -1,0 +1,47 @@
+==============================
+  星际商店 - 反馈模板
+==============================
+
+请复制以下模板填写后提交
+
+---
+
+【Bug 反馈】
+
+RimWorld 版本：
+所用 Mod 列表（特别是其他内容类 Mod）：
+问题描述：
+重现步骤：
+  1.
+  2.
+  3.
+期望结果：
+实际结果：
+截图：（如有，请附上）
+Player.log：（位置见下方说明）
+
+---
+
+【建议/改进】
+
+建议内容：
+为什么觉得需要这个改动：
+是否愿意参与讨论（是/否）：
+
+---
+
+【平衡性反馈】
+
+涉及的物品/价格：
+当前感受（太贵/太便宜/不合理）：
+你的建议数值或方案：
+
+---
+
+【如何提供 Player.log】
+
+Windows：`%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Player.log`
+Mac：`~/Library/Logs/Unity/Player.log`
+Linux：`~/.config/unity3d/Ludeon Studios/RimWorld/Player.log`
+
+找到该文件后复制出来发送即可。日志能帮助定位大多数问题。

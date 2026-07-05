@@ -1,0 +1,4 @@
+星际商店第1.1.4版：
+修复了给原版通讯台/轨道交易信标通电后，因为GetStatValue(StatDefOf.TradePriceImprovement) 在一个建筑上调用时，RimWorld 返回的是该 stat 的 defaultBaseValue。而 TradePriceImprovement 的 defaultBaseValue... 不是 0。
+（含 全官拓 叠加后约为 0.09-0.10）
+而获取交易改善（） 约返回了 0.095（9.5%）导致了购买价过低的问题
