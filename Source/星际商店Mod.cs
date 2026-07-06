@@ -15,6 +15,12 @@ namespace 星际商店
         public static 星际商店Mod Instance;
         public static 商店设置 设置;
 
+        // 默认值常量（用于显示和重置）
+        public const int 默认行数_默认 = 4;
+        public const int 默认列数_默认 = 4;
+        public const float 购买价格乘数_默认 = 1.6f;
+        public const float 出售价格乘数_默认 = 0.8f;
+
         public 星际商店Mod(ModContentPack content) : base(content)
         {
             Instance = this;
@@ -27,15 +33,57 @@ namespace 星际商店
             list.Begin(inRect);
             list.Label("StarStore_SettingsTitle".Translate());
             list.Gap();
-            list.Label("StarStore_SettingsRows".Translate(设置.默认行数));
-            设置.默认行数 = (int)list.Slider(设置.默认行数, 2, 10);
-            list.Label("StarStore_SettingsCols".Translate(设置.默认列数));
-            设置.默认列数 = (int)list.Slider(设置.默认列数, 2, 10);
+
+            // 每行：标签(含当前值+默认值) | 滑块 | 重置按钮
+            float 标签宽 = 200f;
+            float 按钮宽 = 70f;
+            float 间隙 = 8f;
+
+            // 默认行数
+            {
+                Rect 行 = list.GetRect(30f);
+                Rect 标签Rect = new Rect(行.x, 行.y, 标签宽, 行.height);
+                Rect 按钮Rect = new Rect(行.xMax - 按钮宽, 行.y, 按钮宽, 行.height);
+                Rect 滑块Rect = new Rect(标签Rect.xMax + 间隙, 行.y, 按钮Rect.xMin - 标签Rect.xMax - 间隙 * 2, 行.height);
+                Widgets.Label(标签Rect, "StarStore_SettingsRows".Translate(设置.默认行数) + " " + "StarStore_Default".Translate(默认行数_默认));
+                设置.默认行数 = (int)Widgets.HorizontalSlider(滑块Rect, 设置.默认行数, 2, 10, true);
+                if (Widgets.ButtonText(按钮Rect, "StarStore_Reset".Translate()))
+                    设置.默认行数 = 默认行数_默认;
+            }
+            // 默认列数
+            {
+                Rect 行 = list.GetRect(30f);
+                Rect 标签Rect = new Rect(行.x, 行.y, 标签宽, 行.height);
+                Rect 按钮Rect = new Rect(行.xMax - 按钮宽, 行.y, 按钮宽, 行.height);
+                Rect 滑块Rect = new Rect(标签Rect.xMax + 间隙, 行.y, 按钮Rect.xMin - 标签Rect.xMax - 间隙 * 2, 行.height);
+                Widgets.Label(标签Rect, "StarStore_SettingsCols".Translate(设置.默认列数) + " " + "StarStore_Default".Translate(默认列数_默认));
+                设置.默认列数 = (int)Widgets.HorizontalSlider(滑块Rect, 设置.默认列数, 2, 10, true);
+                if (Widgets.ButtonText(按钮Rect, "StarStore_Reset".Translate()))
+                    设置.默认列数 = 默认列数_默认;
+            }
             list.Gap();
-            list.Label("StarStore_SettingsBuyMultiplier".Translate(设置.购买价格乘数.ToString("F2")));
-            设置.购买价格乘数 = list.Slider(设置.购买价格乘数, 0.1f, 5.0f);
-            list.Label("StarStore_SettingsSellMultiplier".Translate(设置.出售价格乘数.ToString("F2")));
-            设置.出售价格乘数 = list.Slider(设置.出售价格乘数, 0.1f, 5.0f);
+            // 购买价格乘数
+            {
+                Rect 行 = list.GetRect(30f);
+                Rect 标签Rect = new Rect(行.x, 行.y, 标签宽, 行.height);
+                Rect 按钮Rect = new Rect(行.xMax - 按钮宽, 行.y, 按钮宽, 行.height);
+                Rect 滑块Rect = new Rect(标签Rect.xMax + 间隙, 行.y, 按钮Rect.xMin - 标签Rect.xMax - 间隙 * 2, 行.height);
+                Widgets.Label(标签Rect, "StarStore_SettingsBuyMultiplier".Translate(设置.购买价格乘数.ToString("F2")) + " " + "StarStore_Default".Translate(购买价格乘数_默认.ToString("F2")));
+                设置.购买价格乘数 = Widgets.HorizontalSlider(滑块Rect, 设置.购买价格乘数, 0.1f, 5.0f, true);
+                if (Widgets.ButtonText(按钮Rect, "StarStore_Reset".Translate()))
+                    设置.购买价格乘数 = 购买价格乘数_默认;
+            }
+            // 出售价格乘数
+            {
+                Rect 行 = list.GetRect(30f);
+                Rect 标签Rect = new Rect(行.x, 行.y, 标签宽, 行.height);
+                Rect 按钮Rect = new Rect(行.xMax - 按钮宽, 行.y, 按钮宽, 行.height);
+                Rect 滑块Rect = new Rect(标签Rect.xMax + 间隙, 行.y, 按钮Rect.xMin - 标签Rect.xMax - 间隙 * 2, 行.height);
+                Widgets.Label(标签Rect, "StarStore_SettingsSellMultiplier".Translate(设置.出售价格乘数.ToString("F2")) + " " + "StarStore_Default".Translate(出售价格乘数_默认.ToString("F2")));
+                设置.出售价格乘数 = Widgets.HorizontalSlider(滑块Rect, 设置.出售价格乘数, 0.1f, 5.0f, true);
+                if (Widgets.ButtonText(按钮Rect, "StarStore_Reset".Translate()))
+                    设置.出售价格乘数 = 出售价格乘数_默认;
+            }
             list.Gap();
             // 重置窗口位置按钮
             if (list.ButtonText("StarStore_ResetWindowPos".Translate()))
