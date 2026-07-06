@@ -237,19 +237,42 @@ namespace 星际商店
 
         // 窗口位置居中（考虑看板窗口宽度，整体居中避免看板被推出屏幕）
         // 修复：高分屏+UI缩放下，主窗口单独居中会导致看板窗口 x 为负，左侧被裁剪
+        // 支持：拖拽窗口后记忆位置，下次打开恢复
+        private Vector2 上次窗口位置 = Vector2.zero;  // 用于检测拖拽
         public override void PostOpen()
         {
             base.PostOpen();
-            // 主窗口+看板作为一个整体居中
-            float 整体宽 = windowRect.width + 看板宽 + 4f;
-            windowRect.x = (UI.screenWidth - 整体宽) / 2f;
-            // 保底：确保看板不会超出屏幕左边
-            if (windowRect.x < 看板宽 + 4f)
-                windowRect.x = 看板宽 + 4f;
-            // 保底：确保主窗口不会超出屏幕右边
-            if (windowRect.x + windowRect.width > UI.screenWidth)
-                windowRect.x = UI.screenWidth - windowRect.width;
-            windowRect.y = (UI.screenHeight - windowRect.height) / 2f;
+            draggable = true;  // 允许玩家拖拽商店窗口
+
+            // 恢复保存的窗口位置，否则整体居中
+            商店设置 设置 = 星际商店Mod.设置;
+            if (设置 != null && 设置.窗口X >= 0f && 设置.窗口Y >= 0f)
+            {
+                windowRect.x = 设置.窗口X;
+                windowRect.y = 设置.窗口Y;
+                // 保底：确保窗口不会完全超出屏幕
+                if (windowRect.x + windowRect.width < 100f)
+                    windowRect.x = UI.screenWidth - windowRect.width;
+                if (windowRect.x > UI.screenWidth - 100f)
+                    windowRect.x = 100f;
+                if (windowRect.y < 0f) windowRect.y = 0f;
+                if (windowRect.y > UI.screenHeight - 100f)
+                    windowRect.y = UI.screenHeight - 100f;
+            }
+            else
+            {
+                // 主窗口+看板作为一个整体居中
+                float 整体宽 = windowRect.width + 看板宽 + 4f;
+                windowRect.x = (UI.screenWidth - 整体宽) / 2f;
+                // 保底：确保看板不会超出屏幕左边
+                if (windowRect.x < 看板宽 + 4f)
+                    windowRect.x = 看板宽 + 4f;
+                // 保底：确保主窗口不会超出屏幕右边
+                if (windowRect.x + windowRect.width > UI.screenWidth)
+                    windowRect.x = UI.screenWidth - windowRect.width;
+                windowRect.y = (UI.screenHeight - windowRect.height) / 2f;
+            }
+            上次窗口位置 = new Vector2(windowRect.x, windowRect.y);
 
             // AI 辅助生成：看板独立窗口，紧贴主窗口左侧
             if (看板窗口 == null)
@@ -276,6 +299,14 @@ namespace 星际商店
         public override void PreClose()
         {
             base.PreClose();
+            // 保存窗口位置到设置（拖拽后记忆位置）
+            商店设置 设置 = 星际商店Mod.设置;
+            if (设置 != null)
+            {
+                设置.窗口X = windowRect.x;
+                设置.窗口Y = windowRect.y;
+                设置.Write();
+            }
             // 关闭看板窗口
             if (看板窗口 != null)
             {
@@ -368,6 +399,13 @@ namespace 星际商店
 
         public override void DoWindowContents(Rect inRect)
         {
+            // 检测窗口拖拽：位置变化时同步看板窗口
+            if (windowRect.x != 上次窗口位置.x || windowRect.y != 上次窗口位置.y)
+            {
+                上次窗口位置 = new Vector2(windowRect.x, windowRect.y);
+                更新看板窗口位置();
+            }
+
             // 检测跨天：刷新折扣物品、礼包并更新物品列表
             int 当前天数 = GenDate.DayOfYear(Find.TickManager.TicksAbs, 0f);
             if (当前天数 != 上次折扣天数)

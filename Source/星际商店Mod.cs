@@ -36,6 +36,14 @@ namespace 星际商店
             设置.购买价格乘数 = list.Slider(设置.购买价格乘数, 0.1f, 5.0f);
             list.Label("StarStore_SettingsSellMultiplier".Translate(设置.出售价格乘数.ToString("F2")));
             设置.出售价格乘数 = list.Slider(设置.出售价格乘数, 0.1f, 5.0f);
+            list.Gap();
+            // 重置窗口位置按钮
+            if (list.ButtonText("StarStore_ResetWindowPos".Translate()))
+            {
+                设置.窗口X = -1f;
+                设置.窗口Y = -1f;
+                设置.Write();
+            }
             list.End();
             base.DoSettingsWindowContents(inRect);
         }
@@ -55,6 +63,9 @@ namespace 星际商店
         public int 默认列数 = 4;
         public float 购买价格乘数 = 1.6f;
         public float 出售价格乘数 = 0.8f;
+        // 窗口位置记忆（-1 表示未设置，使用默认居中）
+        public float 窗口X = -1f;
+        public float 窗口Y = -1f;
 
         public override void ExposeData()
         {
@@ -63,6 +74,8 @@ namespace 星际商店
             Scribe_Values.Look(ref 默认列数, "默认列数", 4);
             Scribe_Values.Look(ref 购买价格乘数, "购买价格乘数", 1.6f);
             Scribe_Values.Look(ref 出售价格乘数, "出售价格乘数", 0.8f);
+            Scribe_Values.Look(ref 窗口X, "窗口X", -1f);
+            Scribe_Values.Look(ref 窗口Y, "窗口Y", -1f);
         }
     }
 

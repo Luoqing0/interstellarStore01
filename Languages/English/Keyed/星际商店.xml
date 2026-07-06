@@ -92,6 +92,7 @@
   <StarStore_SettingsCols>Default columns: {0}</StarStore_SettingsCols>
   <StarStore_SettingsBuyMultiplier>Buy price multiplier: {0}</StarStore_SettingsBuyMultiplier>
   <StarStore_SettingsSellMultiplier>Sell price multiplier: {0}</StarStore_SettingsSellMultiplier>
+  <StarStore_ResetWindowPos>Reset window position (takes effect next open)</StarStore_ResetWindowPos>
 
   <!-- Dev Mode - Config Window -->
   <StarStore_ConfigTitle>⚙ Trade Condition Config - {0}</StarStore_ConfigTitle>

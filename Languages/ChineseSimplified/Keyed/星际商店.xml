@@ -93,6 +93,7 @@
   <StarStore_SettingsCols>默认列数: {0}</StarStore_SettingsCols>
   <StarStore_SettingsBuyMultiplier>购买价格乘数: {0}</StarStore_SettingsBuyMultiplier>
   <StarStore_SettingsSellMultiplier>出售价格乘数: {0}</StarStore_SettingsSellMultiplier>
+  <StarStore_ResetWindowPos>重置窗口位置（下次打开生效）</StarStore_ResetWindowPos>
 
   <!-- 开发者模式 - 配置窗口 -->
   <StarStore_ConfigTitle>⚙ 交易条件配置 - {0}</StarStore_ConfigTitle>

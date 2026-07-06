@@ -92,6 +92,7 @@
   <StarStore_SettingsCols>デフォルト列数: {0}</StarStore_SettingsCols>
   <StarStore_SettingsBuyMultiplier>購入価格倍率: {0}</StarStore_SettingsBuyMultiplier>
   <StarStore_SettingsSellMultiplier>売却価格倍率: {0}</StarStore_SettingsSellMultiplier>
+  <StarStore_ResetWindowPos>ウィンドウ位置をリセット（次回開く時に適用）</StarStore_ResetWindowPos>
 
   <!-- 開発者モード - 設定ウィンドウ -->
   <StarStore_ConfigTitle>⚙ 取引条件設定 - {0}</StarStore_ConfigTitle>
