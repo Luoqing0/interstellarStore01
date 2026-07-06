@@ -37,10 +37,14 @@ namespace 星际商店
             // 按钮行
             float 按钮Y = 滑块Rect.yMax + 1f;
             float 小按钮宽 = 20f;
-            float 数量宽 = 30f;
             float 间隙 = 2f;
+            // 输入框宽度：优先 50f（可显示 5 位数），但不超过可用宽度
+            // 修复"三千多显示三百"的视觉截断（输入框原宽 30f 只能显示 3 位数）
+            float 可用控制宽 = rect.width;
+            float 数量宽 = Mathf.Min(50f, 可用控制宽 - 小按钮宽 * 4f - 间隙 * 5f);
+            if (数量宽 < 30f) 数量宽 = 30f;  // 保底不小于原来的 30f
             float 总宽 = 小按钮宽 * 4f + 数量宽 + 间隙 * 5f;
-            float 起始X = rect.x + (rect.width - 总宽) / 2f;
+            float 起始X = rect.x + (可用控制宽 - 总宽) / 2f;
 
             // << 归零
             Rect 归零 = new Rect(起始X, 按钮Y, 小按钮宽, 16f);
