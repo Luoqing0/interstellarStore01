@@ -105,28 +105,28 @@ namespace 星际商店
         private float 获取交易改善(Map map)
         {
             if (map == null) return 0f;
-            int currentFrame = Time.frameCount;
-            if (缓存改善帧 == currentFrame && 缓存交易改善 >= 0f)
+            int 当前帧 = Time.frameCount;
+            if (缓存改善帧 == 当前帧 && 缓存交易改善 >= 0f)
                 return 缓存交易改善;
 
             // 取殖民地中社交技能最高的殖民者的 TradePriceImprovement
             // 与原版 RimWorld 一致：TradePriceImprovement 是殖民者社交属性，不是建筑属性
             // 范围通常在 0.02~0.30 之间，不会出现极端值
             // 修复：跳过 Social 技能被禁用的殖民者，避免 DevMode 下 "disabled stat" 红字报错
-            float best = 0f;
-            List<Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
-            StatDef tradeStat = StatDefOf.TradePriceImprovement;
-            for (int i = 0; i < colonists.Count; i++)
+            float 最高改善 = 0f;
+            List<Pawn> 殖民者列表 = map.mapPawns.FreeColonistsSpawned;
+            StatDef 交易属性 = StatDefOf.TradePriceImprovement;
+            for (int i = 0; i < 殖民者列表.Count; i++)
             {
-                Pawn p = colonists[i];
-                if (p == null || p.skills == null) continue;
-                if (p.skills.GetSkill(SkillDefOf.Social).TotallyDisabled) continue;
-                float imp = p.GetStatValue(tradeStat);
-                if (imp > best) best = imp;
+                Pawn 殖民者 = 殖民者列表[i];
+                if (殖民者 == null || 殖民者.skills == null) continue;
+                if (殖民者.skills.GetSkill(SkillDefOf.Social).TotallyDisabled) continue;
+                float 改善值 = 殖民者.GetStatValue(交易属性);
+                if (改善值 > 最高改善) 最高改善 = 改善值;
             }
-            缓存交易改善 = best;
-            缓存改善帧 = currentFrame;
-            return best;
+            缓存交易改善 = 最高改善;
+            缓存改善帧 = 当前帧;
+            return 最高改善;
         }
 
         // 白银总量缓存（避免多处独立遍历白银堆叠）
@@ -134,33 +134,33 @@ namespace 星际商店
         private int 获取白银总量(Map map)
         {
             if (map == null) return 0;
-            int currentFrame = Time.frameCount;
-            if (缓存白银帧 == currentFrame && 缓存白银总量 >= 0)
+            int 当前帧 = Time.frameCount;
+            if (缓存白银帧 == 当前帧 && 缓存白银总量 >= 0)
                 return 缓存白银总量;
 
-            int total = 0;
-            List<Thing> silverList = map.listerThings.ThingsOfDef(ThingDefOf.Silver);
-            for (int idx = 0; idx < silverList.Count; idx++)
+            int 总量 = 0;
+            List<Thing> 白银列表 = map.listerThings.ThingsOfDef(ThingDefOf.Silver);
+            for (int 索引 = 0; 索引 < 白银列表.Count; 索引++)
             {
-                Thing silver = silverList[idx];
-                if (白银可用(silver, map))
-                    total += silver.stackCount;
+                Thing 白银堆 = 白银列表[索引];
+                if (白银可用(白银堆, map))
+                    总量 += 白银堆.stackCount;
             }
-            缓存白银总量 = total;
-            缓存白银帧 = currentFrame;
+            缓存白银总量 = 总量;
+            缓存白银帧 = 当前帧;
             return 缓存白银总量;
         }
 
         /// <summary>
         /// 判断一堆白银是否可以被商店交易使用
         /// </summary>
-        private bool 白银可用(Thing silver, Map map)
+        private bool 白银可用(Thing 白银堆, Map map)
         {
-            if (silver == null || silver.Destroyed || !silver.Spawned || silver.Map != map)
+            if (白银堆 == null || 白银堆.Destroyed || !白银堆.Spawned || 白银堆.Map != map)
                 return false;
-            if (map.reservationManager.IsReserved(silver))
+            if (map.reservationManager.IsReserved(白银堆))
                 return false;
-            if (ThingOwnerUtility.AnyParentIs<Pawn>(silver))
+            if (ThingOwnerUtility.AnyParentIs<Pawn>(白银堆))
                 return false;
             return true;
         }
@@ -178,15 +178,15 @@ namespace 星际商店
             if (map == null || 需要白银 <= 0) return true;
 
             // 阶段 1：预检查——收集可用白银堆叠副本，确认总量足够
-            List<Thing> silverThings = map.listerThings.ThingsOfDef(ThingDefOf.Silver);
-            List<Thing> 可用白银堆 = new List<Thing>(silverThings.Count);
+            List<Thing> 白银列表 = map.listerThings.ThingsOfDef(ThingDefOf.Silver);
+            List<Thing> 可用白银堆 = new List<Thing>(白银列表.Count);
             int 可用总量 = 0;
-            for (int i = 0; i < silverThings.Count; i++)
+            for (int i = 0; i < 白银列表.Count; i++)
             {
-                Thing silver = silverThings[i];
-                if (silver == null || silver.Destroyed || !白银可用(silver, map)) continue;
-                可用白银堆.Add(silver);
-                可用总量 += silver.stackCount;
+                Thing 白银堆 = 白银列表[i];
+                if (白银堆 == null || 白银堆.Destroyed || !白银可用(白银堆, map)) continue;
+                可用白银堆.Add(白银堆);
+                可用总量 += 白银堆.stackCount;
             }
 
             if (可用总量 < 需要白银)
@@ -196,13 +196,13 @@ namespace 星际商店
             int 剩余白银 = 需要白银;
             for (int i = 0; i < 可用白银堆.Count && 剩余白银 > 0; i++)
             {
-                Thing silver = 可用白银堆[i];
-                if (silver == null || silver.Destroyed || !白银可用(silver, map)) continue;
-                int 扣除 = Mathf.Min(剩余白银, silver.stackCount);
+                Thing 白银堆 = 可用白银堆[i];
+                if (白银堆 == null || 白银堆.Destroyed || !白银可用(白银堆, map)) continue;
+                int 扣除 = Mathf.Min(剩余白银, 白银堆.stackCount);
                 if (扣除 <= 0) continue;
                 剩余白银 -= 扣除;
-                Thing split = silver.SplitOff(扣除);
-                if (split != null && !split.Destroyed) split.Destroy();
+                Thing 分离白银 = 白银堆.SplitOff(扣除);
+                if (分离白银 != null && !分离白银.Destroyed) 分离白银.Destroy();
             }
             缓存白银帧 = -1;
 
