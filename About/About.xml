@@ -1,10 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>星际商店</name>
   <author>Luoqing</author>
   <packageId>luoqing.starstore</packageId>
-  <modVersion>1.1.4</modVersion>
-  <description>在底部栏增加一个星际商店，可以直接购买大部分物品，支持分类筛选与收藏。支持购买/卖出模式，科幻风格UI，可自定义交易物品和价格。</description>
+  <modVersion>1.1.6</modVersion>
+  <description>在底部栏新增一家 24 小时不打烊的星际商店，开局即可直接交易，再也不用等贸易船。
+
+【核心功能】
+- 购买 / 出售双模式，支持品质、材料、变体选择，价格动态计算
+- 12 大分类 + 模组来源筛选 + 名称搜索 + 跨存档收藏
+- 三种网格布局（3×3 / 4×4 / 6×6），看板娘问候，每日折扣
+- 中 / 英 / 日 三语，原生中文
+
+【使用方式】
+订阅启用后，底部栏会出现"星际商店"按钮，点击即可打开。
+购买的物品会通过运输舱空投到轨道贸易信标附近。（无信标则随机位置）
+
+【兼容性】
+- 仅支持 RimWorld 1.6，无前置模组
+- 可中途加入存档；可随时移除
+- 纯室内地图（如房车）买卖会出现黄字错误，可以交易，但建议避免
+
+【反馈】
+欢迎在 创意工坊Workshop 评论区或讨论区按置顶模板提交 Bug 与建议。
+
+---
+
+[EN] Adds a 24/7 galactic shop to the bottom tab bar. Buy or sell almost anything; goods arrive via drop pods near your orbital trade beacon. Buy / Sell modes, quality &amp; material selection, 12 categories, mod-source filter, search, favorites, daily discounts. RimWorld 1.6 only, no required mods. Chinese / English / Japanese.</description>
   <supportedVersions>
     <li>1.6</li>
   </supportedVersions>
