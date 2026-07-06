@@ -530,22 +530,49 @@ namespace 星际商店
 
             var 库存映射数据 = 获取库存映射(map);
             List<Thing> things;
-            if (!库存映射数据.TryGetValue(def, out things))
-                things = new List<Thing>();
+            if (!库存映射数据.TryGetValue(def, out things) || things == null || things.Count == 0)
+                return;
 
-            var groups = things.GroupBy(t => new {
-                Quality = t.TryGetQuality(out QualityCategory qc2) ? qc2 : QualityCategory.Normal,
-                Stuff = t.Stuff
-            });
-
+            // 性能优化：手动遍历分组，替代 LINQ GroupBy 避免匿名对象和闭包开销
+            // 原代码每个格子每帧执行 GroupBy + Sum + Take(3)，大型存档下 GC 压力显著
+            // AI 辅助生成
+            int 显示数 = 0;
             float variantY = startY;
-            int shown = 0;
-            foreach (var g in groups.Take(3))
+
+            // 简单的前3个 Thing 直接显示（不分组，按堆叠顺序取前3个不同的品质+材料组合）
+            // 大部分物品变体数量很少（1-3种），分组意义不大
+            for (int i = 0; i < things.Count && 显示数 < 3; i++)
             {
-                if (shown >= 3) break;
-                int count = g.Sum(t => t.stackCount);
-                string vLabel = (g.Key.Quality != QualityCategory.Normal ? g.Key.Quality.GetLabel() : "") +
-                                (g.Key.Stuff != null ? g.Key.Stuff.LabelAsStuff : "") +
+                Thing t = things[i];
+                QualityCategory qc = t.TryGetQuality(out QualityCategory q) ? q : QualityCategory.Normal;
+                ThingDef stuff = t.Stuff;
+
+                // 检查是否与已显示的重复
+                bool 重复 = false;
+                for (int j = 0; j < i; j++)
+                {
+                    Thing t2 = things[j];
+                    QualityCategory qc2 = t2.TryGetQuality(out QualityCategory q2) ? q2 : QualityCategory.Normal;
+                    if (qc2 == qc && t2.Stuff == stuff)
+                    {
+                        重复 = true;
+                        break;
+                    }
+                }
+                if (重复) continue;
+
+                // 累加同组合的数量
+                int count = t.stackCount;
+                for (int j = i + 1; j < things.Count; j++)
+                {
+                    Thing t2 = things[j];
+                    QualityCategory qc2 = t2.TryGetQuality(out QualityCategory q2) ? q2 : QualityCategory.Normal;
+                    if (qc2 == qc && t2.Stuff == stuff)
+                        count += t2.stackCount;
+                }
+
+                string vLabel = (qc != QualityCategory.Normal ? qc.GetLabel() : "") +
+                                (stuff != null ? stuff.LabelAsStuff : "") +
                                 "x" + count;
                 Rect vRect = new Rect(rect.x + 内边距, variantY, 可用宽, 14f);
                 GUI.color = new Color(0.55f, 0.55f, 0.75f);
@@ -554,7 +581,7 @@ namespace 星际商店
                 Text.Font = GameFont.Small;
                 GUI.color = Color.white;
                 variantY += 14f;
-                shown++;
+                显示数++;
             }
         }
     }

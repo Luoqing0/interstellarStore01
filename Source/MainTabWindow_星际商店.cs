@@ -235,11 +235,20 @@ namespace 星际商店
             get { return new Vector2(1350f, 880f); }  // AI：加高80px容纳大布局数量控件
         }
 
-        // 窗口位置居中
+        // 窗口位置居中（考虑看板窗口宽度，整体居中避免看板被推出屏幕）
+        // 修复：高分屏+UI缩放下，主窗口单独居中会导致看板窗口 x 为负，左侧被裁剪
         public override void PostOpen()
         {
             base.PostOpen();
-            windowRect.x = (UI.screenWidth - windowRect.width) / 2f;
+            // 主窗口+看板作为一个整体居中
+            float 整体宽 = windowRect.width + 看板宽 + 4f;
+            windowRect.x = (UI.screenWidth - 整体宽) / 2f;
+            // 保底：确保看板不会超出屏幕左边
+            if (windowRect.x < 看板宽 + 4f)
+                windowRect.x = 看板宽 + 4f;
+            // 保底：确保主窗口不会超出屏幕右边
+            if (windowRect.x + windowRect.width > UI.screenWidth)
+                windowRect.x = UI.screenWidth - windowRect.width;
             windowRect.y = (UI.screenHeight - windowRect.height) / 2f;
 
             // AI 辅助生成：看板独立窗口，紧贴主窗口左侧
@@ -511,22 +520,45 @@ namespace 星际商店
                 库存映射.Clear();
                 库存映射帧 = currentFrame;
 
-                // 遍历地图上的所有 Thing，按 ThingDef 分组
-                foreach (Thing thing in map.listerThings.AllThings)
+                // 性能优化：用 category == Item 快速跳过建筑/植物/投射物等非物品 Thing
+                // 原代码遍历 AllThings 并对每个 Thing 执行 LINQ .Any() 检查，大型存档下 TPS 降幅显著
+                // AI 辅助生成
+                List<Thing> 所有物品 = map.listerThings.AllThings;
+                for (int i = 0; i < 所有物品.Count; i++)
                 {
+                    Thing thing = 所有物品[i];
                     if (thing == null || thing.def == null) continue;
-                    // 只统计可交易的物品（排除建筑、地形等）
-                    if (!thing.def.tradeability.TraderCanSell()) continue;
-                    // 排除尸体
+                    // 第一道过滤：只处理 Item 类别（跳过 Building/Plant/Filth 等）
+                    if (thing.def.category != ThingCategory.Item) continue;
+                    // 排除尸体（Corpse 的 category 也是 Item）
                     if (thing.def.IsCorpse) continue;
-                    // 排除碎片（Chunk）
-                    if (thing.def.thingCategories != null && thing.def.thingCategories.Any(c => c.defName == "Chunks")) continue;
-                    // AI 辅助生成：仅储存区模式下，跳过不在储存区内的物品
+                    // 只统计可交易物品：出售模式需包含 Sellable（如鱼/食物），TraderCanSell 只含 All/Buyable
+                    // 修复：原代码用 TraderCanSell() 排除了 Sellable 物品，导致鱼/食物类有库存却提示"库存不足"
+                    Tradeability 交易性 = thing.def.tradeability;
+                    if (交易性 != Tradeability.All && 交易性 != Tradeability.Buyable && 交易性 != Tradeability.Sellable) continue;
+                    // 排除碎片（Chunk）—— 用 for 循环替代 LINQ .Any() 避免闭包开销
+                    if (thing.def.thingCategories != null)
+                    {
+                        bool 是碎片 = false;
+                        for (int c = 0; c < thing.def.thingCategories.Count; c++)
+                        {
+                            if (thing.def.thingCategories[c].defName == "Chunks")
+                            {
+                                是碎片 = true;
+                                break;
+                            }
+                        }
+                        if (是碎片) continue;
+                    }
+                    // 仅储存区模式下，跳过不在储存区内的物品
                     if (仅储存区 && !thing.IsInAnyStorage()) continue;
 
-                    if (!库存映射.ContainsKey(thing.def))
-                        库存映射[thing.def] = new List<Thing>();
-                    库存映射[thing.def].Add(thing);
+                    if (!库存映射.TryGetValue(thing.def, out List<Thing> 列表))
+                    {
+                        列表 = new List<Thing>();
+                        库存映射[thing.def] = 列表;
+                    }
+                    列表.Add(thing);
                 }
             }
             return 库存映射;
