@@ -159,20 +159,12 @@ namespace 星际商店
                 return;
             }
 
-            // 扣银币
-            int 剩余白银 = cost;
-            List<Thing> silverThings = map.listerThings.ThingsOfDef(ThingDefOf.Silver);
-            int si = 0;
-            while (si < silverThings.Count && 剩余白银 > 0)
+            // 两阶段白银扣减（修复吞白银 Bug，详见 扣除白银 方法注释）
+            if (!扣除白银(map, cost))
             {
-                Thing silver = silverThings[si];
-                if (silver == null || silver.Destroyed || !白银可用(silver, map)) { si++; continue; }
-                int 扣除 = Mathf.Min(剩余白银, silver.stackCount);
-                剩余白银 -= 扣除;
-                silver.SplitOff(扣除);
-                si++;
+                Messages.Message("StarStore_InsufficientSilver".Translate(cost, 获取白银总量(map)), MessageTypeDefOf.RejectInput);
+                return;
             }
-            缓存白银帧 = -1;
 
             // 执行抽取
             List<Thing> things;

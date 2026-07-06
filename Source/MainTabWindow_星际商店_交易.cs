@@ -165,6 +165,55 @@ namespace 星际商店
             return true;
         }
 
+        /// <summary>
+        /// 两阶段白银扣减（修复吞白银 Bug）
+        /// 根因：ThingsOfDef 返回内部列表引用，SplitOff 的 DeSpawn 会移除元素，
+        ///       遍历中 si++ 跳过堆叠，扣减不足后直接 return 不退还已扣白银。
+        /// 修复：阶段1预检查收集副本 → 确认足够 → 阶段2统一扣减并销毁返回值。
+        /// 返回 true 表示扣减成功，false 表示白银不足（不扣除任何白银）。
+        /// AI 辅助生成
+        /// </summary>
+        private bool 扣除白银(Map map, int 需要白银)
+        {
+            if (map == null || 需要白银 <= 0) return true;
+
+            // 阶段 1：预检查——收集可用白银堆叠副本，确认总量足够
+            List<Thing> silverThings = map.listerThings.ThingsOfDef(ThingDefOf.Silver);
+            List<Thing> 可用白银堆 = new List<Thing>(silverThings.Count);
+            int 可用总量 = 0;
+            for (int i = 0; i < silverThings.Count; i++)
+            {
+                Thing silver = silverThings[i];
+                if (silver == null || silver.Destroyed || !白银可用(silver, map)) continue;
+                可用白银堆.Add(silver);
+                可用总量 += silver.stackCount;
+            }
+
+            if (可用总量 < 需要白银)
+                return false;
+
+            // 阶段 2：确认足够后统一扣减——遍历副本，SplitOff 返回值正确销毁
+            int 剩余白银 = 需要白银;
+            for (int i = 0; i < 可用白银堆.Count && 剩余白银 > 0; i++)
+            {
+                Thing silver = 可用白银堆[i];
+                if (silver == null || silver.Destroyed || !白银可用(silver, map)) continue;
+                int 扣除 = Mathf.Min(剩余白银, silver.stackCount);
+                if (扣除 <= 0) continue;
+                剩余白银 -= 扣除;
+                Thing split = silver.SplitOff(扣除);
+                if (split != null && !split.Destroyed) split.Destroy();
+            }
+            缓存白银帧 = -1;
+
+            if (剩余白银 > 0)
+            {
+                Log.Warning($"星际商店: 白银扣减异常，需要{需要白银}，剩余未扣{剩余白银}（预检查{可用总量}）");
+                return false;
+            }
+            return true;
+        }
+
         // ================================================================
         //  分类判断 - 使用递归检查所有父分类
         // ================================================================
@@ -434,6 +483,8 @@ namespace 星际商店
             if (总花费 <= 0) return;
 
             int 需要白银 = Mathf.RoundToInt(总花费);
+
+            // 两阶段白银扣减（修复吞白银 Bug，详见 扣除白银 方法注释）
             int 当前白银 = 获取白银总量(map);
             if (当前白银 < 需要白银)
             {
@@ -441,21 +492,7 @@ namespace 星际商店
                 return;
             }
 
-            int 剩余白银 = 需要白银;
-            List<Thing> silverThings = map.listerThings.ThingsOfDef(ThingDefOf.Silver);
-            int si = 0;
-            while (si < silverThings.Count && 剩余白银 > 0)
-            {
-                Thing silver = silverThings[si];
-                if (silver == null || silver.Destroyed || !白银可用(silver, map)) { si++; continue; }
-                int 扣除 = Mathf.Min(剩余白银, silver.stackCount);
-                剩余白银 -= 扣除;
-                silver.SplitOff(扣除);
-                si++;
-            }
-            缓存白银帧 = -1;
-
-            if (剩余白银 > 0)
+            if (!扣除白银(map, 需要白银))
             {
                 Messages.Message("StarStore_InsufficientSilver".Translate(需要白银, 获取白银总量(map)), MessageTypeDefOf.RejectInput);
                 return;
