@@ -104,15 +104,23 @@ namespace 星际商店
                     if (map != null)
                     {
                         int 库存 = 0;
-                        var 库存映射数据 = 获取库存映射(map);
-                        if (库存映射数据.TryGetValue(key.def, out List<Thing> things))
+                        // 机械族是 Pawn，不在库存映射中，需独立计数
+                        if (key.def.race != null && key.def.race.IsMechanoid)
                         {
-                            for (int i = 0; i < things.Count; i++)
+                            库存 = 机械族管理器.获取殖民地机械族(key.def, map, 9999).Count();
+                        }
+                        else
+                        {
+                            var 库存映射数据 = 获取库存映射(map);
+                            if (库存映射数据.TryGetValue(key.def, out List<Thing> things))
                             {
-                                Thing t = things[i];
-                                TransactionKey tk = new TransactionKey(t);
-                                if (tk.Equals(key))
-                                    库存 += t.stackCount;
+                                for (int i = 0; i < things.Count; i++)
+                                {
+                                    Thing t = things[i];
+                                    TransactionKey tk = new TransactionKey(t);
+                                    if (tk.Equals(key))
+                                        库存 += t.stackCount;
+                                }
                             }
                         }
                         当前交易数量[key] = 库存;
@@ -211,14 +219,22 @@ namespace 星际商店
                     if (map != null)
                     {
                         int 库存 = 0;
-                        var 库存映射数据 = 获取库存映射(map);
-                        if (库存映射数据.TryGetValue(key.def, out List<Thing> things))
+                        // 机械族是 Pawn，不在库存映射中，需独立计数
+                        if (key.def.race != null && key.def.race.IsMechanoid)
                         {
-                            for (int i = 0; i < things.Count; i++)
+                            库存 = 机械族管理器.获取殖民地机械族(key.def, map, 9999).Count();
+                        }
+                        else
+                        {
+                            var 库存映射数据 = 获取库存映射(map);
+                            if (库存映射数据.TryGetValue(key.def, out List<Thing> things))
                             {
-                                Thing t = things[i];
-                                TransactionKey tk = new TransactionKey(t);
-                                if (tk.Equals(key)) 库存 += t.stackCount;
+                                for (int i = 0; i < things.Count; i++)
+                                {
+                                    Thing t = things[i];
+                                    TransactionKey tk = new TransactionKey(t);
+                                    if (tk.Equals(key)) 库存 += t.stackCount;
+                                }
                             }
                         }
                         当前交易数量[key] = 库存;
