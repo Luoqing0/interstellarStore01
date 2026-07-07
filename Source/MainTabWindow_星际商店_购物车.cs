@@ -126,7 +126,7 @@ namespace 星际商店
                 // 总价（金色）
                 GUI.color = 价格色;
                 Rect 总价Rect = new Rect(数量Rect.xMax, 居中Y, 55f, 20f);
-                Widgets.Label(总价Rect, "银" + (单价 * kv.Value).ToString("F0"));
+                Widgets.Label(总价Rect, "StarStore_Silver".Translate((单价 * kv.Value).ToString("F0")));
 
                 Text.Font = GameFont.Small;
                 GUI.color = Color.white;
@@ -146,7 +146,7 @@ namespace 星际商店
             GUI.color = 标题色;
             Text.Font = GameFont.Tiny;
             Widgets.Label(new Rect(rect.x + 4f, rect.yMax - 20f, rect.width - 8f, 20f),
-                "小计: 银" + 分区总价.ToString("F0"));
+                "StarStore_Subtotal".Translate(分区总价.ToString("F0")));
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
         }

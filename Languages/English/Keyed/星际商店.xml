@@ -168,4 +168,24 @@
   <StarStore_GachaItemCount>{0} items</StarStore_GachaItemCount>
   <StarStore_GachaSingleResult>{0} - Result</StarStore_GachaSingleResult>
   <StarStore_GachaTenResult>{0} - x10 Result</StarStore_GachaTenResult>
+
+  <!-- Sidebar / Common UI -->
+  <StarStore_SidebarTitle>Interstellar News</StarStore_SidebarTitle>
+  <StarStore_DiscountItem>Discount {0} {1}x off</StarStore_DiscountItem>
+  <StarStore_DailyDiscount>Daily Discount</StarStore_DailyDiscount>
+  <StarStore_Refresh>Refresh</StarStore_Refresh>
+  <StarStore_NoNews>No news</StarStore_NoNews>
+  <StarStore_InterstellarNews>Interstellar News</StarStore_InterstellarNews>
+  <StarStore_Backstory>The Interstellar Store, a trade hub connecting every corner of the galaxy.</StarStore_Backstory>
+  <StarStore_BackstoryTitle>Backstory</StarStore_BackstoryTitle>
+  <StarStore_QualityNormal>Normal</StarStore_QualityNormal>
+  <StarStore_DiscountRate>{0}x off</StarStore_DiscountRate>
+  <StarStore_Silver>⛃{0}</StarStore_Silver>
+  <StarStore_Count>{0}x</StarStore_Count>
+  <StarStore_SilverBalance>Silver balance: ⛃{0}</StarStore_SilverBalance>
+  <StarStore_Subtotal>Subtotal: ⛃{0}</StarStore_Subtotal>
+  <StarStore_LayoutLarge>L</StarStore_LayoutLarge>
+  <StarStore_LayoutMedium>M</StarStore_LayoutMedium>
+  <StarStore_LayoutSmall>S</StarStore_LayoutSmall>
+  <StarStore_Random>Random</StarStore_Random>
 </LanguageData>

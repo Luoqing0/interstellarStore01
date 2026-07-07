@@ -169,4 +169,24 @@
   <StarStore_GachaItemCount>{0} 种物品</StarStore_GachaItemCount>
   <StarStore_GachaSingleResult>{0} - 抽取结果</StarStore_GachaSingleResult>
   <StarStore_GachaTenResult>{0} - 十连结果</StarStore_GachaTenResult>
+
+  <!-- 看板/通用UI -->
+  <StarStore_SidebarTitle>星际商报</StarStore_SidebarTitle>
+  <StarStore_DiscountItem>折扣 {0} {1}折</StarStore_DiscountItem>
+  <StarStore_DailyDiscount>每日折扣</StarStore_DailyDiscount>
+  <StarStore_Refresh>刷新</StarStore_Refresh>
+  <StarStore_NoNews>暂无新闻</StarStore_NoNews>
+  <StarStore_InterstellarNews>星际新闻</StarStore_InterstellarNews>
+  <StarStore_Backstory>星际商店，连接银河系各个角落的贸易枢纽。</StarStore_Backstory>
+  <StarStore_BackstoryTitle>背景故事</StarStore_BackstoryTitle>
+  <StarStore_QualityNormal>一般</StarStore_QualityNormal>
+  <StarStore_DiscountRate>{0}折</StarStore_DiscountRate>
+  <StarStore_Silver>银{0}</StarStore_Silver>
+  <StarStore_Count>{0}个</StarStore_Count>
+  <StarStore_SilverBalance>白银余额: 银{0}</StarStore_SilverBalance>
+  <StarStore_Subtotal>小计: 银{0}</StarStore_Subtotal>
+  <StarStore_LayoutLarge>大</StarStore_LayoutLarge>
+  <StarStore_LayoutMedium>中</StarStore_LayoutMedium>
+  <StarStore_LayoutSmall>小</StarStore_LayoutSmall>
+  <StarStore_Random>随机</StarStore_Random>
 </LanguageData>

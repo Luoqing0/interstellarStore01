@@ -48,7 +48,7 @@ namespace 星际商店
             GUI.color = 价格色;
             Text.Font = GameFont.Small;
             Widgets.Label(new Rect(rect.x + 5f, rect.y + 24f, 200f, 18f),
-                "白银余额: 银" + 当前白银);
+                "StarStore_SilverBalance".Translate(当前白银));
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
 

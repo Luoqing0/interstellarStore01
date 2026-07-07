@@ -168,4 +168,24 @@
   <StarStore_GachaItemCount>{0} 種</StarStore_GachaItemCount>
   <StarStore_GachaSingleResult>{0} - 結果</StarStore_GachaSingleResult>
   <StarStore_GachaTenResult>{0} - 10連結果</StarStore_GachaTenResult>
+
+  <!-- サイドバー / 共通UI -->
+  <StarStore_SidebarTitle>星際商報</StarStore_SidebarTitle>
+  <StarStore_DiscountItem>割引 {0} {1}倍</StarStore_DiscountItem>
+  <StarStore_DailyDiscount>毎日割引</StarStore_DailyDiscount>
+  <StarStore_Refresh>更新</StarStore_Refresh>
+  <StarStore_NoNews>ニュースなし</StarStore_NoNews>
+  <StarStore_InterstellarNews>星際ニュース</StarStore_InterstellarNews>
+  <StarStore_Backstory>星際商店、銀河系のあらゆる隅々を繋ぐ貿易の要衝。</StarStore_Backstory>
+  <StarStore_BackstoryTitle>背景故事</StarStore_BackstoryTitle>
+  <StarStore_QualityNormal>通常</StarStore_QualityNormal>
+  <StarStore_DiscountRate>{0}倍</StarStore_DiscountRate>
+  <StarStore_Silver>⛃{0}</StarStore_Silver>
+  <StarStore_Count>{0}個</StarStore_Count>
+  <StarStore_SilverBalance>銀残高: ⛃{0}</StarStore_SilverBalance>
+  <StarStore_Subtotal>小計: ⛃{0}</StarStore_Subtotal>
+  <StarStore_LayoutLarge>大</StarStore_LayoutLarge>
+  <StarStore_LayoutMedium>中</StarStore_LayoutMedium>
+  <StarStore_LayoutSmall>小</StarStore_LayoutSmall>
+  <StarStore_Random>ランダム</StarStore_Random>
 </LanguageData>

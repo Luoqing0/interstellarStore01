@@ -298,10 +298,10 @@ namespace 星际商店
             return 选中物品;
         }
 
-        /// <summary>根据游戏内天数获取新闻</summary>
+        /// <summary>根据游戏内天数获取新闻（返回 null 表示无新闻）</summary>
         public string 获取今日新闻(int 游戏天数)
         {
-            if (newsList == null || newsList.Count == 0) return "暂无新闻";
+            if (newsList == null || newsList.Count == 0) return null;
             int idx = (游戏天数 * 31) % newsList.Count;
             return newsList[idx];
         }

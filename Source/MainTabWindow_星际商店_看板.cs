@@ -50,7 +50,7 @@ namespace 星际商店
             Widgets.DrawBox(rect);
             GUI.color = Color.white;
 
-            string title = cfg != null ? cfg.sidebarTitle : "星际商报";
+            string title = cfg != null ? cfg.sidebarTitle : "StarStore_SidebarTitle".Translate();
             float 可用宽 = rect.width - 看板内边距 * 2f;
 
             GUI.color = 看板标题色;
@@ -102,14 +102,14 @@ namespace 星际商店
             {
                 上次折扣物品 = 折扣物品;  // AI：记住本次，防刷新变null
                 float 折数 = cfg.获取折扣比例() * 10f;
-                string 折扣文本 = "折扣 " + 折扣物品.LabelCap + " " + 折数.ToString("F1") + "折";
-                cy = 绘制看板区块(滚动内容Rect, cy, "每日折扣",
+                string 折扣文本 = "StarStore_DiscountItem".Translate(折扣物品.LabelCap, 折数.ToString("F1"));
+                cy = 绘制看板区块(滚动内容Rect, cy, "StarStore_DailyDiscount".Translate(),
                     看板区块折扣色, 折扣文本, 可用宽 - 4f, false);
 
                 if (Prefs.DevMode)
                 {
                     Rect 折扣刷新Rect = new Rect(滚动内容Rect.width - 4f, cy - 20f, 28f, 16f);
-                    if (Widgets.ButtonText(折扣刷新Rect, "刷新"))
+                    if (Widgets.ButtonText(折扣刷新Rect, "StarStore_Refresh".Translate()))
                     {
                         // AI 辅助生成：统一走主窗口的手动刷新方法，确保看板与物品格同步
                         手动刷新折扣();
@@ -122,19 +122,19 @@ namespace 星际商店
             if (新闻随机种子 >= 0 && cfg != null && cfg.newsList != null && cfg.newsList.Count > 0)
                 新闻 = cfg.newsList[Rand.RangeSeeded(0, cfg.newsList.Count, 新闻随机种子)];
             else
-                新闻 = cfg?.获取今日新闻(今日天数) ?? "暂无新闻";
+                新闻 = cfg?.获取今日新闻(今日天数);
 
-            if (!string.IsNullOrEmpty(新闻) && 新闻 != "暂无新闻")
+            if (!string.IsNullOrEmpty(新闻))
             {
-                cy = 绘制看板区块(滚动内容Rect, cy, "星际新闻",
+                cy = 绘制看板区块(滚动内容Rect, cy, "StarStore_InterstellarNews".Translate(),
                     看板区块新闻色, 新闻, 可用宽 - 4f, true);
             }
 
             // 背景故事
-            string 故事 = cfg?.backstory ?? "星际商店，连接银河系各个角落的贸易枢纽。";
+            string 故事 = cfg?.backstory ?? "StarStore_Backstory".Translate();
             if (!string.IsNullOrEmpty(故事))
             {
-                cy = 绘制看板区块(滚动内容Rect, cy, "背景故事",
+                cy = 绘制看板区块(滚动内容Rect, cy, "StarStore_BackstoryTitle".Translate(),
                     看板区块故事色, 故事, 可用宽 - 4f, false);
             }
 
@@ -152,7 +152,7 @@ namespace 星际商店
             if (显示刷新按钮)
             {
                 Rect 刷新Rect = new Rect(rect.width - 26f, y + 1f, 24f, 18f);
-                if (Widgets.ButtonText(刷新Rect, "刷新"))
+                if (Widgets.ButtonText(刷新Rect, "StarStore_Refresh".Translate()))
                 {
                     新闻随机种子 = Rand.Range(0, 99999);
                     看板滚动 = Vector2.zero;

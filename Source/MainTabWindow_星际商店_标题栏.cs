@@ -68,9 +68,9 @@ namespace 星际商店
             Rect 中布局按钮 = new Rect(布局X + 26f, rect.y + 4f, 24f, 20f);
             Rect 小布局按钮 = new Rect(布局X + 52f, rect.y + 4f, 24f, 20f);
 
-            绘制科幻按钮(大布局按钮, "大", 当前布局 == 布局类型.大);
-            绘制科幻按钮(中布局按钮, "中", 当前布局 == 布局类型.中);
-            绘制科幻按钮(小布局按钮, "小", 当前布局 == 布局类型.小);
+            绘制科幻按钮(大布局按钮, "StarStore_LayoutLarge".Translate(), 当前布局 == 布局类型.大);
+            绘制科幻按钮(中布局按钮, "StarStore_LayoutMedium".Translate(), 当前布局 == 布局类型.中);
+            绘制科幻按钮(小布局按钮, "StarStore_LayoutSmall".Translate(), 当前布局 == 布局类型.小);
 
             if (Widgets.ButtonInvisible(大布局按钮)) { 应用布局(布局类型.大); }
             if (Widgets.ButtonInvisible(中布局按钮)) { 应用布局(布局类型.中); }

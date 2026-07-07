@@ -218,9 +218,9 @@ namespace 星际商店
                     {
                         Rect qRect = new Rect(rect.x + 内边距, 半行Y, 半行宽, 18f);
                         QualityCategory? curQ = 购买品质选择.TryGetValue(def, out var q) ? q : (QualityCategory?)null;
-                        string qLabel = curQ.HasValue ? curQ.Value.GetLabel() : "一般";
+                        string qLabel = curQ.HasValue ? curQ.Value.GetLabel() : "StarStore_QualityNormal".Translate();
                         if (qLabel.Length > 4) qLabel = qLabel.Substring(0, 4);
-                        qLabel = "品质:" + qLabel;
+                        qLabel = "StarStore_QualityLabel".Translate(qLabel);
                         if (Widgets.ButtonText(qRect, qLabel))
                         {
                             List<FloatMenuOption> opts = new List<FloatMenuOption>();
@@ -262,7 +262,7 @@ namespace 星际商店
                     float qY = 名称Rect.yMax + 1f;
                     Rect qRect = new Rect(rect.x + 内边距, qY, 可用宽, 18f);
                     QualityCategory? curQ = 购买品质选择.TryGetValue(def, out var q) ? q : (QualityCategory?)null;
-                    string qLabel = curQ?.GetLabel() ?? "品质: 一般";
+                    string qLabel = curQ?.GetLabel() ?? "StarStore_QualityDefault".Translate();
                     if (Widgets.ButtonText(qRect, qLabel))
                     {
                         List<FloatMenuOption> opts = new List<FloatMenuOption>();
@@ -315,7 +315,7 @@ namespace 星际商店
                 {
                     是否折扣 = true;
                     float 折数 = 折扣cfg.获取折扣比例() * 10f;
-                    折扣标签 = 折数.ToString("F1") + "折";
+                    折扣标签 = "StarStore_DiscountRate".Translate(折数.ToString("F1"));
                 }
             }
 
@@ -346,12 +346,12 @@ namespace 星际商店
                 GUI.color = 价格色;
                 Text.Font = GameFont.Tiny;
                 Text.Anchor = TextAnchor.MiddleLeft;
-                Widgets.Label(价格Rect, "银" + 单价.ToString("F0"));
+                Widgets.Label(价格Rect, "StarStore_Silver".Translate(单价.ToString("F0")));
 
                 Rect 数量Rect = new Rect(价格Rect.xMax + 4f, 价格Y, 数量宽 - 4f, 价格区高);
                 GUI.color = 主色调;
                 Text.Anchor = TextAnchor.MiddleRight;
-                if (已选数量 > 0) Widgets.Label(数量Rect, 已选数量 + "个");
+                if (已选数量 > 0) Widgets.Label(数量Rect, "StarStore_Count".Translate(已选数量));
                 Text.Anchor = TextAnchor.UpperLeft;
                 Text.Font = GameFont.Small;
                 GUI.color = Color.white;
@@ -369,7 +369,7 @@ namespace 星际商店
                 Text.Font = GameFont.Tiny;
                 Rect 价格Rect = new Rect(rect.x + 内边距, 价格Y, 可用宽, 20f);
                 Text.Anchor = TextAnchor.UpperCenter;
-                Widgets.Label(价格Rect, "银" + 单价.ToString("F0"));
+                Widgets.Label(价格Rect, "StarStore_Silver".Translate(单价.ToString("F0")));
                 Text.Anchor = TextAnchor.UpperLeft;
                 Text.Font = GameFont.Small;
                 GUI.color = Color.white;

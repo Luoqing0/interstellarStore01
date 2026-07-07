@@ -52,7 +52,7 @@ namespace 星际商店
             if (Prefs.DevMode)
             {
                 Rect 刷新Rect = new Rect(rect.xMax - 60f, rect.y + 4f, 56f, 22f);
-                if (Widgets.ButtonText(刷新Rect, "刷新"))
+                if (Widgets.ButtonText(刷新Rect, "StarStore_Refresh".Translate()))
                 {
                     刷新礼包列表();
                     Messages.Message("StarStore_DevRefreshBundles".Translate(), MessageTypeDefOf.TaskCompletion);
@@ -169,7 +169,7 @@ namespace 星际商店
                 {
                     if (g.thingDefPool == null) continue;
                     if (sb.Length > 0) sb.Append("; ");
-                    sb.Append("随机: ");
+                    sb.Append("StarStore_Random".Translate() + " ");
                     sb.Append(string.Join(", ", g.thingDefPool.Select(d => d.label).ToArray()));
                 }
             }

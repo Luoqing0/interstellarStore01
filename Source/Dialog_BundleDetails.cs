@@ -205,7 +205,7 @@ namespace 星际商店
 
             GUI.color = 次要文字色;
             Text.Font = GameFont.Small;
-            Widgets.Label(new Rect(价格区域.x + 可用宽 / 3f, 价格区域.y, 可用宽 / 3f, 40f), (折扣率 * 10f).ToString("F1") + "折");
+            Widgets.Label(new Rect(价格区域.x + 可用宽 / 3f, 价格区域.y, 可用宽 / 3f, 40f), "StarStore_DiscountRate".Translate((折扣率 * 10f).ToString("F1")));
 
             GUI.color = 价格色;
             Text.Font = GameFont.Medium;
