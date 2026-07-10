@@ -177,7 +177,7 @@
   <StarStore_NoNews>ニュースなし</StarStore_NoNews>
   <StarStore_InterstellarNews>星際ニュース</StarStore_InterstellarNews>
   <StarStore_Backstory>星際商店、銀河系のあらゆる隅々を繋ぐ貿易の要衝。</StarStore_Backstory>
-  <StarStore_BackstoryTitle>背景故事</StarStore_BackstoryTitle>
+  <StarStore_BackstoryTitle>バックストーリー</StarStore_BackstoryTitle>
   <StarStore_QualityNormal>通常</StarStore_QualityNormal>
   <StarStore_DiscountRate>{0}倍</StarStore_DiscountRate>
   <StarStore_Silver>⛃{0}</StarStore_Silver>
