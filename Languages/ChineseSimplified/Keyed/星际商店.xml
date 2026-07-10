@@ -189,4 +189,91 @@
   <StarStore_LayoutMedium>中</StarStore_LayoutMedium>
   <StarStore_LayoutSmall>小</StarStore_LayoutSmall>
   <StarStore_Random>随机</StarStore_Random>
+
+  <!-- 侧边栏问候语 -->
+  <StarStore_SidebarGreeting_01>欢迎光临星际商店，今天需要些什么？</StarStore_SidebarGreeting_01>
+  <StarStore_SidebarGreeting_02>好久不见，旅行者！新货已到，进来看看？</StarStore_SidebarGreeting_02>
+  <StarStore_SidebarGreeting_03>银河系最优惠的价格，就在这里！</StarStore_SidebarGreeting_03>
+  <StarStore_SidebarGreeting_04>星际商店，您的太空贸易伙伴。</StarStore_SidebarGreeting_04>
+  <StarStore_SidebarGreeting_05>风尘仆仆的旅人啊，休息一下再上路吧。</StarStore_SidebarGreeting_05>
+  <StarStore_SidebarGreeting_06>今日特惠，错过等一年！</StarStore_SidebarGreeting_06>
+  <StarStore_SidebarGreeting_07>无论您在哪个星系，我们都在您身边。</StarStore_SidebarGreeting_07>
+  <StarStore_SidebarGreeting_08>今天小人的心情值怎么样了？</StarStore_SidebarGreeting_08>
+  <StarStore_SidebarGreeting_09>要来一些鼠条吗？</StarStore_SidebarGreeting_09>
+
+  <!-- 新闻 -->
+  <StarStore_News_01>银河联邦开放新的贸易航线，星际物流效率提升 15%</StarStore_News_01>
+  <StarStore_News_02>边缘星域发现新型稀有矿物，价格波动剧烈</StarStore_News_02>
+  <StarStore_News_03>星际海盗活动频繁，请各殖民地注意防御</StarStore_News_03>
+  <StarStore_News_04>银河贸易协会发布新一季贸易指南</StarStore_News_04>
+  <StarStore_News_05>机械族在边境星域的活动有所增加</StarStore_News_05>
+  <StarStore_News_06>新的超光速航道即将开通，星际旅行时间将缩短</StarStore_News_06>
+  <StarStore_News_07>银河交易所推出全新交易系统，操作更便捷</StarStore_News_07>
+  <StarStore_News_08>香料航线恢复通航，异域香料价格预计下降</StarStore_News_08>
+
+  <!-- 背景故事正文 -->
+  <StarStore_BackstoryText>星际商店创立于银河历 3047 年，由传奇商人"星语者"洛青创办。起初只是一艘小型商船，在边缘星域之间穿梭贸易。经过数十年的发展，如今已成为银河系最大的跨星系贸易网络之一。\n\n我们的商店遍布银河各个角落，从繁华的核心星域到荒凉的边缘世界，无论您身处何地，都可以通过星际商店获取所需的一切。\n\n"控制财富，一键进货"——这是我们不变的经营理念。</StarStore_BackstoryText>
+
+  <!-- 看板娘1（默认）问候语 -->
+  <StarStore_Greeting_Default_01>欢迎光临星际商店！</StarStore_Greeting_Default_01>
+  <StarStore_Greeting_Default_02>今天需要点什么？</StarStore_Greeting_Default_02>
+  <StarStore_Greeting_Default_03>新货已到，进来看看吧~</StarStore_Greeting_Default_03>
+  <StarStore_Greeting_Default_04>今天的折扣商品很不错哦，要不要看看？</StarStore_Greeting_Default_04>
+  <StarStore_Greeting_Default_05>咦，你来了！正好刚到一批新货呢。</StarStore_Greeting_Default_05>
+  <StarStore_Greeting_Default_06>有什么需要帮忙的，随时叫我~</StarStore_Greeting_Default_06>
+  <StarStore_Greeting_Default_07>交易愉快！欢迎下次再来~</StarStore_Greeting_Default_07>
+  <StarStore_Greeting_Default_08>最近殖民地发展得怎么样？需要补充点什么吗？</StarStore_Greeting_Default_08>
+  <StarStore_Greeting_Default_09>这件商品很抢手哦，库存不多了~</StarStore_Greeting_Default_09>
+  <StarStore_Greeting_Default_10>看您心情不错，今天一定有好事发生！</StarStore_Greeting_Default_10>
+  <StarStore_Greeting_Default_11>您已经是我们的老顾客了，给您留了个好东西~</StarStore_Greeting_Default_11>
+  <StarStore_Greeting_Default_12>一路辛苦了，先歇口气再慢慢挑吧。</StarStore_Greeting_Default_12>
+  <StarStore_Greeting_Default_13>哎嘿，又被我发现了好东西，推荐给您！</StarStore_Greeting_Default_13>
+  <StarStore_Greeting_Default_14>今天想添置点什么新装备呀？</StarStore_Greeting_Default_14>
+  <StarStore_Greeting_Default_15>外面风沙大，快进来坐坐~</StarStore_Greeting_Default_15>
+  <StarStore_Greeting_Default_16>这些新到的零件质量都很好，适合基地升级。</StarStore_Greeting_Default_16>
+  <StarStore_Greeting_Default_17>您真有眼光，这款可是最新型号！</StarStore_Greeting_Default_17>
+  <StarStore_Greeting_Default_18>每次看到您来，心情都会变好呢~</StarStore_Greeting_Default_18>
+  <StarStore_Greeting_Default_19>今天的星空特别漂亮，适合做笔大交易！</StarStore_Greeting_Default_19>
+
+  <!-- 看板娘2（机械助手）问候语 -->
+  <StarStore_Greeting_Robot_01>系统已上线，等待指令。</StarStore_Greeting_Robot_01>
+  <StarStore_Greeting_Robot_02>今日汇率已更新。</StarStore_Greeting_Robot_02>
+  <StarStore_Greeting_Robot_03>检测到殖民地信用良好，欢迎选购。</StarStore_Greeting_Robot_03>
+  <StarStore_Greeting_Robot_04>正在同步库存数据… 完成。所有商品已就绪。</StarStore_Greeting_Robot_04>
+  <StarStore_Greeting_Robot_05>根据历史购买分析，推荐您关注防御类物资。</StarStore_Greeting_Robot_05>
+  <StarStore_Greeting_Robot_06>交易记录已归档。感谢使用星际商店系统。</StarStore_Greeting_Robot_06>
+  <StarStore_Greeting_Robot_07>本日热门商品：建筑材料与医药包。</StarStore_Greeting_Robot_07>
+  <StarStore_Greeting_Robot_08>计算完成，最优购买方案已生成，是否查看？</StarStore_Greeting_Robot_08>
+  <StarStore_Greeting_Robot_09>检测到殖民地护甲值低于建议阈值，建议补充。</StarStore_Greeting_Robot_09>
+  <StarStore_Greeting_Robot_10>商品数据库已更新，本次新增 3 件可交易物品。</StarStore_Greeting_Robot_10>
+  <StarStore_Greeting_Robot_11>您的信用评级：SSS。享受优先配送服务。</StarStore_Greeting_Robot_11>
+  <StarStore_Greeting_Robot_12>系统自检通过，所有模块运行正常。</StarStore_Greeting_Robot_12>
+  <StarStore_Greeting_Robot_13>物流通道畅通，预计配送准时到达。</StarStore_Greeting_Robot_13>
+  <StarStore_Greeting_Robot_14>建议您关注星际市场波动，把握最佳购买时机。</StarStore_Greeting_Robot_14>
+  <StarStore_Greeting_Robot_15>统计数据显示，近期组件类商品需求上升 20%。</StarStore_Greeting_Robot_15>
+  <StarStore_Greeting_Robot_16>能源储备充足，可持续运营 8760 个标准周期。</StarStore_Greeting_Robot_16>
+  <StarStore_Greeting_Robot_17>正在进行例行维护… 维护完成。无异常。</StarStore_Greeting_Robot_17>
+  <StarStore_Greeting_Robot_18>请放心交易，本终端已通过银河贸易安全认证。</StarStore_Greeting_Robot_18>
+
+  <!-- 看板娘3（猫娘）问候语 -->
+  <StarStore_Greeting_Catgirl_01>欢迎光临~喵~</StarStore_Greeting_Catgirl_01>
+  <StarStore_Greeting_Catgirl_02>主人今天想看点什么呀？</StarStore_Greeting_Catgirl_02>
+  <StarStore_Greeting_Catgirl_03>这边的商品超划算的哦！</StarStore_Greeting_Catgirl_03>
+  <StarStore_Greeting_Catgirl_04>啊，被发现了…我偷偷给自己留了个好东西。</StarStore_Greeting_Catgirl_04>
+  <StarStore_Greeting_Catgirl_05>交易完成~下次再来玩喵！</StarStore_Greeting_Catgirl_05>
+  <StarStore_Greeting_Catgirl_06>今天也是元气满满的一天！</StarStore_Greeting_Catgirl_06>
+  <StarStore_Greeting_Catgirl_07>盯……你钱包里的白银在向我招手喵~</StarStore_Greeting_Catgirl_07>
+  <StarStore_Greeting_Catgirl_08>累了吗？要不要买点好东西犒劳自己？</StarStore_Greeting_Catgirl_08>
+  <StarStore_Greeting_Catgirl_09>喵~这个看起来好好玩！（指着一把冲锋枪）</StarStore_Greeting_Catgirl_09>
+  <StarStore_Greeting_Catgirl_10>今天我当班，所以给你打个折喵~</StarStore_Greeting_Catgirl_10>
+  <StarStore_Greeting_Catgirl_11>那边的货物好重…搬不动…喵呜…</StarStore_Greeting_Catgirl_11>
+  <StarStore_Greeting_Catgirl_12>新到的货我都帮你试过了，这个最好用喵！</StarStore_Greeting_Catgirl_12>
+  <StarStore_Greeting_Catgirl_13>不许讲价喵！……好吧，就这一次哦。</StarStore_Greeting_Catgirl_13>
+  <StarStore_Greeting_Catgirl_14>仓库里有老鼠！……啊不是，有特价商品！</StarStore_Greeting_Catgirl_14>
+  <StarStore_Greeting_Catgirl_15>呼噜呼噜~（打盹中）啊！欢迎光临！</StarStore_Greeting_Catgirl_15>
+  <StarStore_Greeting_Catgirl_16>尾巴……啊不是，我是说欢迎光临！</StarStore_Greeting_Catgirl_16>
+  <StarStore_Greeting_Catgirl_17>今天的阳光暖洋洋的，最适合做交易了喵~</StarStore_Greeting_Catgirl_17>
+  <StarStore_Greeting_Catgirl_18>你身上有好闻的味道……是猫薄荷吗？</StarStore_Greeting_Catgirl_18>
+  <StarStore_Greeting_Catgirl_19>本店最贵的商品？……不卖！我要自己留着喵！</StarStore_Greeting_Catgirl_19>
+  <StarStore_Greeting_Catgirl_20>如果你买了这个，我就帮你挠挠耳朵后面……开玩笑的喵！</StarStore_Greeting_Catgirl_20>
 </LanguageData>

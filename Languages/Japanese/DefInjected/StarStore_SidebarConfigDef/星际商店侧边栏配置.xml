@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     インターステラ・ストア - サイドバー設定 日本語翻訳
+     AI 辅助生成
+     ============================================================ -->
+<LanguageData>
+  <!-- StarStore_DefaultSidebar -->
+  <StarStore_DefaultSidebar.label>デフォルトサイドバー設定</StarStore_DefaultSidebar.label>
+  <StarStore_DefaultSidebar.description>星際商店左側サイドバーのコンテンツ設定</StarStore_DefaultSidebar.description>
+  <StarStore_DefaultSidebar.sidebarTitle>星際商報</StarStore_DefaultSidebar.sidebarTitle>
+  <StarStore_DefaultSidebar.backstory>星際商店は銀河暦3047年、伝説の商人「星語者」洛青によって創業されました。最初は小型の商船として辺境星域間を穿梭して貿易を行っていました。数十年の発展を経て、現在では銀河系最大の跨星系貿易ネットワークの一つとなっています。
+
+私たちの商店は銀河のあらゆる角落に広がり、繁華なコア星域から荒涼とした辺境世界まで、どこにいても星際商店を通じて必要なすべてを入手できます。
+
+「富を支配し、ワンクリックで仕入れ」——これが私たちの変わらぬ経営理念です。</StarStore_DefaultSidebar.backstory>
+
+  <!-- 问候语列表 -->
+  <StarStore_DefaultSidebar.greetings.0>星際商店へようこそ、本日は何になさいますか？</StarStore_DefaultSidebar.greetings.0>
+  <StarStore_DefaultSidebar.greetings.1>お久しぶりです、旅人さん！新商品が入荷しました、見ていきませんか？</StarStore_DefaultSidebar.greetings.1>
+  <StarStore_DefaultSidebar.greetings.2>銀河系で最もお得な価格、ここにあります！</StarStore_DefaultSidebar.greetings.2>
+  <StarStore_DefaultSidebar.greetings.3>星際商店、あなたの宇宙貿易パートナー。</StarStore_DefaultSidebar.greetings.3>
+  <StarStore_DefaultSidebar.greetings.4>風塵にまみれた旅人よ、少し休んでからまた出発しましょう。</StarStore_DefaultSidebar.greetings.4>
+  <StarStore_DefaultSidebar.greetings.5>本日の特別割引、逃したら一年待ちです！</StarStore_DefaultSidebar.greetings.5>
+  <StarStore_DefaultSidebar.greetings.6>どの星系にいても、私たちはあなたのそばにいます。</StarStore_DefaultSidebar.greetings.6>
+  <StarStore_DefaultSidebar.greetings.7>今日のコロニーの気分はいかがですか？</StarStore_DefaultSidebar.greetings.7>
+  <StarStore_DefaultSidebar.greetings.8>ラットジャーキーはいかがですか？</StarStore_DefaultSidebar.greetings.8>
+
+  <!-- 新闻公告列表 -->
+  <StarStore_DefaultSidebar.newsList.0>銀河連邦が新たな貿易航路を開設、星間物流効率が15%向上</StarStore_DefaultSidebar.newsList.0>
+  <StarStore_DefaultSidebar.newsList.1>辺境星域で新型希少鉱物を発見、価格が激しく変動</StarStore_DefaultSidebar.newsList.1>
+  <StarStore_DefaultSidebar.newsList.2>宇宙海賊の活動が頻発、各コロニーは防衛に注意を払うよう警告</StarStore_DefaultSidebar.newsList.2>
+  <StarStore_DefaultSidebar.newsList.3>銀河貿易協会が新四半期貿易ガイドを発表</StarStore_DefaultSidebar.newsList.3>
+  <StarStore_DefaultSidebar.newsList.4>メカノイドの国境星域での活動が増加</StarStore_DefaultSidebar.newsList.4>
+  <StarStore_DefaultSidebar.newsList.5>新しい超光速航路が開通予定、星間旅行時間が短縮される見込み</StarStore_DefaultSidebar.newsList.5>
+  <StarStore_DefaultSidebar.newsList.6>銀河取引所が新取引システムを導入、操作がより便利に</StarStore_DefaultSidebar.newsList.6>
+  <StarStore_DefaultSidebar.newsList.7>香料航路の通航が再開、異国の香料価格は下落すると予想</StarStore_DefaultSidebar.newsList.7>
+</LanguageData>

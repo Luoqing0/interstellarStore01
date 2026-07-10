@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     星際商店 - 繁體中文語言文件
+     所有UI文字都在這裏定義，方便翻譯成其他語言
+     AI 輔助生成
+     ============================================================ -->
+<LanguageData>
+  <!-- 主窗口 -->
+  <StarStore_Title>✦ 星際商店 ✦</StarStore_Title>
+  <StarStore_BuyMode>購買</StarStore_BuyMode>
+  <StarStore_SellMode>賣出</StarStore_SellMode>
+  <StarStore_Filter>篩選</StarStore_Filter>
+  <StarStore_All>全部</StarStore_All>
+  <StarStore_Favorites>收藏</StarStore_Favorites>
+  <StarStore_NoItems>暫無可用物品</StarStore_NoItems>
+  <StarStore_SelectedCount>已選 {0} 件  |  ⛃ {1}</StarStore_SelectedCount>
+  <StarStore_BuyButton>⚡ 購買</StarStore_BuyButton>
+  <StarStore_SellButton>💰 賣出</StarStore_SellButton>
+  <StarStore_ClearButton>清空</StarStore_ClearButton>
+  <StarStore_Quantity>數量:</StarStore_Quantity>
+  <StarStore_Inventory>庫存: {0}</StarStore_Inventory>
+  <StarStore_Cart>購物車</StarStore_Cart>
+  <StarStore_CartEmpty>購物車爲空</StarStore_CartEmpty>
+  <StarStore_BuyList>購買清單</StarStore_BuyList>
+  <StarStore_SellList>出售清單</StarStore_SellList>
+  <StarStore_CellInfo>共 {0} 件 | 格子: {1}px</StarStore_CellInfo>
+  <StarStore_PageInfo>第 {0}/{1} 頁</StarStore_PageInfo>
+
+  <!-- 分類標籤頁 -->
+  <StarStore_Cat_Food>食物</StarStore_Cat_Food>
+  <StarStore_Cat_Medicine>藥品</StarStore_Cat_Medicine>
+  <StarStore_Cat_Weapons>武器</StarStore_Cat_Weapons>
+  <StarStore_Cat_Apparel>衣物</StarStore_Cat_Apparel>
+  <StarStore_Cat_Animals>動物</StarStore_Cat_Animals>
+  <StarStore_Cat_Mechanoids>機械族</StarStore_Cat_Mechanoids>
+  <StarStore_Cat_RawMaterials>原材料</StarStore_Cat_RawMaterials>
+  <StarStore_Cat_Manufactured>製成品</StarStore_Cat_Manufactured>
+  <StarStore_Cat_Buildings>建築</StarStore_Cat_Buildings>
+  <StarStore_Cat_Furniture>傢俱</StarStore_Cat_Furniture>
+  <StarStore_Cat_Electronics>電子</StarStore_Cat_Electronics>
+  <StarStore_Cat_Bundles>捆綁包</StarStore_Cat_Bundles>
+  <StarStore_Cat_Misc>雜項</StarStore_Cat_Misc>
+
+  <!-- 排序 -->
+  <StarStore_SortBy名稱>名字</StarStore_SortBy名稱>
+  <StarStore_SortBy價格>價格</StarStore_SortBy價格>
+  <StarStore_SortBy科技>科技</StarStore_SortBy科技>
+
+  <!-- 賣出模式 -->
+  <StarStore_StockOnly>僅庫存物品</StarStore_StockOnly>
+  <StarStore_StorageOnly>僅儲存區</StarStore_StorageOnly>
+  <StarStore_StockCount>{0} 件</StarStore_StockCount>
+
+  <!-- 佈局控制 -->
+  <StarStore_Rows>行:</StarStore_Rows>
+  <StarStore_Cols>列:</StarStore_Cols>
+
+  <!-- 篩選面板 -->
+  <StarStore_FilterTitle>篩選條件</StarStore_FilterTitle>
+  <StarStore_FilterTechOnly>僅顯示已科技解鎖</StarStore_FilterTechOnly>
+  <StarStore_FilterByMod>模組篩選:</StarStore_FilterByMod>
+  <StarStore_AllMods>★ 全部模組</StarStore_AllMods>
+  <StarStore_FilterApply>應用</StarStore_FilterApply>
+
+  <!-- 底部欄 -->
+  <StarStore_SilverShortfall> (白銀不足: {0} / {1})</StarStore_SilverShortfall>
+
+  <!-- 消息 -->
+  <StarStore_ConditionNotMet>條件不滿足，無法購買: {0}</StarStore_ConditionNotMet>
+  <StarStore_InsufficientSilver>白銀不足，無法完成交易。需要 ⛃ {0}，當前擁有: ⛃ {1}</StarStore_InsufficientSilver>
+  <StarStore_InsufficientStock>庫存不足：{0}</StarStore_InsufficientStock>
+  <StarStore_PurchaseComplete>交易完成！物品已送達。</StarStore_PurchaseComplete>
+  <StarStore_PurchaseIndoor>交易完成！物品已直接生成在基地內。</StarStore_PurchaseIndoor>
+  <StarStore_PurchasePartialDropFail>部分物品(×{0})無法放置到降落點。建議清理交易信標附近區域。</StarStore_PurchasePartialDropFail>
+  <StarStore_SaleComplete>出售完成！獲得 ⛃ {0} 白銀。</StarStore_SaleComplete>
+  <StarStore_SaleIndoor>出售完成！⛃{0} 白銀已直接生成在基地內。</StarStore_SaleIndoor>
+  <StarStore_SaleSilverDropFail>白銀收益 ⛃ {0} 放置失敗，收入可能丟失。</StarStore_SaleSilverDropFail>
+  <StarStore_MainWindowUnavailable>商店主窗口不可用，請重新打開商店。</StarStore_MainWindowUnavailable>
+  <StarStore_DailyRefresh>星際商店每日折扣與禮包已刷新。</StarStore_DailyRefresh>
+  <StarStore_DevRefreshDiscount>開發者：折扣已手動刷新。</StarStore_DevRefreshDiscount>
+  <StarStore_DevRefreshDiscountFailed>未找到可用折扣物品。</StarStore_DevRefreshDiscountFailed>
+  <StarStore_DevRefreshBundles>開發者：禮包已手動刷新。</StarStore_DevRefreshBundles>
+
+  <!-- 交易條件 -->
+  <StarStore_RequireResearch>需要研究: {0}</StarStore_RequireResearch>
+  <StarStore_RequireItem>需要物品: {0}</StarStore_RequireItem>
+  <StarStore_Locked>🔒</StarStore_Locked>
+  <StarStore_Hidden>🔒 已隱藏</StarStore_Hidden>
+
+  <!-- 設置界面 -->
+  <StarStore_SettingsTitle>星際商店設置</StarStore_SettingsTitle>
+  <StarStore_SettingsRows>默認行數: {0}</StarStore_SettingsRows>
+  <StarStore_SettingsCols>默認列數: {0}</StarStore_SettingsCols>
+  <StarStore_SettingsBuyMultiplier>購買價格乘數: {0}</StarStore_SettingsBuyMultiplier>
+  <StarStore_SettingsSellMultiplier>出售價格乘數: {0}</StarStore_SettingsSellMultiplier>
+  <StarStore_ResetWindowPos>重置窗口位置（下次打開生效）</StarStore_ResetWindowPos>
+  <StarStore_Default>(默認: {0})</StarStore_Default>
+  <StarStore_Reset>重置</StarStore_Reset>
+
+  <!-- 開發者模式 - 配置窗口 -->
+  <StarStore_ConfigTitle>⚙ 交易條件配置 - {0}</StarStore_ConfigTitle>
+  <StarStore_ConfigItemInfo>物品: {0} | 基礎價: {1}</StarStore_ConfigItemInfo>
+  <StarStore_ConfigResearchInput>需要研究項目 (DefName, 留空則不限制):</StarStore_ConfigResearchInput>
+  <StarStore_ConfigItemInput>需要殖民地物品 (DefName, 留空則不限制):</StarStore_ConfigItemInput>
+  <StarStore_ConfigIdentified>✓ 已識別: {0}</StarStore_ConfigIdentified>
+  <StarStore_ConfigNotFound>✗ 未找到該{0}</StarStore_ConfigNotFound>
+  <StarStore_ConfigIdentifiedResearch>✓ 已識別: {0} (已解鎖: {1})</StarStore_ConfigIdentifiedResearch>
+  <StarStore_ConfigHide>🔒 隱藏此物品</StarStore_ConfigHide>
+  <StarStore_ConfigUnhide>🔓 取消隱藏此物品</StarStore_ConfigUnhide>
+  <StarStore_ConfigSave>保存條件</StarStore_ConfigSave>
+  <StarStore_ConfigDelete>刪除條件</StarStore_ConfigDelete>
+  <StarStore_ConfigClose>關閉</StarStore_ConfigClose>
+  <StarStore_ConfigSaved>條件已保存！</StarStore_ConfigSaved>
+  <StarStore_ConfigDeleted>條件已刪除！</StarStore_ConfigDeleted>
+  <StarStore_ConfigUnhidden>已取消隱藏</StarStore_ConfigUnhidden>
+  <StarStore_ConfigHidden>已隱藏</StarStore_ConfigHidden>
+  <StarStore_ConfigExport>📤 導出所有配置爲XML (保存到桌面)</StarStore_ConfigExport>
+  <StarStore_ConfigExported>配置已導出到桌面: {0}</StarStore_ConfigExported>
+  <StarStore_ConfigNoExport>沒有交易條件可導出。</StarStore_ConfigNoExport>
+  <StarStore_ConfigExportFailed>導出失敗: {0}</StarStore_ConfigExportFailed>
+
+  <!-- 品質/材料交易 -->
+  <StarStore_QualityLabel>品質: {0}</StarStore_QualityLabel>
+  <StarStore_MaterialLabel>材料: {0}</StarStore_MaterialLabel>
+  <StarStore_QualityDefault>品質: 一般</StarStore_QualityDefault>
+  <StarStore_CreateItemFailed>無法創建物品: {0}</StarStore_CreateItemFailed>
+
+  <!-- 出售變體彈窗 -->
+  <StarStore_SellDialogTitle>出售 — {0}</StarStore_SellDialogTitle>
+  <StarStore_NoVariants>無可用變體</StarStore_NoVariants>
+  <StarStore_Variant>變體</StarStore_Variant>
+  <StarStore_Stock>庫存</StarStore_Stock>
+  <StarStore_UnitPrice>單價</StarStore_UnitPrice>
+  <StarStore_Amount>數量</StarStore_Amount>
+  <StarStore_SelectedSummary>已選: {0} 件</StarStore_SelectedSummary>
+  <StarStore_ExpectedRevenue>預計收益: ⛃ {0}</StarStore_ExpectedRevenue>
+  <StarStore_MaxAll>全部出售</StarStore_MaxAll>
+  <StarStore_AddToCart>加入購物車</StarStore_AddToCart>
+  <StarStore_AddedVariants>已添加 {0} 件變體到購物車</StarStore_AddedVariants>
+  <StarStore_SelectVariant>選擇變體出售...</StarStore_SelectVariant>
+
+  <!-- 捆綁包 -->
+  <StarStore_BundleBuy>購買禮包</StarStore_BundleBuy>
+  <StarStore_BundleOriginalPrice>原價：⛃ {0}</StarStore_BundleOriginalPrice>
+  <StarStore_BundleDiscountPrice>現價：⛃ {0}</StarStore_BundleDiscountPrice>
+  <StarStore_BundleEmpty>暫無捆綁包</StarStore_BundleEmpty>
+  <StarStore_BundleBuyOnly>捆綁包僅可在購買模式下查看</StarStore_BundleBuyOnly>
+  <StarStore_BundlePurchased>已購買 {0}，物品已送達。</StarStore_BundlePurchased>
+  <StarStore_BundlePurchasedIndoor>已購買 {0}，物品已直接生成在基地內。</StarStore_BundlePurchasedIndoor>
+  <StarStore_BundleCannotAfford>白銀不足，無法購買 {0}。需要 ⛃ {1}，當前 ⛃ {2}。</StarStore_BundleCannotAfford>
+  <StarStore_BundleDetails>禮包詳情</StarStore_BundleDetails>
+  <StarStore_BundleConfirmTitle>確認購買 {0}</StarStore_BundleConfirmTitle>
+  <StarStore_BundleConfirmDesc>是否花費 ⛃ {0} 購買 {1}？</StarStore_BundleConfirmDesc>
+  <StarStore_BundleBuyConfirm>確認購買</StarStore_BundleBuyConfirm>
+  <StarStore_BundleCancel>取消</StarStore_BundleCancel>
+  <StarStore_BundleFixedItems>固定內容</StarStore_BundleFixedItems>
+  <StarStore_BundleRandomItems>隨機內容</StarStore_BundleRandomItems>
+  <StarStore_BundleRandomGroup>抽 {0} 組, 每組 {1}-{2} 件</StarStore_BundleRandomGroup>
+  <StarStore_BundleTotalItems>共 {0} 件物品</StarStore_BundleTotalItems>
+  <StarStore_Cat_Gacha>抽卡</StarStore_Cat_Gacha>
+  <StarStore_GachaNoPools>暫無可用的抽卡卡池</StarStore_GachaNoPools>
+  <StarStore_GachaSinglePull>單抽</StarStore_GachaSinglePull>
+  <StarStore_GachaTenPull>十連</StarStore_GachaTenPull>
+  <StarStore_GachaSingleBtn>單抽</StarStore_GachaSingleBtn>
+  <StarStore_GachaTenBtn>十連</StarStore_GachaTenBtn>
+  <StarStore_GachaInfo>概率公示</StarStore_GachaInfo>
+  <StarStore_GachaClose>確認</StarStore_GachaClose>
+  <StarStore_GachaProbability>{0} - 概率公示</StarStore_GachaProbability>
+  <StarStore_GachaItemCount>{0} 種物品</StarStore_GachaItemCount>
+  <StarStore_GachaSingleResult>{0} - 抽取結果</StarStore_GachaSingleResult>
+  <StarStore_GachaTenResult>{0} - 十連結果</StarStore_GachaTenResult>
+
+  <!-- 看板/通用UI -->
+  <StarStore_SidebarTitle>星際商報</StarStore_SidebarTitle>
+  <StarStore_DiscountItem>折扣 {0} {1}折</StarStore_DiscountItem>
+  <StarStore_DailyDiscount>每日折扣</StarStore_DailyDiscount>
+  <StarStore_Refresh>刷新</StarStore_Refresh>
+  <StarStore_NoNews>暫無新聞</StarStore_NoNews>
+  <StarStore_InterstellarNews>星際新聞</StarStore_InterstellarNews>
+  <StarStore_Backstory>星際商店，連接銀河系各個角落的貿易樞紐。</StarStore_Backstory>
+  <StarStore_BackstoryTitle>背景故事</StarStore_BackstoryTitle>
+  <StarStore_QualityNormal>一般</StarStore_QualityNormal>
+  <StarStore_DiscountRate>{0}折</StarStore_DiscountRate>
+  <StarStore_Silver>銀{0}</StarStore_Silver>
+  <StarStore_Count>{0}個</StarStore_Count>
+  <StarStore_SilverBalance>白銀餘額: 銀{0}</StarStore_SilverBalance>
+  <StarStore_Subtotal>小計: 銀{0}</StarStore_Subtotal>
+  <StarStore_LayoutLarge>大</StarStore_LayoutLarge>
+  <StarStore_LayoutMedium>中</StarStore_LayoutMedium>
+  <StarStore_LayoutSmall>小</StarStore_LayoutSmall>
+  <StarStore_Random>隨機</StarStore_Random>
+
+  <!-- 側邊欄問候語 -->
+  <StarStore_SidebarGreeting_01>歡迎光臨星際商店，今天需要些什麼？</StarStore_SidebarGreeting_01>
+  <StarStore_SidebarGreeting_02>好久不見，旅行者！新貨已到，進來看看？</StarStore_SidebarGreeting_02>
+  <StarStore_SidebarGreeting_03>銀河系最優惠的價格，就在這裏！</StarStore_SidebarGreeting_03>
+  <StarStore_SidebarGreeting_04>星際商店，您的太空貿易伙伴。</StarStore_SidebarGreeting_04>
+  <StarStore_SidebarGreeting_05>風塵僕僕的旅人啊，休息一下再上路吧。</StarStore_SidebarGreeting_05>
+  <StarStore_SidebarGreeting_06>今日特惠，錯過等一年！</StarStore_SidebarGreeting_06>
+  <StarStore_SidebarGreeting_07>無論您在哪個星系，我們都在您身邊。</StarStore_SidebarGreeting_07>
+  <StarStore_SidebarGreeting_08>今天小人的心情值怎麼樣了？</StarStore_SidebarGreeting_08>
+  <StarStore_SidebarGreeting_09>要來一些鼠條嗎？</StarStore_SidebarGreeting_09>
+
+  <!-- 新聞 -->
+  <StarStore_News_01>銀河聯邦開放新的貿易航線，星際物流效率提升 15%</StarStore_News_01>
+  <StarStore_News_02>邊緣星域發現新型稀有礦物，價格波動劇烈</StarStore_News_02>
+  <StarStore_News_03>星際海盜活動頻繁，請各殖民地注意防禦</StarStore_News_03>
+  <StarStore_News_04>銀河貿易協會發布新一季貿易指南</StarStore_News_04>
+  <StarStore_News_05>機械族在邊境星域的活動有所增加</StarStore_News_05>
+  <StarStore_News_06>新的超光速航道即將開通，星際旅行時間將縮短</StarStore_News_06>
+  <StarStore_News_07>銀河交易所推出全新交易系統，操作更便捷</StarStore_News_07>
+  <StarStore_News_08>香料航線恢復通航，異域香料價格預計下降</StarStore_News_08>
+
+  <!-- 背景故事正文 -->
+  <StarStore_BackstoryText>星際商店創立於銀河曆 3047 年，由傳奇商人"星語者"洛青創辦。起初只是一艘小型商船，在邊緣星域之間穿梭貿易。經過數十年的發展，如今已成爲銀河系最大的跨星系貿易網絡之一。\n\n我們的商店遍佈銀河各個角落，從繁華的核心星域到荒涼的邊緣世界，無論您身處何地，都可以通過星際商店獲取所需的一切。\n\n"控制財富，一鍵進貨"——這是我們不變的經營理念。</StarStore_BackstoryText>
+
+  <!-- 看板娘1（默認）問候語 -->
+  <StarStore_Greeting_Default_01>歡迎光臨星際商店！</StarStore_Greeting_Default_01>
+  <StarStore_Greeting_Default_02>今天需要點什麼？</StarStore_Greeting_Default_02>
+  <StarStore_Greeting_Default_03>新貨已到，進來看看吧~</StarStore_Greeting_Default_03>
+  <StarStore_Greeting_Default_04>今天的折扣商品很不錯哦，要不要看看？</StarStore_Greeting_Default_04>
+  <StarStore_Greeting_Default_05>咦，你來了！正好剛到一批新貨呢。</StarStore_Greeting_Default_05>
+  <StarStore_Greeting_Default_06>有什麼需要幫忙的，隨時叫我~</StarStore_Greeting_Default_06>
+  <StarStore_Greeting_Default_07>交易愉快！歡迎下次再來~</StarStore_Greeting_Default_07>
+  <StarStore_Greeting_Default_08>最近殖民地發展得怎麼樣？需要補充點什麼嗎？</StarStore_Greeting_Default_08>
+  <StarStore_Greeting_Default_09>這件商品很搶手哦，庫存不多了~</StarStore_Greeting_Default_09>
+  <StarStore_Greeting_Default_10>看您心情不錯，今天一定有好事發生！</StarStore_Greeting_Default_10>
+  <StarStore_Greeting_Default_11>您已經是我們的老顧客了，給您留了個好東西~</StarStore_Greeting_Default_11>
+  <StarStore_Greeting_Default_12>一路辛苦了，先歇口氣再慢慢挑吧。</StarStore_Greeting_Default_12>
+  <StarStore_Greeting_Default_13>哎嘿，又被我發現了好東西，推薦給您！</StarStore_Greeting_Default_13>
+  <StarStore_Greeting_Default_14>今天想添置點什麼新裝備呀？</StarStore_Greeting_Default_14>
+  <StarStore_Greeting_Default_15>外面風沙大，快進來坐坐~</StarStore_Greeting_Default_15>
+  <StarStore_Greeting_Default_16>這些新到的零件質量都很好，適合基地升級。</StarStore_Greeting_Default_16>
+  <StarStore_Greeting_Default_17>您真有眼光，這款可是最新型號！</StarStore_Greeting_Default_17>
+  <StarStore_Greeting_Default_18>每次看到您來，心情都會變好呢~</StarStore_Greeting_Default_18>
+  <StarStore_Greeting_Default_19>今天的星空特別漂亮，適合做筆大交易！</StarStore_Greeting_Default_19>
+
+  <!-- 看板娘2（機械助手）問候語 -->
+  <StarStore_Greeting_Robot_01>系統已上線，等待指令。</StarStore_Greeting_Robot_01>
+  <StarStore_Greeting_Robot_02>今日匯率已更新。</StarStore_Greeting_Robot_02>
+  <StarStore_Greeting_Robot_03>檢測到殖民地信用良好，歡迎選購。</StarStore_Greeting_Robot_03>
+  <StarStore_Greeting_Robot_04>正在同步庫存數據… 完成。所有商品已就緒。</StarStore_Greeting_Robot_04>
+  <StarStore_Greeting_Robot_05>根據歷史購買分析，推薦您關注防禦類物資。</StarStore_Greeting_Robot_05>
+  <StarStore_Greeting_Robot_06>交易記錄已歸檔。感謝使用星際商店系統。</StarStore_Greeting_Robot_06>
+  <StarStore_Greeting_Robot_07>本日熱門商品：建築材料與醫藥包。</StarStore_Greeting_Robot_07>
+  <StarStore_Greeting_Robot_08>計算完成，最優購買方案已生成，是否查看？</StarStore_Greeting_Robot_08>
+  <StarStore_Greeting_Robot_09>檢測到殖民地護甲值低於建議閾值，建議補充。</StarStore_Greeting_Robot_09>
+  <StarStore_Greeting_Robot_10>商品數據庫已更新，本次新增 3 件可交易物品。</StarStore_Greeting_Robot_10>
+  <StarStore_Greeting_Robot_11>您的信用評級：SSS。享受優先配送服務。</StarStore_Greeting_Robot_11>
+  <StarStore_Greeting_Robot_12>系統自檢通過，所有模塊運行正常。</StarStore_Greeting_Robot_12>
+  <StarStore_Greeting_Robot_13>物流通道暢通，預計配送準時到達。</StarStore_Greeting_Robot_13>
+  <StarStore_Greeting_Robot_14>建議您關注星際市場波動，把握最佳購買時機。</StarStore_Greeting_Robot_14>
+  <StarStore_Greeting_Robot_15>統計數據顯示，近期組件類商品需求上升 20%。</StarStore_Greeting_Robot_15>
+  <StarStore_Greeting_Robot_16>能源儲備充足，可持續運營 8760 個標準週期。</StarStore_Greeting_Robot_16>
+  <StarStore_Greeting_Robot_17>正在進行例行維護… 維護完成。無異常。</StarStore_Greeting_Robot_17>
+  <StarStore_Greeting_Robot_18>請放心交易，本終端已通過銀河貿易安全認證。</StarStore_Greeting_Robot_18>
+
+  <!-- 看板娘3（貓娘）問候語 -->
+  <StarStore_Greeting_Catgirl_01>歡迎光臨~喵~</StarStore_Greeting_Catgirl_01>
+  <StarStore_Greeting_Catgirl_02>主人今天想看點什麼呀？</StarStore_Greeting_Catgirl_02>
+  <StarStore_Greeting_Catgirl_03>這邊的商品超划算的哦！</StarStore_Greeting_Catgirl_03>
+  <StarStore_Greeting_Catgirl_04>啊，被發現了…我偷偷給自己留了個好東西。</StarStore_Greeting_Catgirl_04>
+  <StarStore_Greeting_Catgirl_05>交易完成~下次再來玩喵！</StarStore_Greeting_Catgirl_05>
+  <StarStore_Greeting_Catgirl_06>今天也是元氣滿滿的一天！</StarStore_Greeting_Catgirl_06>
+  <StarStore_Greeting_Catgirl_07>盯……你錢包裏的白銀在向我招手喵~</StarStore_Greeting_Catgirl_07>
+  <StarStore_Greeting_Catgirl_08>累了嗎？要不要買點好東西犒勞自己？</StarStore_Greeting_Catgirl_08>
+  <StarStore_Greeting_Catgirl_09>喵~這個看起來好好玩！（指着一把衝鋒槍）</StarStore_Greeting_Catgirl_09>
+  <StarStore_Greeting_Catgirl_10>今天我當班，所以給你打個折喵~</StarStore_Greeting_Catgirl_10>
+  <StarStore_Greeting_Catgirl_11>那邊的貨物好重…搬不動…喵嗚…</StarStore_Greeting_Catgirl_11>
+  <StarStore_Greeting_Catgirl_12>新到的貨我都幫你試過了，這個最好用喵！</StarStore_Greeting_Catgirl_12>
+  <StarStore_Greeting_Catgirl_13>不許講價喵！……好吧，就這一次哦。</StarStore_Greeting_Catgirl_13>
+  <StarStore_Greeting_Catgirl_14>倉庫裏有老鼠！……啊不是，有特價商品！</StarStore_Greeting_Catgirl_14>
+  <StarStore_Greeting_Catgirl_15>呼嚕呼嚕~（打盹中）啊！歡迎光臨！</StarStore_Greeting_Catgirl_15>
+  <StarStore_Greeting_Catgirl_16>尾巴……啊不是，我是說歡迎光臨！</StarStore_Greeting_Catgirl_16>
+  <StarStore_Greeting_Catgirl_17>今天的陽光暖洋洋的，最適合做交易了喵~</StarStore_Greeting_Catgirl_17>
+  <StarStore_Greeting_Catgirl_18>你身上有好聞的味道……是貓薄荷嗎？</StarStore_Greeting_Catgirl_18>
+  <StarStore_Greeting_Catgirl_19>本店最貴的商品？……不賣！我要自己留着喵！</StarStore_Greeting_Catgirl_19>
+  <StarStore_Greeting_Catgirl_20>如果你買了這個，我就幫你撓撓耳朵後面……開玩笑的喵！</StarStore_Greeting_Catgirl_20>
+</LanguageData>

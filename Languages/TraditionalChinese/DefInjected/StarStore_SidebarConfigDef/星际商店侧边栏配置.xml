@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <StarStore_DefaultSidebar.label>預設側邊欄設定</StarStore_DefaultSidebar.label>
+  <StarStore_DefaultSidebar.description>星際商店左側側邊欄內容設定</StarStore_DefaultSidebar.description>
+  <StarStore_DefaultSidebar.sidebarTitle>星際商報</StarStore_DefaultSidebar.sidebarTitle>
+  <StarStore_DefaultSidebar.backstory>星際商店創立於銀河曆 3047 年，由傳奇商人「星語者」洛青創辦。起初只是一艘小型商船，在邊緣星域之間穿梭貿易。經過數十年的發展，如今已成為銀河系最大的跨星系貿易網絡之一。
+
+我們的商店遍布銀河各個角落，從繁華的核心星域到荒涼的邊緣世界，無論您身處何地，都可以通過星際商店獲取所需的一切。
+
+「控制財富，一鍵進貨」——這是我們不變的經營理念。</StarStore_DefaultSidebar.backstory>
+  <StarStore_DefaultSidebar.greetings.0>歡迎光臨星際商店，今天需要些什麼？</StarStore_DefaultSidebar.greetings.0>
+  <StarStore_DefaultSidebar.greetings.1>好久不見，旅行者！新貨已到，進來看看？</StarStore_DefaultSidebar.greetings.1>
+  <StarStore_DefaultSidebar.greetings.2>銀河系最優惠的價格，就在這裡！</StarStore_DefaultSidebar.greetings.2>
+  <StarStore_DefaultSidebar.greetings.3>星際商店，您的太空貿易夥伴。</StarStore_DefaultSidebar.greetings.3>
+  <StarStore_DefaultSidebar.greetings.4>風塵僕僕的旅人啊，休息一下再上路吧。</StarStore_DefaultSidebar.greetings.4>
+  <StarStore_DefaultSidebar.greetings.5>今日特惠，錯過等一年！</StarStore_DefaultSidebar.greetings.5>
+  <StarStore_DefaultSidebar.greetings.6>無論您在哪個星系，我們都在您身邊。</StarStore_DefaultSidebar.greetings.6>
+  <StarStore_DefaultSidebar.greetings.7>今天小人的心情值怎麼樣了？</StarStore_DefaultSidebar.greetings.7>
+  <StarStore_DefaultSidebar.greetings.8>要來一些鼠條嗎？</StarStore_DefaultSidebar.greetings.8>
+  <StarStore_DefaultSidebar.newsList.0>銀河聯邦開放新的貿易航線，星際物流效率提升 15%</StarStore_DefaultSidebar.newsList.0>
+  <StarStore_DefaultSidebar.newsList.1>邊緣星域發現新型稀有礦物，價格波動劇烈</StarStore_DefaultSidebar.newsList.1>
+  <StarStore_DefaultSidebar.newsList.2>星際海盜活動頻繁，請各殖民地注意防禦</StarStore_DefaultSidebar.newsList.2>
+  <StarStore_DefaultSidebar.newsList.3>銀河貿易協會發布新一季貿易指南</StarStore_DefaultSidebar.newsList.3>
+  <StarStore_DefaultSidebar.newsList.4>機械族在邊境星域的活動有所增加</StarStore_DefaultSidebar.newsList.4>
+  <StarStore_DefaultSidebar.newsList.5>新的超光速航道即將開通，星際旅行時間將縮短</StarStore_DefaultSidebar.newsList.5>
+  <StarStore_DefaultSidebar.newsList.6>銀河交易所推出全新交易系統，操作更便捷</StarStore_DefaultSidebar.newsList.6>
+  <StarStore_DefaultSidebar.newsList.7>香料航線恢復通航，異域香料價格預計下降</StarStore_DefaultSidebar.newsList.7>
+</LanguageData>

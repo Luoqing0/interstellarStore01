@@ -188,4 +188,91 @@
   <StarStore_LayoutMedium>M</StarStore_LayoutMedium>
   <StarStore_LayoutSmall>S</StarStore_LayoutSmall>
   <StarStore_Random>Random</StarStore_Random>
+
+  <!-- Sidebar Greetings -->
+  <StarStore_SidebarGreeting_01>Welcome to the Interstellar Store! What can I get for you today?</StarStore_SidebarGreeting_01>
+  <StarStore_SidebarGreeting_02>Long time no see, traveler! New stock just arrived, want to take a look?</StarStore_SidebarGreeting_02>
+  <StarStore_SidebarGreeting_03>The best prices in the galaxy, right here!</StarStore_SidebarGreeting_03>
+  <StarStore_SidebarGreeting_04>The Interstellar Store, your space trading partner.</StarStore_SidebarGreeting_04>
+  <StarStore_SidebarGreeting_05>You've been traveling hard, traveler. Take a break before hitting the road again.</StarStore_SidebarGreeting_05>
+  <StarStore_SidebarGreeting_06>Today's special deal — don't miss out!</StarStore_SidebarGreeting_06>
+  <StarStore_SidebarGreeting_07>No matter which star system you're in, we're always here for you.</StarStore_SidebarGreeting_07>
+  <StarStore_SidebarGreeting_08>How are your colonists feeling today?</StarStore_SidebarGreeting_08>
+  <StarStore_SidebarGreeting_09>Would you like some rat bars?</StarStore_SidebarGreeting_09>
+
+  <!-- News -->
+  <StarStore_News_01>The Galactic Federation opens new trade routes, boosting interstellar logistics efficiency by 15%</StarStore_News_01>
+  <StarStore_News_02>New rare minerals discovered in the rim systems, causing sharp price fluctuations</StarStore_News_02>
+  <StarStore_News_03>Interstellar pirate activity is on the rise. All colonies are advised to maintain defenses</StarStore_News_03>
+  <StarStore_News_04>The Galactic Trade Association releases its new quarterly trade guide</StarStore_News_04>
+  <StarStore_News_05>Mechanoid activity has increased in border star systems</StarStore_News_05>
+  <StarStore_News_06>New faster-than-light routes about to open, reducing interstellar travel time</StarStore_News_06>
+  <StarStore_News_07>The Galactic Exchange launches a new trading system with improved usability</StarStore_News_07>
+  <StarStore_News_08>Spice routes resume navigation, exotic spice prices expected to drop</StarStore_News_08>
+
+  <!-- Backstory Text -->
+  <StarStore_BackstoryText>The Interstellar Store was founded in Galactic Year 3047 by the legendary merchant "Star Speaker" Luo Qing. What began as a small merchant vessel shuttling between rim star systems has grown over decades into one of the largest cross-galactic trade networks in the galaxy.\n\nOur stores span every corner of the galaxy, from the bustling core systems to the desolate rim worlds. No matter where you are, you can obtain everything you need through the Interstellar Store.\n\n"Control wealth, restock with one click" — this is our unwavering business philosophy.</StarStore_BackstoryText>
+
+  <!-- Mascot 1 (Default) Greetings -->
+  <StarStore_Greeting_Default_01>Welcome to the Interstellar Store!</StarStore_Greeting_Default_01>
+  <StarStore_Greeting_Default_02>What can I get for you today?</StarStore_Greeting_Default_02>
+  <StarStore_Greeting_Default_03>New stock just arrived, come take a look~</StarStore_Greeting_Default_03>
+  <StarStore_Greeting_Default_04>Today's discounted items are really nice, want to check them out?</StarStore_Greeting_Default_04>
+  <StarStore_Greeting_Default_05>Oh, you're here! A new batch just arrived.</StarStore_Greeting_Default_05>
+  <StarStore_Greeting_Default_06>If you need any help, just call me~</StarStore_Greeting_Default_06>
+  <StarStore_Greeting_Default_07>Happy trading! Come again next time~</StarStore_Greeting_Default_07>
+  <StarStore_Greeting_Default_08>How's the colony doing lately? Need to restock anything?</StarStore_Greeting_Default_08>
+  <StarStore_Greeting_Default_09>This item is selling fast, stock is running low~</StarStore_Greeting_Default_09>
+  <StarStore_Greeting_Default_10>You look like you're in a good mood, something good must be happening today!</StarStore_Greeting_Default_10>
+  <StarStore_Greeting_Default_11>You're one of our regulars now, I saved something good for you~</StarStore_Greeting_Default_11>
+  <StarStore_Greeting_Default_12>You've worked hard on the road, take a breather and browse slowly.</StarStore_Greeting_Default_12>
+  <StarStore_Greeting_Default_13>Hehe, I found something great again, let me recommend it to you!</StarStore_Greeting_Default_13>
+  <StarStore_Greeting_Default_14>Looking to add some new gear today?</StarStore_Greeting_Default_14>
+  <StarStore_Greeting_Default_15>It's dusty out there, come on in and sit down~</StarStore_Greeting_Default_15>
+  <StarStore_Greeting_Default_16>These new parts are high quality, perfect for base upgrades.</StarStore_Greeting_Default_16>
+  <StarStore_Greeting_Default_17>You have great taste, this is the latest model!</StarStore_Greeting_Default_17>
+  <StarStore_Greeting_Default_18>Seeing you come in always brightens my day~</StarStore_Greeting_Default_18>
+  <StarStore_Greeting_Default_19>The starry sky is especially beautiful today, perfect for a big trade!</StarStore_Greeting_Default_19>
+
+  <!-- Mascot 2 (Robot Assistant) Greetings -->
+  <StarStore_Greeting_Robot_01>System online. Awaiting commands.</StarStore_Greeting_Robot_01>
+  <StarStore_Greeting_Robot_02>Today's exchange rates have been updated.</StarStore_Greeting_Robot_02>
+  <StarStore_Greeting_Robot_03>Colony credit status: Good. Welcome to shop.</StarStore_Greeting_Robot_03>
+  <StarStore_Greeting_Robot_04>Syncing inventory data... Done. All products ready.</StarStore_Greeting_Robot_04>
+  <StarStore_Greeting_Robot_05>Based on purchase history analysis, defensive supplies are recommended.</StarStore_Greeting_Robot_05>
+  <StarStore_Greeting_Robot_06>Transaction records archived. Thank you for using the Interstellar Store system.</StarStore_Greeting_Robot_06>
+  <StarStore_Greeting_Robot_07>Today's popular items: Building materials and medkits.</StarStore_Greeting_Robot_07>
+  <StarStore_Greeting_Robot_08>Calculation complete. Optimal purchase plan generated. View?</StarStore_Greeting_Robot_08>
+  <StarStore_Greeting_Robot_09>Colony armor level below recommended threshold. Resupply advised.</StarStore_Greeting_Robot_09>
+  <StarStore_Greeting_Robot_10>Product database updated. 3 new tradeable items added.</StarStore_Greeting_Robot_10>
+  <StarStore_Greeting_Robot_11>Your credit rating: SSS. Enjoying priority delivery service.</StarStore_Greeting_Robot_11>
+  <StarStore_Greeting_Robot_12>System self-check passed. All modules operating normally.</StarStore_Greeting_Robot_12>
+  <StarStore_Greeting_Robot_13>Logistics channels clear. Estimated on-time delivery.</StarStore_Greeting_Robot_13>
+  <StarStore_Greeting_Robot_14>Advisory: Monitor interstellar market fluctuations for optimal purchase timing.</StarStore_Greeting_Robot_14>
+  <StarStore_Greeting_Robot_15>Statistics show a 20% increase in demand for components recently.</StarStore_Greeting_Robot_15>
+  <StarStore_Greeting_Robot_16>Energy reserves sufficient for 8,760 standard cycles of operation.</StarStore_Greeting_Robot_16>
+  <StarStore_Greeting_Robot_17>Performing routine maintenance... Maintenance complete. No anomalies.</StarStore_Greeting_Robot_17>
+  <StarStore_Greeting_Robot_18>Trade with confidence. This terminal is certified by the Galactic Trade Security Authority.</StarStore_Greeting_Robot_18>
+
+  <!-- Mascot 3 (Catgirl) Greetings -->
+  <StarStore_Greeting_Catgirl_01>Welcome~ meow~</StarStore_Greeting_Catgirl_01>
+  <StarStore_Greeting_Catgirl_02>What would you like to see today, master?</StarStore_Greeting_Catgirl_02>
+  <StarStore_Greeting_Catgirl_03>The items over here are such a great deal!</StarStore_Greeting_Catgirl_03>
+  <StarStore_Greeting_Catgirl_04>Ah, you found me... I secretly saved something good for myself.</StarStore_Greeting_Catgirl_04>
+  <StarStore_Greeting_Catgirl_05>Transaction complete~ Come play again meow!</StarStore_Greeting_Catgirl_05>
+  <StarStore_Greeting_Catgirl_06>Today is another day full of energy!</StarStore_Greeting_Catgirl_06>
+  <StarStore_Greeting_Catgirl_07>Stare... The silver in your wallet is waving at me meow~</StarStore_Greeting_Catgirl_07>
+  <StarStore_Greeting_Catgirl_08>Tired? Want to buy something nice to treat yourself?</StarStore_Greeting_Catgirl_08>
+  <StarStore_Greeting_Catgirl_09>Meow~ This looks like fun! (points at a machine pistol)</StarStore_Greeting_Catgirl_09>
+  <StarStore_Greeting_Catgirl_10>I'm on shift today, so I'll give you a discount meow~</StarStore_Greeting_Catgirl_10>
+  <StarStore_Greeting_Catgirl_11>The cargo over there is so heavy... I can't carry it... meow...</StarStore_Greeting_Catgirl_11>
+  <StarStore_Greeting_Catgirl_12>I tried all the new stock for you, this one is the best meow!</StarStore_Greeting_Catgirl_12>
+  <StarStore_Greeting_Catgirl_13>No haggling meow! ...Okay, just this once.</StarStore_Greeting_Catgirl_13>
+  <StarStore_Greeting_Catgirl_14>There's a mouse in the warehouse! ...Oh wait, I mean there's a special sale!</StarStore_Greeting_Catgirl_14>
+  <StarStore_Greeting_Catgirl_15>Purr purr~ (dozing off) Ah! Welcome!</StarStore_Greeting_Catgirl_15>
+  <StarStore_Greeting_Catgirl_16>My tail... oh I mean, welcome!</StarStore_Greeting_Catgirl_16>
+  <StarStore_Greeting_Catgirl_17>The sunshine is so warm today, perfect for trading meow~</StarStore_Greeting_Catgirl_17>
+  <StarStore_Greeting_Catgirl_18>You smell nice... is that catnip?</StarStore_Greeting_Catgirl_18>
+  <StarStore_Greeting_Catgirl_19>The most expensive item in the store? ...Not for sale! I'm keeping it meow!</StarStore_Greeting_Catgirl_19>
+  <StarStore_Greeting_Catgirl_20>If you buy this, I'll scratch behind your ears... just kidding meow!</StarStore_Greeting_Catgirl_20>
 </LanguageData>

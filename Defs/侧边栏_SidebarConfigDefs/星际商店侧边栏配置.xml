@@ -11,6 +11,10 @@
      - 若该看板娘配置了 <greetings>，则使用其独立问候语池
      - 若 mascotDefNames 为空，则回退到旧字段 mascotTexturePath + greetings
      - 详见 Docs/看板娘配置说明.md
+
+     多语言说明：
+     - 文本字段使用中文明文，多语言翻译由 DefInjected 提供
+     - 自定义文本时直接写明文即可，会原样显示
      ============================================================ -->
 <Defs>
   <StarStore_SidebarConfigDef>

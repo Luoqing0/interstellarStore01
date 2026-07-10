@@ -188,4 +188,91 @@
   <StarStore_LayoutMedium>中</StarStore_LayoutMedium>
   <StarStore_LayoutSmall>小</StarStore_LayoutSmall>
   <StarStore_Random>ランダム</StarStore_Random>
+
+  <!-- サイドバー挨拶 -->
+  <StarStore_SidebarGreeting_01>ようこそ星際商店へ！本日は何をご希望ですか？</StarStore_SidebarGreeting_01>
+  <StarStore_SidebarGreeting_02>お久しぶりですね、旅人さん！新商品が入荷しました、見ていきませんか？</StarStore_SidebarGreeting_02>
+  <StarStore_SidebarGreeting_03>銀河系で最もお得な価格、ここにあります！</StarStore_SidebarGreeting_03>
+  <StarStore_SidebarGreeting_04>星際商店、あなたの宇宙貿易パートナー。</StarStore_SidebarGreeting_04>
+  <StarStore_SidebarGreeting_05>長旅お疲れ様です。少し休んでから出発しましょう。</StarStore_SidebarGreeting_05>
+  <StarStore_SidebarGreeting_06>本日の特別セール、見逃すな！</StarStore_SidebarGreeting_06>
+  <StarStore_SidebarGreeting_07>どの星系にいても、私たちはあなたのそばにいます。</StarStore_SidebarGreeting_07>
+  <StarStore_SidebarGreeting_08>今日のコロニーの皆さんの調子はいかがですか？</StarStore_SidebarGreeting_08>
+  <StarStore_SidebarGreeting_09>ラットバーはいかがですか？</StarStore_SidebarGreeting_09>
+
+  <!-- ニュース -->
+  <StarStore_News_01>銀河連邦が新たな貿易航路を開設、星間物流効率が15%向上</StarStore_News_01>
+  <StarStore_News_02>辺境星域で新型希少鉱物が発見され、価格が急激に変動</StarStore_News_02>
+  <StarStore_News_03>星間海賊の活動が頻発しています。各コロニーは防衛にご注意ください</StarStore_News_03>
+  <StarStore_News_04>銀河貿易協会が新四半期の貿易ガイドを発表</StarStore_News_04>
+  <StarStore_News_05>国境星域でのメカノイド活動が増加しています</StarStore_News_05>
+  <StarStore_News_06>新たな超光速航路が開通予定、星間旅行時間が短縮されます</StarStore_News_06>
+  <StarStore_News_07>銀河取引所が新しい取引システムを導入、操作がより便利に</StarStore_News_07>
+  <StarStore_News_08>スパイス航路が航行再開、異国のスパイス価格は下落予想</StarStore_News_08>
+
+  <!-- バックストーリー本文 -->
+  <StarStore_BackstoryText>星際商店は銀河暦3047年、伝説の商人「星語者」洛青によって創業されました。当初は小型の商船として辺境星域間を行き来して貿易していましたが、数十年の発展を経て、現在では銀河系最大の跨界星系貿易ネットワークの一つとなっています。\n\n当店は銀河のあらゆる隅々に広がっています。賑やかな中枢星域から荒涼とした辺境世界まで、どこにいても星際商店を通じて必要なものすべてを手に入れることができます。\n\n「富を制御し、ワンクリックで仕入れ」—これが私たちの変わらぬ経営理念です。</StarStore_BackstoryText>
+
+  <!-- 看板娘1（デフォルト）挨拶 -->
+  <StarStore_Greeting_Default_01>ようこそ星際商店へ！</StarStore_Greeting_Default_01>
+  <StarStore_Greeting_Default_02>本日は何になさいますか？</StarStore_Greeting_Default_02>
+  <StarStore_Greeting_Default_03>新商品が入荷しました、ぜひご覧ください〜</StarStore_Greeting_Default_03>
+  <StarStore_Greeting_Default_04>本日の割引商品はおすすめです、見てみませんか？</StarStore_Greeting_Default_04>
+  <StarStore_Greeting_Default_05>あら、いらっしゃい！ちょうど新商品が届いたところです。</StarStore_Greeting_Default_05>
+  <StarStore_Greeting_Default_06>何かお手伝いできることがあれば、いつでも声をかけてください〜</StarStore_Greeting_Default_06>
+  <StarStore_Greeting_Default_07>楽しいお買い物を！またいらっしゃいませ〜</StarStore_Greeting_Default_07>
+  <StarStore_Greeting_Default_08>最近コロニーの調子はいかがですか？何か補充が必要ですか？</StarStore_Greeting_Default_08>
+  <StarStore_Greeting_Default_09>この商品は人気です、在庫が少なくなってますよ〜</StarStore_Greeting_Default_09>
+  <StarStore_Greeting_Default_10>ご機嫌ですね、今日はきっと良いことがありますよ！</StarStore_Greeting_Default_10>
+  <StarStore_Greeting_Default_11>もう常連さんですね、良いものを取っておきました〜</StarStore_Greeting_Default_11>
+  <StarStore_Greeting_Default_12>お疲れ様です、まず一息ついてゆっくりお選びください。</StarStore_Greeting_Default_12>
+  <StarStore_Greeting_Default_13>えへへ、また良いものを見つけました、おすすめです！</StarStore_Greeting_Default_13>
+  <StarStore_Greeting_Default_14>今日は新しい装備を追加しませんか？</StarStore_Greeting_Default_14>
+  <StarStore_Greeting_Default_15>外は砂埃がひどいです、さあ中に入って休んでください〜</StarStore_Greeting_Default_15>
+  <StarStore_Greeting_Default_16>新着のパーツはどれも高品質です、拠点のアップグレードに最適です。</StarStore_Greeting_Default_16>
+  <StarStore_Greeting_Default_17>お目が高いですね、これは最新モデルです！</StarStore_Greeting_Default_17>
+  <StarStore_Greeting_Default_18>お客様が来るといつも嬉しくなります〜</StarStore_Greeting_Default_18>
+  <StarStore_Greeting_Default_19>今日の星空は特に綺麗です、大きな取引にはうってつけ！</StarStore_Greeting_Default_19>
+
+  <!-- 看板娘2（ロボットアシスタント）挨拶 -->
+  <StarStore_Greeting_Robot_01>システム起動完了。指令待機中。</StarStore_Greeting_Robot_01>
+  <StarStore_Greeting_Robot_02>本日の為替レートを更新しました。</StarStore_Greeting_Robot_02>
+  <StarStore_Greeting_Robot_03>コロニーの信用評価：良好。ようこそお選びください。</StarStore_Greeting_Robot_03>
+  <StarStore_Greeting_Robot_04>在庫データ同期中…完了。全商品準備完了。</StarStore_Greeting_Robot_04>
+  <StarStore_Greeting_Robot_05>購入履歴分析に基づき、防衛物資をお勧めします。</StarStore_Greeting_Robot_05>
+  <StarStore_Greeting_Robot_06>取引記録をアーカイブしました。星際商店システムのご利用ありがとうございます。</StarStore_Greeting_Robot_06>
+  <StarStore_Greeting_Robot_07>本日の人気商品：建築資材と医療キット。</StarStore_Greeting_Robot_07>
+  <StarStore_Greeting_Robot_08>計算完了。最適購入プランを生成しました。表示しますか？</StarStore_Greeting_Robot_08>
+  <StarStore_Greeting_Robot_09>コロニーのアーマー値が推奨閾値を下回っています。補給を推奨します。</StarStore_Greeting_Robot_09>
+  <StarStore_Greeting_Robot_10>商品データベースを更新しました。取引可能アイテムが3件追加されました。</StarStore_Greeting_Robot_10>
+  <StarStore_Greeting_Robot_11>お客様の信用評価：SSS。優先配送サービスをご利用いただけます。</StarStore_Greeting_Robot_11>
+  <StarStore_Greeting_Robot_12>システム自己診断完了。全モジュール正常に動作中。</StarStore_Greeting_Robot_12>
+  <StarStore_Greeting_Robot_13>物流チャネル良好。定時配送予定通り。</StarStore_Greeting_Robot_13>
+  <StarStore_Greeting_Robot_14>星間市場の変動に注目し、最適な購入タイミングを掴むことをお勧めします。</StarStore_Greeting_Robot_14>
+  <StarStore_Greeting_Robot_15>統計データによると、最近コンポーネント類商品の需要が20%上昇しています。</StarStore_Greeting_Robot_15>
+  <StarStore_Greeting_Robot_16>エネルギー備蓄十分。8,760標準サイクルの連続運転可能。</StarStore_Greeting_Robot_16>
+  <StarStore_Greeting_Robot_17>定期メンテナンス実行中…完了。異常なし。</StarStore_Greeting_Robot_17>
+  <StarStore_Greeting_Robot_18>安心して取引ください。本端末は銀河貿易安全認証に合格しています。</StarStore_Greeting_Robot_18>
+
+  <!-- 看板娘3（猫娘）挨拶 -->
+  <StarStore_Greeting_Catgirl_01>いらっしゃいませ〜にゃ〜</StarStore_Greeting_Catgirl_01>
+  <StarStore_Greeting_Catgirl_02>ご主人様、今日は何をご覧になりますか？</StarStore_Greeting_Catgirl_02>
+  <StarStore_Greeting_Catgirl_03>こっちの商品すっごくお得ですよ！</StarStore_Greeting_Catgirl_03>
+  <StarStore_Greeting_Catgirl_04>あ、見つかっちゃった…こっそりいいもの取っておいたの。</StarStore_Greeting_Catgirl_04>
+  <StarStore_Greeting_Catgirl_05>取引完了〜また遊びに来てにゃ！</StarStore_Greeting_Catgirl_05>
+  <StarStore_Greeting_Catgirl_06>今日も元気いっぱい！</StarStore_Greeting_Catgirl_06>
+  <StarStore_Greeting_Catgirl_07>じっと見つめる…お財布の銀が私に手を振ってるにゃ〜</StarStore_Greeting_Catgirl_07>
+  <StarStore_Greeting_Catgirl_08>お疲れですか？何かいいものを買ってご褒美にしませんか？</StarStore_Greeting_Catgirl_08>
+  <StarStore_Greeting_Catgirl_09>にゃ〜これ楽しそう！（マシンピストルを指差して）</StarStore_Greeting_Catgirl_09>
+  <StarStore_Greeting_Catgirl_10>今日は私の当番だから、割引してあげるにゃ〜</StarStore_Greeting_Catgirl_10>
+  <StarStore_Greeting_Catgirl_11>あっちの荷物重すぎ…運べない…にゃう…</StarStore_Greeting_Catgirl_11>
+  <StarStore_Greeting_Catgirl_12>新商品は全部試してみたよ、これが一番使いやすいにゃ！</StarStore_Greeting_Catgirl_12>
+  <StarStore_Greeting_Catgirl_13>値切りはダメにゃ！…わかった、今回だけだよ。</StarStore_Greeting_Catgirl_13>
+  <StarStore_Greeting_Catgirl_14>倉庫にネズミがいる！…あ違う、特売商品があるの！</StarStore_Greeting_Catgirl_14>
+  <StarStore_Greeting_Catgirl_15>ゴロゴロ〜（居眠り中）あ！いらっしゃいませ！</StarStore_Greeting_Catgirl_15>
+  <StarStore_Greeting_Catgirl_16>しっぽ…あ違う、いらっしゃいませ！</StarStore_Greeting_Catgirl_16>
+  <StarStore_Greeting_Catgirl_17>今日の日差しはぽかぽかしてて、取引にぴったりにゃ〜</StarStore_Greeting_Catgirl_17>
+  <StarStore_Greeting_Catgirl_18>いい匂いがする…キャットニップかな？</StarStore_Greeting_Catgirl_18>
+  <StarStore_Greeting_Catgirl_19>お店で一番高い商品？…売らない！自分用に取っておくにゃ！</StarStore_Greeting_Catgirl_19>
+  <StarStore_Greeting_Catgirl_20>これを買ってくれたら、耳の後ろを掻いてあげる…冗談にゃ！</StarStore_Greeting_Catgirl_20>
 </LanguageData>

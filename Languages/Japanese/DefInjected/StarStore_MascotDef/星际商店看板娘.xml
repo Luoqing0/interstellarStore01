@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     インターステラ・ストア - 看板娘設定 日本語翻訳
+     3名の看板娘（デフォルト/ロボット/猫娘）の挨拶語を含む
+     AI 辅助生成
+     ============================================================ -->
+<LanguageData>
+  <!-- ========== 看板娘 1：デフォルトマスコット ========== -->
+  <StarStore_Mascot_Default.label>デフォルトマスコット</StarStore_Mascot_Default.label>
+  <StarStore_Mascot_Default.greetings.0>星際商店へようこそ！</StarStore_Mascot_Default.greetings.0>
+  <StarStore_Mascot_Default.greetings.1>本日は何になさいますか？</StarStore_Mascot_Default.greetings.1>
+  <StarStore_Mascot_Default.greetings.2>新商品が入荷しました、ぜひご覧ください～</StarStore_Mascot_Default.greetings.2>
+  <StarStore_Mascot_Default.greetings.3>今日の割引商品はとても良いですよ、見てみませんか？</StarStore_Mascot_Default.greetings.3>
+  <StarStore_Mascot_Default.greetings.4>あら、いらっしゃい！ちょうど新商品が届いたところです。</StarStore_Mascot_Default.greetings.4>
+  <StarStore_Mascot_Default.greetings.5>何かお手伝いできることがあれば、いつでもお声がけください～</StarStore_Mascot_Default.greetings.5>
+  <StarStore_Mascot_Default.greetings.6>楽しいお取引を！またいらしてくださいね～</StarStore_Mascot_Default.greetings.6>
+  <StarStore_Mascot_Default.greetings.7>最近コロニーの調子はいかがですか？何か補充が必要ですか？</StarStore_Mascot_Default.greetings.7>
+  <StarStore_Mascot_Default.greetings.8>この商品は売れ筋ですよ、在庫が残り少なくなっています～</StarStore_Mascot_Default.greetings.8>
+  <StarStore_Mascot_Default.greetings.9>ご機嫌がよさそうですね、今日はきっといいことがありますよ！</StarStore_Mascot_Default.greetings.9>
+  <StarStore_Mascot_Default.greetings.10>すっかり常連さんですね、いいものを取っておきましたよ～</StarStore_Mascot_Default.greetings.10>
+  <StarStore_Mascot_Default.greetings.11>道中お疲れ様です。まず一息ついてゆっくり選んでください。</StarStore_Mascot_Default.greetings.11>
+  <StarStore_Mascot_Default.greetings.12>えへへ、またいいものを見つけました、おすすめします！</StarStore_Mascot_Default.greetings.12>
+  <StarStore_Mascot_Default.greetings.13>今日は新しい装備を何か揃えますか？</StarStore_Mascot_Default.greetings.13>
+  <StarStore_Mascot_Default.greetings.14>外は風が強いです、さあ中に入って座ってください～</StarStore_Mascot_Default.greetings.14>
+  <StarStore_Mascot_Default.greetings.15>この新しい部品は品質が良いです、拠点のアップグレードに最適です。</StarStore_Mascot_Default.greetings.15>
+  <StarStore_Mascot_Default.greetings.16>さすがお目が高い、こちらは最新モデルです！</StarStore_Mascot_Default.greetings.16>
+  <StarStore_Mascot_Default.greetings.17>あなたが来てくれると、いつも気分が上がります～</StarStore_Mascot_Default.greetings.17>
+  <StarStore_Mascot_Default.greetings.18>今日の星空は特に綺麗です、大きな取引をするのにぴったり！</StarStore_Mascot_Default.greetings.18>
+
+  <!-- ========== 看板娘 2：ロボットアシスタント ========== -->
+  <StarStore_Mascot_Robot.label>ロボットアシスタント</StarStore_Mascot_Robot.label>
+  <StarStore_Mascot_Robot.greetings.0>システム起動完了。指示待機中。</StarStore_Mascot_Robot.greetings.0>
+  <StarStore_Mascot_Robot.greetings.1>本日の為替レートを更新しました。</StarStore_Mascot_Robot.greetings.1>
+  <StarStore_Mascot_Robot.greetings.2>コロニーの信用状態は良好です。ようこそ。</StarStore_Mascot_Robot.greetings.2>
+  <StarStore_Mascot_Robot.greetings.3>在庫データを同期中…完了。全商品の準備が整いました。</StarStore_Mascot_Robot.greetings.3>
+  <StarStore_Mascot_Robot.greetings.4>購入履歴の分析に基づき、防衛物資の関心を推奨します。</StarStore_Mascot_Robot.greetings.4>
+  <StarStore_Mascot_Robot.greetings.5>取引記録をアーカイブしました。星際商店システムのご利用ありがとうございます。</StarStore_Mascot_Robot.greetings.5>
+  <StarStore_Mascot_Robot.greetings.6>本日の注目商品：建築材料と医療キット。</StarStore_Mascot_Robot.greetings.6>
+  <StarStore_Mascot_Robot.greetings.7>計算完了。最適購入プランを生成しました。表示しますか？</StarStore_Mascot_Robot.greetings.7>
+  <StarStore_Mascot_Robot.greetings.8>コロニーの装甲値が推奨閾値を下回っています。補充を推奨します。</StarStore_Mascot_Robot.greetings.8>
+  <StarStore_Mascot_Robot.greetings.9>商品データベースを更新しました。取引可能商品を3件追加しました。</StarStore_Mascot_Robot.greetings.9>
+  <StarStore_Mascot_Robot.greetings.10>あなたの信用格付け：SSS。優先配送サービスを利用できます。</StarStore_Mascot_Robot.greetings.10>
+  <StarStore_Mascot_Robot.greetings.11>システム自己診断完了。全モジュール正常に動作中。</StarStore_Mascot_Robot.greetings.11>
+  <StarStore_Mascot_Robot.greetings.12>物流チャネルは順調です。予定通りの配送が見込まれます。</StarStore_Mascot_Robot.greetings.12>
+  <StarStore_Mascot_Robot.greetings.13>星間市場の変動に注目し、最適な購入タイミングを掴むことを推奨します。</StarStore_Mascot_Robot.greetings.13>
+  <StarStore_Mascot_Robot.greetings.14>統計データによると、最近コンポーネント類の需要が20%上昇しています。</StarStore_Mascot_Robot.greetings.14>
+  <StarStore_Mascot_Robot.greetings.15>エネルギー備蓄は十分です。8,760標準サイクルの継続運用が可能。</StarStore_Mascot_Robot.greetings.15>
+  <StarStore_Mascot_Robot.greetings.16>定期メンテナンス実行中…完了。異常なし。</StarStore_Mascot_Robot.greetings.16>
+  <StarStore_Mascot_Robot.greetings.17>安心して取引してください。本端末は銀河貿易安全認証を取得しています。</StarStore_Mascot_Robot.greetings.17>
+
+  <!-- ========== 看板娘 3：猫娘マスコット ========== -->
+  <StarStore_Mascot_Catgirl.label>猫娘マスコット</StarStore_Mascot_Catgirl.label>
+  <StarStore_Mascot_Catgirl.greetings.0>いらっしゃいませ～にゃ～</StarStore_Mascot_Catgirl.greetings.0>
+  <StarStore_Mascot_Catgirl.greetings.1>ご主人様、今日は何を見たいですかにゃ？</StarStore_Mascot_Catgirl.greetings.1>
+  <StarStore_Mascot_Catgirl.greetings.2>こっちの商品はすごくお得ですよ！</StarStore_Mascot_Catgirl.greetings.2>
+  <StarStore_Mascot_Catgirl.greetings.3>あ、見つかった…こっそり自分用にいいものを取っておいたの。</StarStore_Mascot_Catgirl.greetings.3>
+  <StarStore_Mascot_Catgirl.greetings.4>取引完了～また遊びに来てにゃ！</StarStore_Mascot_Catgirl.greetings.4>
+  <StarStore_Mascot_Catgirl.greetings.5>今日も元気いっぱいのにゃ！</StarStore_Mascot_Catgirl.greetings.5>
+  <StarStore_Mascot_Catgirl.greetings.6>じー……お財布の銀がこっちに手を振ってるにゃ～</StarStore_Mascot_Catgirl.greetings.6>
+  <StarStore_Mascot_Catgirl.greetings.7>疲れた？何かいいものを買ってご褒美にする？</StarStore_Mascot_Catgirl.greetings.7>
+  <StarStore_Mascot_Catgirl.greetings.8>にゃ～これ楽しそう！（サブマシンガンを指差して）</StarStore_Mascot_Catgirl.greetings.8>
+  <StarStore_Mascot_Catgirl.greetings.9>今日は私の当番だから、割引してあげるにゃ～</StarStore_Mascot_Catgirl.greetings.9>
+  <StarStore_Mascot_Catgirl.greetings.10>あそこの荷物重い…運べない…にゃう…</StarStore_Mascot_Catgirl.greetings.10>
+  <StarStore_Mascot_Catgirl.greetings.11>新しく入った荷物は全部試したよ、これが一番いいにゃ！</StarStore_Mascot_Catgirl.greetings.11>
+  <StarStore_Mascot_Catgirl.greetings.12>値引き交渉はだめにゃ！……わかった、今回は特別に。</StarStore_Mascot_Catgirl.greetings.12>
+  <StarStore_Mascot_Catgirl.greetings.13>倉庫にネズミがいる！……あ違う、特価商品があるの！</StarStore_Mascot_Catgirl.greetings.13>
+  <StarStore_Mascot_Catgirl.greetings.14>ゴロゴロ～（居眠り中）あ！いらっしゃいませ！</StarStore_Mascot_Catgirl.greetings.14>
+  <StarStore_Mascot_Catgirl.greetings.15>しっぽ……あ違う、いらっしゃいませ！</StarStore_Mascot_Catgirl.greetings.15>
+  <StarStore_Mascot_Catgirl.greetings.16>今日の日差しはぽかぽかしてる、取引するのにぴったりにゃ～</StarStore_Mascot_Catgirl.greetings.16>
+  <StarStore_Mascot_Catgirl.greetings.17>いい匂いがする……キャットニップかしら？</StarStore_Mascot_Catgirl.greetings.17>
+  <StarStore_Mascot_Catgirl.greetings.18>この店で一番高い商品？……売らない！自分用に取っておくにゃ！</StarStore_Mascot_Catgirl.greetings.18>
+  <StarStore_Mascot_Catgirl.greetings.19>これを買ってくれたら、耳の後ろを掻いてあげる……冗談にゃ！</StarStore_Mascot_Catgirl.greetings.19>
+</LanguageData>

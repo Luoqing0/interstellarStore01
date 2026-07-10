@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- ========== 看板娘 1：預設看板娘 ========== -->
+  <StarStore_Mascot_Default.label>預設看板娘</StarStore_Mascot_Default.label>
+  <StarStore_Mascot_Default.greetings.0>歡迎光臨星際商店！</StarStore_Mascot_Default.greetings.0>
+  <StarStore_Mascot_Default.greetings.1>今天需要點什麼？</StarStore_Mascot_Default.greetings.1>
+  <StarStore_Mascot_Default.greetings.2>新貨已到，進來看看吧～</StarStore_Mascot_Default.greetings.2>
+  <StarStore_Mascot_Default.greetings.3>今天的折扣商品很不錯哦，要不要看看？</StarStore_Mascot_Default.greetings.3>
+  <StarStore_Mascot_Default.greetings.4>咦，你來了！正好剛到一批新貨呢。</StarStore_Mascot_Default.greetings.4>
+  <StarStore_Mascot_Default.greetings.5>有什麼需要幫忙的，隨時叫我～</StarStore_Mascot_Default.greetings.5>
+  <StarStore_Mascot_Default.greetings.6>交易愉快！歡迎下次再來～</StarStore_Mascot_Default.greetings.6>
+  <StarStore_Mascot_Default.greetings.7>最近殖民地發展得怎麼樣？需要補充點什麼嗎？</StarStore_Mascot_Default.greetings.7>
+  <StarStore_Mascot_Default.greetings.8>這件商品很搶手哦，庫存不多了～</StarStore_Mascot_Default.greetings.8>
+  <StarStore_Mascot_Default.greetings.9>看您心情不錯，今天一定有好事發生！</StarStore_Mascot_Default.greetings.9>
+  <StarStore_Mascot_Default.greetings.10>您已經是我們的老顧客了，給您留了個好東西～</StarStore_Mascot_Default.greetings.10>
+  <StarStore_Mascot_Default.greetings.11>一路辛苦了，先歇口氣再慢慢挑吧。</StarStore_Mascot_Default.greetings.11>
+  <StarStore_Mascot_Default.greetings.12>哎嘿，又被我發現了好東西，推薦給您！</StarStore_Mascot_Default.greetings.12>
+  <StarStore_Mascot_Default.greetings.13>今天想添置點什麼新裝備呀？</StarStore_Mascot_Default.greetings.13>
+  <StarStore_Mascot_Default.greetings.14>外面風沙大，快進來坐坐～</StarStore_Mascot_Default.greetings.14>
+  <StarStore_Mascot_Default.greetings.15>這些新到的零件品質都很好，適合基地升級。</StarStore_Mascot_Default.greetings.15>
+  <StarStore_Mascot_Default.greetings.16>您真有眼光，這款可是最新型號！</StarStore_Mascot_Default.greetings.16>
+  <StarStore_Mascot_Default.greetings.17>每次看到您來，心情都會變好呢～</StarStore_Mascot_Default.greetings.17>
+  <StarStore_Mascot_Default.greetings.18>今天的星空特別漂亮，適合做筆大交易！</StarStore_Mascot_Default.greetings.18>
+
+  <!-- ========== 看板娘 2：機械助手 ========== -->
+  <StarStore_Mascot_Robot.label>機械助手</StarStore_Mascot_Robot.label>
+  <StarStore_Mascot_Robot.greetings.0>系統已上線，等待指令。</StarStore_Mascot_Robot.greetings.0>
+  <StarStore_Mascot_Robot.greetings.1>今日匯率已更新。</StarStore_Mascot_Robot.greetings.1>
+  <StarStore_Mascot_Robot.greetings.2>偵測到殖民地信用良好，歡迎選購。</StarStore_Mascot_Robot.greetings.2>
+  <StarStore_Mascot_Robot.greetings.3>正在同步庫存資料… 完成。所有商品已就緒。</StarStore_Mascot_Robot.greetings.3>
+  <StarStore_Mascot_Robot.greetings.4>根據歷史購買分析，推薦您關注防禦類物資。</StarStore_Mascot_Robot.greetings.4>
+  <StarStore_Mascot_Robot.greetings.5>交易記錄已歸檔。感謝使用星際商店系統。</StarStore_Mascot_Robot.greetings.5>
+  <StarStore_Mascot_Robot.greetings.6>本日熱門商品：建築材料與醫藥包。</StarStore_Mascot_Robot.greetings.6>
+  <StarStore_Mascot_Robot.greetings.7>計算完成，最優購買方案已生成，是否查看？</StarStore_Mascot_Robot.greetings.7>
+  <StarStore_Mascot_Robot.greetings.8>偵測到殖民地護甲值低於建議閾值，建議補充。</StarStore_Mascot_Robot.greetings.8>
+  <StarStore_Mascot_Robot.greetings.9>商品資料庫已更新，本次新增 3 件可交易物品。</StarStore_Mascot_Robot.greetings.9>
+  <StarStore_Mascot_Robot.greetings.10>您的信用評級：SSS。享受優先配送服務。</StarStore_Mascot_Robot.greetings.10>
+  <StarStore_Mascot_Robot.greetings.11>系統自檢通過，所有模組運行正常。</StarStore_Mascot_Robot.greetings.11>
+  <StarStore_Mascot_Robot.greetings.12>物流通道暢通，預計配送準時到達。</StarStore_Mascot_Robot.greetings.12>
+  <StarStore_Mascot_Robot.greetings.13>建議您關注星際市場波動，把握最佳購買時機。</StarStore_Mascot_Robot.greetings.13>
+  <StarStore_Mascot_Robot.greetings.14>統計資料顯示，近期組件類商品需求上升 20%。</StarStore_Mascot_Robot.greetings.14>
+  <StarStore_Mascot_Robot.greetings.15>能源儲備充足，可持續運營 8760 個標準週期。</StarStore_Mascot_Robot.greetings.15>
+  <StarStore_Mascot_Robot.greetings.16>正在進行例行維護… 維護完成。無異常。</StarStore_Mascot_Robot.greetings.16>
+  <StarStore_Mascot_Robot.greetings.17>請放心交易，本終端已通過銀河貿易安全認證。</StarStore_Mascot_Robot.greetings.17>
+
+  <!-- ========== 看板娘 3：貓娘看板娘 ========== -->
+  <StarStore_Mascot_Catgirl.label>貓娘看板娘</StarStore_Mascot_Catgirl.label>
+  <StarStore_Mascot_Catgirl.greetings.0>歡迎光臨～喵～</StarStore_Mascot_Catgirl.greetings.0>
+  <StarStore_Mascot_Catgirl.greetings.1>主人今天想看點什麼呀？</StarStore_Mascot_Catgirl.greetings.1>
+  <StarStore_Mascot_Catgirl.greetings.2>這邊的商品超划算的哦！</StarStore_Mascot_Catgirl.greetings.2>
+  <StarStore_Mascot_Catgirl.greetings.3>啊，被發現了…我偷偷給自己留了個好東西。</StarStore_Mascot_Catgirl.greetings.3>
+  <StarStore_Mascot_Catgirl.greetings.4>交易完成～下次再來玩喵！</StarStore_Mascot_Catgirl.greetings.4>
+  <StarStore_Mascot_Catgirl.greetings.5>今天也是元氣滿滿的一天！</StarStore_Mascot_Catgirl.greetings.5>
+  <StarStore_Mascot_Catgirl.greetings.6>盯……你錢包裡的白銀在向我招手喵～</StarStore_Mascot_Catgirl.greetings.6>
+  <StarStore_Mascot_Catgirl.greetings.7>累了嗎？要不要買點好東西犒勞自己？</StarStore_Mascot_Catgirl.greetings.7>
+  <StarStore_Mascot_Catgirl.greetings.8>喵～這個看起來好好玩！（指著一把衝鋒槍）</StarStore_Mascot_Catgirl.greetings.8>
+  <StarStore_Mascot_Catgirl.greetings.9>今天我當班，所以給你打個折喵～</StarStore_Mascot_Catgirl.greetings.9>
+  <StarStore_Mascot_Catgirl.greetings.10>那邊的貨物好重…搬不動…喵嗚…</StarStore_Mascot_Catgirl.greetings.10>
+  <StarStore_Mascot_Catgirl.greetings.11>新到的貨我都幫你試過了，這個最好用喵！</StarStore_Mascot_Catgirl.greetings.11>
+  <StarStore_Mascot_Catgirl.greetings.12>不許講價喵！……好吧，就這一次哦。</StarStore_Mascot_Catgirl.greetings.12>
+  <StarStore_Mascot_Catgirl.greetings.13>倉庫裡有老鼠！……啊不是，有特價商品！</StarStore_Mascot_Catgirl.greetings.13>
+  <StarStore_Mascot_Catgirl.greetings.14>呼嚕呼嚕～（打盹中）啊！歡迎光臨！</StarStore_Mascot_Catgirl.greetings.14>
+  <StarStore_Mascot_Catgirl.greetings.15>尾巴……啊不是，我是說歡迎光臨！</StarStore_Mascot_Catgirl.greetings.15>
+  <StarStore_Mascot_Catgirl.greetings.16>今天的陽光暖洋洋的，最適合做交易了喵～</StarStore_Mascot_Catgirl.greetings.16>
+  <StarStore_Mascot_Catgirl.greetings.17>你身上有好聞的味道……是貓薄荷嗎？</StarStore_Mascot_Catgirl.greetings.17>
+  <StarStore_Mascot_Catgirl.greetings.18>本店最貴的商品？……不賣！我要自己留著喵！</StarStore_Mascot_Catgirl.greetings.18>
+  <StarStore_Mascot_Catgirl.greetings.19>如果你買了這個，我就幫你撓撓耳朵後面……開玩笑的喵！</StarStore_Mascot_Catgirl.greetings.19>
+</LanguageData>

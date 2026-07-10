@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================
+     Interstellar Store - English DefInjected
+     SidebarConfigDef translations
+     ============================================================ -->
+<LanguageData>
+  <!-- ===== StarStore_DefaultSidebar ===== -->
+  <StarStore_DefaultSidebar.label>Default Sidebar Config</StarStore_DefaultSidebar.label>
+  <StarStore_DefaultSidebar.description>Interstellar Store left sidebar content configuration</StarStore_DefaultSidebar.description>
+
+  <!-- 侧边栏标题 -->
+  <StarStore_DefaultSidebar.sidebarTitle>Interstellar News</StarStore_DefaultSidebar.sidebarTitle>
+
+  <!-- 背景故事 -->
+  <StarStore_DefaultSidebar.backstory>The Interstellar Store was founded in Galactic Year 3047 by the legendary merchant "Star Speaker" Luo Qing. It began as a small merchant vessel, shuttling trade between frontier star systems. After decades of development, it has become one of the largest cross-galactic trade networks in the galaxy.
+
+Our stores span every corner of the galaxy, from the bustling core systems to the desolate rim worlds. No matter where you are, you can obtain everything you need through the Interstellar Store.
+
+"Control wealth, restock with one click" — this is our unwavering business philosophy.</StarStore_DefaultSidebar.backstory>
+
+  <!-- 随机问候语列表 -->
+  <StarStore_DefaultSidebar.greetings.0>Welcome to the Interstellar Store! What can I get for you today?</StarStore_DefaultSidebar.greetings.0>
+  <StarStore_DefaultSidebar.greetings.1>Long time no see, traveler! New stock has arrived, want to take a look?</StarStore_DefaultSidebar.greetings.1>
+  <StarStore_DefaultSidebar.greetings.2>The best prices in the galaxy, right here!</StarStore_DefaultSidebar.greetings.2>
+  <StarStore_DefaultSidebar.greetings.3>The Interstellar Store, your space trade partner.</StarStore_DefaultSidebar.greetings.3>
+  <StarStore_DefaultSidebar.greetings.4>You look exhausted, traveler. Rest a bit before hitting the road again.</StarStore_DefaultSidebar.greetings.4>
+  <StarStore_DefaultSidebar.greetings.5>Today's special deal — miss it and wait a year!</StarStore_DefaultSidebar.greetings.5>
+  <StarStore_DefaultSidebar.greetings.6>No matter which star system you're in, we're always by your side.</StarStore_DefaultSidebar.greetings.6>
+  <StarStore_DefaultSidebar.greetings.7>How's your colonists' mood today?</StarStore_DefaultSidebar.greetings.7>
+  <StarStore_DefaultSidebar.greetings.8>Care for some rat jerky?</StarStore_DefaultSidebar.greetings.8>
+
+  <!-- 新闻公告列表 -->
+  <StarStore_DefaultSidebar.newsList.0>The Galactic Federation opens new trade routes, interstellar logistics efficiency increased by 15%</StarStore_DefaultSidebar.newsList.0>
+  <StarStore_DefaultSidebar.newsList.1>New rare minerals discovered in frontier star systems, prices fluctuating wildly</StarStore_DefaultSidebar.newsList.1>
+  <StarStore_DefaultSidebar.newsList.2>Pirate activity on the rise, all colonies advised to strengthen defenses</StarStore_DefaultSidebar.newsList.2>
+  <StarStore_DefaultSidebar.newsList.3>The Galactic Trade Association releases a new quarterly trade guide</StarStore_DefaultSidebar.newsList.3>
+  <StarStore_DefaultSidebar.newsList.4>Mechanoid activity has increased in border star systems</StarStore_DefaultSidebar.newsList.4>
+  <StarStore_DefaultSidebar.newsList.5>New faster-than-light route about to open, interstellar travel time will be shortened</StarStore_DefaultSidebar.newsList.5>
+  <StarStore_DefaultSidebar.newsList.6>The Galactic Exchange launches a new trading system, more convenient operation</StarStore_DefaultSidebar.newsList.6>
+  <StarStore_DefaultSidebar.newsList.7>Spice routes reopened, exotic spice prices expected to drop</StarStore_DefaultSidebar.newsList.7>
+</LanguageData>
