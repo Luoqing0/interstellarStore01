@@ -70,8 +70,10 @@ namespace 星际商店
             // 使用持久化 buffer 避免光标乱跳：原代码每帧重建 buffer 导致 TextFieldNumeric 焦点丢失
             if (!数量输入缓冲.TryGetValue(key, out string 数量文本) || 数量文本 == null)
                 数量文本 = 当前值.ToString();
-            // 按钮操作改变了值时，同步 buffer
-            if (!数量文本.Equals(当前值.ToString()) && !GUI.GetNameOfFocusedControl().StartsWith("TextField"))
+            // AI 辅助生成：精确判断当前输入框是否聚焦，避免搜索框等干扰（M5）
+            string 当前控件名 = "TextField" + 数量Rect.y.ToString("F0") + 数量Rect.x.ToString("F0");
+            bool 当前框聚焦 = GUI.GetNameOfFocusedControl() == 当前控件名;
+            if (!数量文本.Equals(当前值.ToString()) && !当前框聚焦)
                 数量文本 = 当前值.ToString();
             // AI：当前值已与字典同步，TextFieldNumeric回写不会覆盖按钮修改
             Widgets.TextFieldNumeric(数量Rect, ref 当前值, ref 数量文本, 0, 999999);
@@ -198,11 +200,14 @@ namespace 星际商店
 
             // 输入框
             // 使用持久化 buffer 避免光标乱跳
+            Rect 输入Rect = new Rect(rect.x + (小按钮宽 + 2f) * 2f, 输入Y, 小按钮宽, 16f);
             if (!数量输入缓冲.TryGetValue(key, out string 文本) || 文本 == null)
                 文本 = 当前值.ToString();
-            if (!文本.Equals(当前值.ToString()) && !GUI.GetNameOfFocusedControl().StartsWith("TextField"))
+            // AI 辅助生成：精确判断当前输入框是否聚焦（M5）
+            string v2控件名 = "TextField" + 输入Rect.y.ToString("F0") + 输入Rect.x.ToString("F0");
+            bool v2聚焦 = GUI.GetNameOfFocusedControl() == v2控件名;
+            if (!文本.Equals(当前值.ToString()) && !v2聚焦)
                 文本 = 当前值.ToString();
-            Rect 输入Rect = new Rect(rect.x + (小按钮宽 + 2f) * 2f, 输入Y, 小按钮宽, 16f);
             Widgets.TextFieldNumeric(输入Rect, ref 当前值, ref 文本, 0, 999999);
             数量输入缓冲[key] = 文本;
             当前交易数量[key] = 当前值;

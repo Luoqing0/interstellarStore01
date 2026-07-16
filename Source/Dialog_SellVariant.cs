@@ -28,6 +28,7 @@ namespace 星际商店
             public float unitPrice;
             public int quantity;
             public string label;
+            public string 数量缓冲;  // AI 辅助生成：持久化输入缓冲，避免光标跳变
         }
 
         public Dialog_SellVariant(ThingDef def, List<Thing> inventory)
@@ -177,9 +178,13 @@ namespace 星际商店
                 }
 
                 Rect 数量Rect = new Rect(qX + 24f, ry + 2f, 40f, 22f);
-                string 数量文本 = row.quantity.ToString();
-                数量文本 = Widgets.TextField(数量Rect, 数量文本);
-                if (int.TryParse(数量文本, out int parsed))
+                // AI 辅助生成：使用持久化缓冲避免光标跳变
+                if (row.数量缓冲 == null) row.数量缓冲 = row.quantity.ToString();
+                // 按钮操作改变值时同步缓冲（非编辑状态）
+                if (!row.数量缓冲.Equals(row.quantity.ToString()) && !GUI.GetNameOfFocusedControl().StartsWith("TextField"))
+                    row.数量缓冲 = row.quantity.ToString();
+                row.数量缓冲 = Widgets.TextField(数量Rect, row.数量缓冲);
+                if (int.TryParse(row.数量缓冲, out int parsed))
                 {
                     row.quantity = Mathf.Clamp(parsed, 0, row.stock);
                 }

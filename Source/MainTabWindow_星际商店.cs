@@ -301,6 +301,8 @@ namespace 星际商店
         public override void PreClose()
         {
             base.PreClose();
+            // 清理输入缓冲避免内存泄漏（L6）
+            数量输入缓冲.Clear();
             // 保存窗口位置到设置（拖拽后记忆位置）
             商店设置 设置 = 星际商店Mod.设置;
             if (设置 != null)
@@ -356,8 +358,10 @@ namespace 星际商店
             当前折扣物品 = cfg?.获取今日折扣物品(上次折扣天数);
             上次折扣物品 = 当前折扣物品;
             记录折扣历史();
-            // AI 辅助生成：商店开门提示音
-            SoundDef.Named("UI_ButtonPrompt").PlayOneShot(new TargetInfo(UI.MouseCell(), Find.CurrentMap));
+            // AI 辅助生成：商店开门提示音（防 CurrentMap 为 null）
+            Map openMap = Find.CurrentMap;
+            if (openMap != null)
+                SoundDef.Named("UI_ButtonPrompt").PlayOneShot(new TargetInfo(UI.MouseCell(), openMap));
         }
 
         /// <summary>
@@ -538,6 +542,8 @@ namespace 星际商店
         /// <summary>检查物品是否有品质或材料的变体（需要弹窗选择）</summary>
         public bool 物品有变体(ThingDef def)
         {
+            // AI 辅助生成：Pawn（动物/机械族）不走变体弹窗，因为获取库存映射只收集 Item
+            if (def.race != null) return false;
             return def.HasComp(typeof(CompQuality)) || def.MadeFromStuff;
         }
 

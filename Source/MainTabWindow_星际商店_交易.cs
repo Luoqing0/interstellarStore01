@@ -269,12 +269,21 @@ namespace 星际商店
                 else
                     query = query.Where(d => d.tradeability == Tradeability.Sellable || d.tradeability == Tradeability.All);
 
-                // AI 辅助生成：卖出“全部”页合并殖民者机械族
+                // AI 辅助生成：卖出"全部"页合并殖民者机械族和动物
                 if (!是购买模式 && 当前分类标签 == "StarStore_All")
                 {
                     var mechRaces = 机械族管理器.获取殖民地机械族Race(Find.CurrentMap);
                     if (!mechRaces.NullOrEmpty())
                         query = query.Union(mechRaces);
+                    // 补充殖民地动物（某些模组动物 tradeability 为 None，正常过滤会遗漏）
+                    Map sellMap = Find.CurrentMap;
+                    if (sellMap != null)
+                    {
+                        var animalRaces = sellMap.mapPawns.AllPawns
+                            .Where(p => p.Faction == Faction.OfPlayer && p.RaceProps.Animal && !p.Dead)
+                            .Select(p => p.def).Distinct();
+                        query = query.Union(animalRaces);
+                    }
                 }
             }
 
@@ -492,7 +501,11 @@ namespace 星际商店
                 }
             }
 
-            if (总花费 <= 0) return;
+            if (总花费 <= 0)
+            {
+                Messages.Message("StarStore_CartEmpty".Translate(), MessageTypeDefOf.RejectInput);
+                return;
+            }
 
             int 需要白银 = Mathf.RoundToInt(总花费);
 
@@ -545,26 +558,28 @@ namespace 星际商店
                 // AI 辅助生成：机械族在 listerThings 中找不到，需独立预检
                 if (kv.Key.def.race != null && kv.Key.def.race.IsMechanoid)
                 {
-                    int availableMech = 机械族管理器.获取殖民地机械族(kv.Key.def, map, kv.Value).Count();
-                    if (availableMech < kv.Value)
+                    // M6: 阶段1收集 Pawn 引用，避免阶段2重复遍历 AllPawns
+                    var mechPawns = 机械族管理器.获取殖民地机械族(kv.Key.def, map, kv.Value).ToList();
+                    if (mechPawns.Count < kv.Value)
                     {
                         Messages.Message("StarStore_InsufficientStock".Translate(kv.Key.ToString()), MessageTypeDefOf.RejectInput);
                         return;
                     }
-                    执行计划.Add(new 出售计划项 { key = kv.Key, candidates = new List<Thing>(), amount = kv.Value });
+                    执行计划.Add(new 出售计划项 { key = kv.Key, candidates = mechPawns.Cast<Thing>().ToList(), amount = kv.Value });
                     continue;
                 }
 
                 // AI 辅助生成：动物也是 Pawn，不在 listerThings 中，需独立预检
                 if (kv.Key.def.race != null && kv.Key.def.race.Animal)
                 {
-                    int availableAnimal = 机械族管理器.获取殖民地动物(kv.Key.def, map, kv.Value).Count();
-                    if (availableAnimal < kv.Value)
+                    // M6: 阶段1收集 Pawn 引用，避免阶段2重复遍历 AllPawns
+                    var animalPawns = 机械族管理器.获取殖民地动物(kv.Key.def, map, kv.Value).ToList();
+                    if (animalPawns.Count < kv.Value)
                     {
                         Messages.Message("StarStore_InsufficientStock".Translate(kv.Key.ToString()), MessageTypeDefOf.RejectInput);
                         return;
                     }
-                    执行计划.Add(new 出售计划项 { key = kv.Key, candidates = new List<Thing>(), amount = kv.Value });
+                    执行计划.Add(new 出售计划项 { key = kv.Key, candidates = animalPawns.Cast<Thing>().ToList(), amount = kv.Value });
                     continue;
                 }
 
@@ -598,17 +613,13 @@ namespace 星际商店
             // 阶段2：全部预检查通过后，统一扣除库存并累加收益
             foreach (var plan in 执行计划)
             {
-                // AI 辅助生成：机械族活体单独处理（不在 listerThings 中）
+                // AI 辅助生成：机械族活体单独处理（M6: 直接使用阶段1收集的 Pawn 引用）
                 if (plan.key.def.race != null && plan.key.def.race.IsMechanoid)
                 {
-                    var pawns = 机械族管理器.获取殖民地机械族(plan.key.def, map, plan.amount).ToList();
-                    if (pawns.Count < plan.amount)
+                    foreach (Thing t in plan.candidates)
                     {
-                        Messages.Message("StarStore_InsufficientStock".Translate(plan.key.ToString()), MessageTypeDefOf.RejectInput);
-                        return;
-                    }
-                    foreach (Pawn p in pawns)
-                    {
+                        Pawn p = t as Pawn;
+                        if (p == null || p.Dead) continue;
                         float 基础单价 = 获取出售价格(plan.key.def);
                         float 单价 = 基础单价 * Mathf.Max(0.1f, p.MarketValue / Mathf.Max(plan.key.def.BaseMarketValue, 1f));
                         总收益 += 单价;
@@ -618,17 +629,13 @@ namespace 星际商店
                     continue;
                 }
 
-                // AI 辅助生成：动物活体单独处理（不在 listerThings 中）
+                // AI 辅助生成：动物活体单独处理（M6: 直接使用阶段1收集的 Pawn 引用）
                 if (plan.key.def.race != null && plan.key.def.race.Animal)
                 {
-                    var pawns = 机械族管理器.获取殖民地动物(plan.key.def, map, plan.amount).ToList();
-                    if (pawns.Count < plan.amount)
+                    foreach (Thing t in plan.candidates)
                     {
-                        Messages.Message("StarStore_InsufficientStock".Translate(plan.key.ToString()), MessageTypeDefOf.RejectInput);
-                        return;
-                    }
-                    foreach (Pawn p in pawns)
-                    {
+                        Pawn p = t as Pawn;
+                        if (p == null || p.Dead) continue;
                         float 基础单价 = 获取出售价格(plan.key.def);
                         float 单价 = 基础单价 * Mathf.Max(0.1f, p.MarketValue / Mathf.Max(plan.key.def.BaseMarketValue, 1f));
                         总收益 += 单价;
@@ -651,11 +658,18 @@ namespace 星际商店
                     总收益 += 单价 * 本次卖出数;
                     剩余卖出 -= 本次卖出数;
 
-                    t.SplitOff(本次卖出数);
+                    // AI 辅助生成：SplitOff 返回分离出的物品，需销毁避免泄漏
+                    Thing sold = t.SplitOff(本次卖出数);
+                    if (sold != null && sold != t && !sold.Destroyed)
+                        sold.Destroy();
                 }
             }
 
-            if (总收益 <= 0f) return;
+            if (总收益 <= 0f)
+            {
+                Messages.Message("StarStore_CartEmpty".Translate(), MessageTypeDefOf.RejectInput);
+                return;
+            }
 
             int 白银数量 = Mathf.RoundToInt(总收益);
             if (白银数量 > 0)

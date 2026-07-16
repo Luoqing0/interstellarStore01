@@ -26,8 +26,8 @@ namespace 星际商店
             Rect 卖出按钮 = new Rect(btnX + 65f, rect.y + 4f, 按钮标准宽, 按钮标准高);
             绘制科幻按钮(购买按钮, "StarStore_BuyMode".Translate(), 是购买模式);
             绘制科幻按钮(卖出按钮, "StarStore_SellMode".Translate(), !是购买模式);
-            if (Widgets.ButtonInvisible(购买按钮)) { 是购买模式 = true; 当前页码 = 1; 刷新物品列表(); }
-            if (Widgets.ButtonInvisible(卖出按钮)) { 是购买模式 = false; 当前页码 = 1; 刷新物品列表(); }
+            if (Widgets.ButtonInvisible(购买按钮)) { 是购买模式 = true; 当前页码 = 1; 数量输入缓冲.Clear(); 刷新物品列表(); }
+            if (Widgets.ButtonInvisible(卖出按钮)) { 是购买模式 = false; 当前页码 = 1; 数量输入缓冲.Clear(); 刷新物品列表(); }
 
             // 搜索框（在模式按钮右侧）
             float 搜索X = btnX + 135f;
