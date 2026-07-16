@@ -3,14 +3,14 @@
   <name>星际商店</name>
   <author>Luoqing</author>
   <packageId>luoqing.starstore</packageId>
-  <modVersion>1.1.6</modVersion>
+  <modVersion>1.1.7</modVersion>
   <description>在底部栏新增一家 24 小时不打烊的星际商店，开局即可直接交易，再也不用等贸易船。
 
 【核心功能】
 - 购买 / 出售双模式，支持品质、材料、变体选择，价格动态计算
 - 12 大分类 + 模组来源筛选 + 名称搜索 + 跨存档收藏
 - 三种网格布局（3×3 / 4×4 / 6×6），看板娘问候，每日折扣
-- 中 / 英 / 日 三语，原生中文
+- 中 / 英 / 日 / 繁 四语，原生中文
 
 【使用方式】
 订阅启用后，底部栏会出现"星际商店"按钮，点击即可打开。
