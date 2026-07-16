@@ -127,7 +127,7 @@ namespace 星际商店
             if (!string.IsNullOrEmpty(新闻))
             {
                 cy = 绘制看板区块(滚动内容Rect, cy, "StarStore_InterstellarNews".Translate(),
-                    看板区块新闻色, 新闻, 可用宽 - 4f, true);
+                    看板区块新闻色, 新闻, Mathf.Floor(可用宽 - 4f), true);
             }
 
             // 背景故事

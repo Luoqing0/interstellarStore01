@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <StarStore_Bundle_Starter.label>初心者開拓パック</StarStore_Bundle_Starter.label>
+  <StarStore_Bundle_Starter.description>基礎資源と食料を含み、新設されたコロニーに最適。</StarStore_Bundle_Starter.description>
+
+  <StarStore_Bundle_Melee.label>近戦格闘パック</StarStore_Bundle_Melee.label>
+  <StarStore_Bundle_Melee.description>実用的な近接武器と防具のセット。</StarStore_Bundle_Melee.description>
+
+  <StarStore_Bundle_RandomMedical.label>ランダム医療補給</StarStore_Bundle_RandomMedical.label>
+  <StarStore_Bundle_RandomMedical.description>医療物資プールからランダムに抽選される補給パック。</StarStore_Bundle_RandomMedical.description>
+</LanguageData>

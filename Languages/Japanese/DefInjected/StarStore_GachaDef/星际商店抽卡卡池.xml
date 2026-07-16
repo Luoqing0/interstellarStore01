@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <StarStore_Gacha_Basic.label>基礎補給箱</StarStore_Gacha_Basic.label>
+  <StarStore_Gacha_Basic.description>実用的な基礎物資を含み、開拓期の日常消耗品補充に最適。</StarStore_Gacha_Basic.description>
+  <StarStore_Gacha_Basic.tenPullDiscountLabel>10%割引</StarStore_Gacha_Basic.tenPullDiscountLabel>
+  <StarStore_Gacha_Basic.singleLabel>単発 100⛃</StarStore_Gacha_Basic.singleLabel>
+  <StarStore_Gacha_Basic.tenLabel>10連 900⛃</StarStore_Gacha_Basic.tenLabel>
+
+  <StarStore_Gacha_Advanced.label>上級装備箱</StarStore_Gacha_Advanced.label>
+  <StarStore_Gacha_Advanced.description>武器、防具、戦闘用バイオニクスを含み、コロニストの戦闘力向上に最適。</StarStore_Gacha_Advanced.description>
+  <StarStore_Gacha_Advanced.tenPullDiscountLabel>約14%割引</StarStore_Gacha_Advanced.tenPullDiscountLabel>
+  <StarStore_Gacha_Advanced.singleLabel>単発 350⛃</StarStore_Gacha_Advanced.singleLabel>
+  <StarStore_Gacha_Advanced.tenLabel>10連 3000⛃</StarStore_Gacha_Advanced.tenLabel>
+
+  <StarStore_Gacha_Premium.label>豪華秘蔵箱</StarStore_Gacha_Premium.label>
+  <StarStore_Gacha_Premium.description>最も希少な物品と最強の装備、コロニーの究極の追求。</StarStore_Gacha_Premium.description>
+  <StarStore_Gacha_Premium.tenPullDiscountLabel>15%割引</StarStore_Gacha_Premium.tenPullDiscountLabel>
+  <StarStore_Gacha_Premium.singleLabel>単発 1000⛃</StarStore_Gacha_Premium.singleLabel>
+  <StarStore_Gacha_Premium.tenLabel>10連 8500⛃</StarStore_Gacha_Premium.tenLabel>
+</LanguageData>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <StarStore_Bundle_Starter.label>新手開拓包</StarStore_Bundle_Starter.label>
+  <StarStore_Bundle_Starter.description>包含基礎資源與食物，適合剛落地的殖民地。</StarStore_Bundle_Starter.description>
+
+  <StarStore_Bundle_Melee.label>近戰格鬥包</StarStore_Bundle_Melee.label>
+  <StarStore_Bundle_Melee.description>一組實用的近戰武器與護甲。</StarStore_Bundle_Melee.description>
+
+  <StarStore_Bundle_RandomMedical.label>隨機醫療補給</StarStore_Bundle_RandomMedical.label>
+  <StarStore_Bundle_RandomMedical.description>從醫療物資池中隨機抽取的補給包。</StarStore_Bundle_RandomMedical.description>
+</LanguageData>

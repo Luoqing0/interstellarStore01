@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <GachaRarity_Common.label>コモン</GachaRarity_Common.label>
+  <GachaRarity_Common.badgeText>コモン</GachaRarity_Common.badgeText>
+
+  <GachaRarity_Uncommon.label>アンコモン</GachaRarity_Uncommon.label>
+  <GachaRarity_Uncommon.badgeText>アンコモン</GachaRarity_Uncommon.badgeText>
+
+  <GachaRarity_Rare.label>レア</GachaRarity_Rare.label>
+  <GachaRarity_Rare.badgeText>レア</GachaRarity_Rare.badgeText>
+
+  <GachaRarity_Epic.label>エピック</GachaRarity_Epic.label>
+  <GachaRarity_Epic.badgeText>エピック</GachaRarity_Epic.badgeText>
+
+  <GachaRarity_Legendary.label>レジェンダリー</GachaRarity_Legendary.label>
+  <GachaRarity_Legendary.badgeText>レジェンダリー</GachaRarity_Legendary.badgeText>
+</LanguageData>

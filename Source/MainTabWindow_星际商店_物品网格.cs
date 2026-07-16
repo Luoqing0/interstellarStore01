@@ -218,7 +218,9 @@ namespace 星际商店
                     {
                         Rect qRect = new Rect(rect.x + 内边距, 半行Y, 半行宽, 18f);
                         QualityCategory? curQ = 购买品质选择.TryGetValue(def, out var q) ? q : (QualityCategory?)null;
-                        string qLabel = curQ.HasValue ? curQ.Value.GetLabel() : "StarStore_QualityNormal".Translate();
+                        // AI 辅助生成：GetLabel() 返回带 rich text 颜色标签的文本，
+                        // 截断会破坏标签显示为 <col，用 StripTags 去掉标签后再截断
+                        string qLabel = curQ.HasValue ? curQ.Value.GetLabel().StripTags() : "StarStore_QualityNormal".Translate();
                         if (qLabel.Length > 4) qLabel = qLabel.Substring(0, 4);
                         qLabel = "StarStore_QualityLabel".Translate(qLabel);
                         if (Widgets.ButtonText(qRect, qLabel))
@@ -527,6 +529,29 @@ namespace 星际商店
         {
             Map map = Find.CurrentMap;
             if (map == null) return;
+
+            // AI 辅助生成：Pawn（动物/机械族）不在库存映射中，走独立路径显示库存数量
+            if (def.race != null)
+            {
+                int pawnCount = 0;
+                if (def.race.IsMechanoid)
+                    pawnCount = 机械族管理器.获取殖民地机械族(def, map, 9999).Count();
+                else if (def.race.Animal)
+                    pawnCount = 机械族管理器.获取殖民地动物(def, map, 9999).Count();
+
+                if (pawnCount > 0)
+                {
+                    string vLabel = "StarStore_StockCount".Translate(pawnCount);
+                    Rect vRect = new Rect(rect.x + 内边距, startY, 可用宽, 14f);
+                    GUI.color = new Color(0.55f, 0.55f, 0.75f);
+                    Text.Font = GameFont.Tiny;
+                    Widgets.Label(vRect, vLabel);
+                    Text.Font = GameFont.Small;
+                    GUI.color = Color.white;
+                    名称Y = startY + 14f;
+                }
+                return;
+            }
 
             var 库存映射数据 = 获取库存映射(map);
             List<Thing> things;

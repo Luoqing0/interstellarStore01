@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <GachaRarity_Common.label>Common</GachaRarity_Common.label>
+  <GachaRarity_Common.badgeText>Common</GachaRarity_Common.badgeText>
+
+  <GachaRarity_Uncommon.label>Uncommon</GachaRarity_Uncommon.label>
+  <GachaRarity_Uncommon.badgeText>Uncommon</GachaRarity_Uncommon.badgeText>
+
+  <GachaRarity_Rare.label>Rare</GachaRarity_Rare.label>
+  <GachaRarity_Rare.badgeText>Rare</GachaRarity_Rare.badgeText>
+
+  <GachaRarity_Epic.label>Epic</GachaRarity_Epic.label>
+  <GachaRarity_Epic.badgeText>Epic</GachaRarity_Epic.badgeText>
+
+  <GachaRarity_Legendary.label>Legendary</GachaRarity_Legendary.label>
+  <GachaRarity_Legendary.badgeText>Legendary</GachaRarity_Legendary.badgeText>
+</LanguageData>

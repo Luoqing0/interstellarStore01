@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <StarStore_Bundle_Starter.label>Starter Pack</StarStore_Bundle_Starter.label>
+  <StarStore_Bundle_Starter.description>Contains basic resources and food, suitable for a newly founded colony.</StarStore_Bundle_Starter.description>
+
+  <StarStore_Bundle_Melee.label>Melee Combat Pack</StarStore_Bundle_Melee.label>
+  <StarStore_Bundle_Melee.description>A set of practical melee weapons and armor.</StarStore_Bundle_Melee.description>
+
+  <StarStore_Bundle_RandomMedical.label>Random Medical Supplies</StarStore_Bundle_RandomMedical.label>
+  <StarStore_Bundle_RandomMedical.description>A supply pack randomly drawn from a pool of medical items.</StarStore_Bundle_RandomMedical.description>
+</LanguageData>

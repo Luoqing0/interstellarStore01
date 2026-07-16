@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <StarStore_Gacha_Basic.label>Basic Supply Crate</StarStore_Gacha_Basic.label>
+  <StarStore_Gacha_Basic.description>Contains practical basic supplies, suitable for supplementing daily consumption during early development.</StarStore_Gacha_Basic.description>
+  <StarStore_Gacha_Basic.tenPullDiscountLabel>10% off</StarStore_Gacha_Basic.tenPullDiscountLabel>
+  <StarStore_Gacha_Basic.singleLabel>Single x1: 100⛃</StarStore_Gacha_Basic.singleLabel>
+  <StarStore_Gacha_Basic.tenLabel>10x Pull: 900⛃</StarStore_Gacha_Basic.tenLabel>
+
+  <StarStore_Gacha_Advanced.label>Advanced Equipment Crate</StarStore_Gacha_Advanced.label>
+  <StarStore_Gacha_Advanced.description>Contains weapons, armor, and combat bionics — the best choice for boosting your colonists' combat power.</StarStore_Gacha_Advanced.description>
+  <StarStore_Gacha_Advanced.tenPullDiscountLabel>~14% off</StarStore_Gacha_Advanced.tenPullDiscountLabel>
+  <StarStore_Gacha_Advanced.singleLabel>Single x1: 350⛃</StarStore_Gacha_Advanced.singleLabel>
+  <StarStore_Gacha_Advanced.tenLabel>10x Pull: 3000⛃</StarStore_Gacha_Advanced.tenLabel>
+
+  <StarStore_Gacha_Premium.label>Premium Secret Cache</StarStore_Gacha_Premium.label>
+  <StarStore_Gacha_Premium.description>The rarest items and most powerful equipment — the ultimate pursuit for your colony.</StarStore_Gacha_Premium.description>
+  <StarStore_Gacha_Premium.tenPullDiscountLabel>15% off</StarStore_Gacha_Premium.tenPullDiscountLabel>
+  <StarStore_Gacha_Premium.singleLabel>Single x1: 1000⛃</StarStore_Gacha_Premium.singleLabel>
+  <StarStore_Gacha_Premium.tenLabel>10x Pull: 8500⛃</StarStore_Gacha_Premium.tenLabel>
+</LanguageData>

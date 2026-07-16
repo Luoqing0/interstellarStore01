@@ -149,7 +149,11 @@ namespace 星际商店
                 GUI.color = 选中 ? Color.white : 文字色;
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Text.Font = GameFont.Small;
+                // AI 辅助生成：关闭自动换行，避免文字宽度接近 Rect 宽度时来回跳动
+                bool oldWrap = Text.WordWrap;
+                Text.WordWrap = false;
                 Widgets.Label(标签Rect, 标签.Translate());
+                Text.WordWrap = oldWrap;
                 Text.Anchor = TextAnchor.UpperLeft;
                 GUI.color = Color.white;
 
