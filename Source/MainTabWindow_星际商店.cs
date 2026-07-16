@@ -27,6 +27,8 @@ namespace 星际商店
         private Dictionary<TransactionKey, int> 购买交易数量 = new Dictionary<TransactionKey, int>();
         private Dictionary<TransactionKey, int> 出售交易数量 = new Dictionary<TransactionKey, int>();
         private Dictionary<TransactionKey, int> 当前交易数量 => 是购买模式 ? 购买交易数量 : 出售交易数量;
+        // 输入框文本缓冲持久化：避免每帧重建 buffer 导致光标乱跳
+        private Dictionary<TransactionKey, string> 数量输入缓冲 = new Dictionary<TransactionKey, string>();
         private string 当前分类标签 = "StarStore_All";
 
         // ===== 库存映射帧级缓存（出售模式性能优化） =====

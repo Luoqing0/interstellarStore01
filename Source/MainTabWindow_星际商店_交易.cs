@@ -542,6 +542,19 @@ namespace 星际商店
                     continue;
                 }
 
+                // AI 辅助生成：动物也是 Pawn，不在 listerThings 中，需独立预检
+                if (kv.Key.def.race != null && kv.Key.def.race.Animal)
+                {
+                    int availableAnimal = 机械族管理器.获取殖民地动物(kv.Key.def, map, kv.Value).Count();
+                    if (availableAnimal < kv.Value)
+                    {
+                        Messages.Message("StarStore_InsufficientStock".Translate(kv.Key.ToString()), MessageTypeDefOf.RejectInput);
+                        return;
+                    }
+                    执行计划.Add(new 出售计划项 { key = kv.Key, candidates = new List<Thing>(), amount = kv.Value });
+                    continue;
+                }
+
                 // 从地图上找到匹配品质/材料的物品（使用帧级缓存避免重复遍历）
                 List<Thing> candidates;
                 if (!库存映射数据.TryGetValue(kv.Key.def, out List<Thing> 同Def物品))
@@ -573,6 +586,26 @@ namespace 星际商店
                 if (plan.key.def.race != null && plan.key.def.race.IsMechanoid)
                 {
                     var pawns = 机械族管理器.获取殖民地机械族(plan.key.def, map, plan.amount).ToList();
+                    if (pawns.Count < plan.amount)
+                    {
+                        Messages.Message("StarStore_InsufficientStock".Translate(plan.key.ToString()), MessageTypeDefOf.RejectInput);
+                        return;
+                    }
+                    foreach (Pawn p in pawns)
+                    {
+                        float 基础单价 = 获取出售价格(plan.key.def);
+                        float 单价 = 基础单价 * Mathf.Max(0.1f, p.MarketValue / Mathf.Max(plan.key.def.BaseMarketValue, 1f));
+                        总收益 += 单价;
+                        p.DeSpawn(DestroyMode.Vanish);
+                        Find.WorldPawns.PassToWorld(p, PawnDiscardDecideMode.Decide);
+                    }
+                    continue;
+                }
+
+                // AI 辅助生成：动物活体单独处理（不在 listerThings 中）
+                if (plan.key.def.race != null && plan.key.def.race.Animal)
+                {
+                    var pawns = 机械族管理器.获取殖民地动物(plan.key.def, map, plan.amount).ToList();
                     if (pawns.Count < plan.amount)
                     {
                         Messages.Message("StarStore_InsufficientStock".Translate(plan.key.ToString()), MessageTypeDefOf.RejectInput);

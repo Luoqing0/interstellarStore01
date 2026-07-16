@@ -67,9 +67,15 @@ namespace 星际商店
 
             // 数量输入框
             Rect 数量Rect = new Rect(起始X + (小按钮宽 + 间隙) * 2f, 按钮Y, 数量宽, 16f);
-            string 数量文本 = 当前值.ToString();
+            // 使用持久化 buffer 避免光标乱跳：原代码每帧重建 buffer 导致 TextFieldNumeric 焦点丢失
+            if (!数量输入缓冲.TryGetValue(key, out string 数量文本) || 数量文本 == null)
+                数量文本 = 当前值.ToString();
+            // 按钮操作改变了值时，同步 buffer
+            if (!数量文本.Equals(当前值.ToString()) && !GUI.GetNameOfFocusedControl().StartsWith("TextField"))
+                数量文本 = 当前值.ToString();
             // AI：当前值已与字典同步，TextFieldNumeric回写不会覆盖按钮修改
             Widgets.TextFieldNumeric(数量Rect, ref 当前值, ref 数量文本, 0, 999999);
+            数量输入缓冲[key] = 数量文本;
             当前交易数量[key] = 当前值;
 
             // +1
@@ -108,6 +114,11 @@ namespace 星际商店
                         if (key.def.race != null && key.def.race.IsMechanoid)
                         {
                             库存 = 机械族管理器.获取殖民地机械族(key.def, map, 9999).Count();
+                        }
+                        // 动物也是 Pawn，不在库存映射中，需独立计数
+                        else if (key.def.race != null && key.def.race.Animal)
+                        {
+                            库存 = 机械族管理器.获取殖民地动物(key.def, map, 9999).Count();
                         }
                         else
                         {
@@ -186,9 +197,14 @@ namespace 星际商店
             if (Widgets.ButtonText(减一, "-1")) { if (当前交易数量[key] > 0) { 当前交易数量[key]--; 当前值 = 当前交易数量[key]; } }
 
             // 输入框
-            string 文本 = 当前值.ToString();
+            // 使用持久化 buffer 避免光标乱跳
+            if (!数量输入缓冲.TryGetValue(key, out string 文本) || 文本 == null)
+                文本 = 当前值.ToString();
+            if (!文本.Equals(当前值.ToString()) && !GUI.GetNameOfFocusedControl().StartsWith("TextField"))
+                文本 = 当前值.ToString();
             Rect 输入Rect = new Rect(rect.x + (小按钮宽 + 2f) * 2f, 输入Y, 小按钮宽, 16f);
             Widgets.TextFieldNumeric(输入Rect, ref 当前值, ref 文本, 0, 999999);
+            数量输入缓冲[key] = 文本;
             当前交易数量[key] = 当前值;
 
             // +1
@@ -223,6 +239,11 @@ namespace 星际商店
                         if (key.def.race != null && key.def.race.IsMechanoid)
                         {
                             库存 = 机械族管理器.获取殖民地机械族(key.def, map, 9999).Count();
+                        }
+                        // 动物也是 Pawn，不在库存映射中，需独立计数
+                        else if (key.def.race != null && key.def.race.Animal)
+                        {
+                            库存 = 机械族管理器.获取殖民地动物(key.def, map, 9999).Count();
                         }
                         else
                         {

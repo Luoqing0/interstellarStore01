@@ -223,6 +223,19 @@ namespace 星际商店
                             !p.Dead)
                 .Take(amount);
         }
+
+        // AI 辅助生成：获取殖民地动物（非机械族 Pawn），用于动物出售
+        public static IEnumerable<Pawn> 获取殖民地动物(ThingDef race, Map map, int amount)
+        {
+            if (map == null || race == null || amount <= 0)
+                return Enumerable.Empty<Pawn>();
+            return map.mapPawns.AllPawns
+                .Where(p => p.def == race &&
+                            p.Faction == Faction.OfPlayer &&
+                            p.RaceProps.Animal &&
+                            !p.Dead)
+                .Take(amount);
+        }
     }
 
     /// <summary>
