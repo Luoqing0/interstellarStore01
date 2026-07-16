@@ -409,6 +409,19 @@ namespace 星际商店
             return def == other.def && quality == other.quality && stuff == other.stuff;
         }
 
+        // AI 辅助生成：宽松匹配——当任一方的 quality/stuff 为 null 时视为通配
+        // 用于卖出模式：网格上选的物品 key 为 (def, null, null)，但库存物品有实际品质/材料
+        // 严格 Equals 会返回 false 导致 >> 按钮返回 0、卖出执行提示库存不足
+        public bool 宽松匹配(TransactionKey other)
+        {
+            if (def != other.def) return false;
+            // 任一方 quality 为 null 时视为匹配
+            if (quality.HasValue && other.quality.HasValue && quality.Value != other.quality.Value) return false;
+            // 任一方 stuff 为 null 时视为匹配
+            if (stuff != null && other.stuff != null && stuff != other.stuff) return false;
+            return true;
+        }
+
         public override bool Equals(object obj) => obj is TransactionKey k && Equals(k);
         public override int GetHashCode()
         {

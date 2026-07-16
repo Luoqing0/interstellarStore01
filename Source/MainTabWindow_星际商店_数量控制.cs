@@ -129,7 +129,7 @@ namespace 星际商店
                                 {
                                     Thing t = things[i];
                                     TransactionKey tk = new TransactionKey(t);
-                                    if (tk.Equals(key))
+                                    if (tk.宽松匹配(key))
                                         库存 += t.stackCount;
                                 }
                             }
@@ -254,7 +254,7 @@ namespace 星际商店
                                 {
                                     Thing t = things[i];
                                     TransactionKey tk = new TransactionKey(t);
-                                    if (tk.Equals(key)) 库存 += t.stackCount;
+                                    if (tk.宽松匹配(key)) 库存 += t.stackCount;
                                 }
                             }
                         }

@@ -316,6 +316,18 @@ namespace 星际商店
                                     拥有defs.Add(t.def);
                             }
                         }
+                        // AI 辅助生成：动物和机械族是 Pawn，不在 listerThings 中，需从 mapPawns 补充
+                        List<Pawn> allPawns = map.mapPawns.AllPawns;
+                        for (int i = 0; i < allPawns.Count; i++)
+                        {
+                            Pawn p = allPawns[i];
+                            if (p.Faction == Faction.OfPlayer && !p.Dead &&
+                                (p.RaceProps.Animal || p.RaceProps.IsMechanoid))
+                            {
+                                if (!拥有defs.Contains(p.def))
+                                    拥有defs.Add(p.def);
+                            }
+                        }
                         query = query.Where(d => 拥有defs.Contains(d));
                     }
                 }
@@ -503,6 +515,7 @@ namespace 星际商店
             if (分发购买物品(待生成, map, out dropTarget))
                 Messages.Message("StarStore_PurchaseComplete".Translate(), dropTarget, MessageTypeDefOf.TaskCompletion);
             购买交易数量.Clear();
+            数量输入缓冲.Clear();  // AI：同步清空输入缓冲
             刷新物品列表();
         }
 
@@ -563,8 +576,11 @@ namespace 星际商店
                 }
                 else
                 {
+                    // AI 辅助生成：用宽松匹配替代严格 Equals
+                    // 网格上选的物品 key 为 (def, null, null)，但库存物品有实际品质/材料
+                    // 严格 Equals 会导致 candidates 为空，提示"库存不足"
                     candidates = 同Def物品
-                        .Where(t => new TransactionKey(t).Equals(kv.Key))
+                        .Where(t => new TransactionKey(t).宽松匹配(kv.Key))
                         .OrderBy(t => t.HitPoints)
                         .ToList();
                 }
@@ -665,6 +681,7 @@ namespace 星际商店
                 }
             }
             出售交易数量.Clear();
+            数量输入缓冲.Clear();  // AI：同步清空输入缓冲
             库存映射帧 = -1; // 出售后库存已变化，使缓存失效
             缓存白银帧 = -1; // 白银收益已生成，使缓存失效
             刷新物品列表();
